@@ -33,4 +33,19 @@ router.delete("/", (_req, res) => {
     return res.json({ message: "success" });
 })
 
+// GET /api/session to restore session user
+// uses restoreUser middleware to get the token from cookies
+router.get("/", restoreUser, (req, res) => {
+    const { user } = req;
+    if (user) {
+        return res.json({
+            user: user.toSafeObject()
+        })
+    } else {
+        return res.json({
+            user: null
+        })
+    }
+})
+
 module.exports = router;
