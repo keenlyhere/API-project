@@ -41,12 +41,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     startDate: {
       allowNull: false,
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       unique: true
     },
     endDate: {
       allowNull: false,
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       unique: true,
       validate: {
         isBeforeStartDate(value) {
