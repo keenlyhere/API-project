@@ -22,6 +22,28 @@ const handleValidationErrors = (req, _res, next) => {
     next();
 }
 
+const handleSpotValidationErrors = (req, _res, next) => {
+    const validationErrors = validationResult(req);
+
+    // if there are errors
+    if (!validationErrors.isEmpty()) {
+        const errors = validationErrors
+            .array()
+            .map((error) => `${error.msg}`);
+
+        const err = {};
+        err.errors = errors;
+        err.status = 400;
+        err.statusCode = 400;
+        err.title = "Bad request.";
+        err.message = "Validation Error"
+        next(err);
+    }
+
+    next();
+}
+
 module.exports = {
-    handleValidationErrors
+    handleValidationErrors,
+    handleSpotValidationErrors
 }
