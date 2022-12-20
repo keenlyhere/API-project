@@ -91,6 +91,10 @@ router.get("/", async (req, res, next) => {
             }
         })
 
+        if (spot.SpotImages.length === 0) {
+            spot.previewImage = "No image listed";
+        }
+
         const spotData = {
             id: spot.id,
             ownerId: spot.ownerId,
