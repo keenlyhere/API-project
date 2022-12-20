@@ -34,13 +34,13 @@ router.get("/", async (req, res, next) => {
             {
                 model: Review,
                 attributes: [],
-                required: true,
+                required: false,
                 duplicating: false
             },
             {
                 model: SpotImage,
                 attributes: [],
-                required: true,
+                required: false,
                 duplicating: false
             }
         ],
