@@ -11,47 +11,76 @@ const router = express.Router();
 
 router.get("/", async (req, res, next) => {
     const allSpots = await Spot.findAll({
-
-        attributes: [
-            'id',
-            'ownerId',
-            'address',
-            'city',
-            'state',
-            'country',
-            'lat',
-            'lng',
-            'name',
-            'description',
-            'price',
-            'createdAt',
-            'updatedAt',
-            [sequelize.fn('AVG', sequelize.col('stars')), 'avgRating'],
-            [sequelize.col('url'), 'previewImage']
-        ],
-
         include: [
             {
                 model: Review,
-                attributes: [],
-                required: false,
-                duplicating: false
+                attributes: ['stars'],
             },
             {
                 model: SpotImage,
-                attributes: [],
-                required: false,
-                duplicating: false
+                attributes: ['url', 'preview'],
             }
         ],
-
-        group: ['spot.id']
-
-
     })
 
-    const allSpotsData = {};
-    allSpotsData.Spots = allSpots;
+    const spotsArray = [];
+
+    allSpots.forEach(spot => {
+        let count = spot.Reviews.length;
+        let sum = 0;
+        spot = spot.toJSON();
+
+        console.log(spot)
+
+        spot.Reviews.forEach(review => {
+            sum += review.stars
+        })
+
+        let avg = sum / count;
+
+        if (isNaN(avg)) {
+            avg = "Has not been rated yet"
+        }
+
+        spot.avgRating = avg;
+
+        spot.SpotImages.forEach(image => {
+            if (image.preview === true) {
+                // console.log("preview = true")
+                spot.previewImage = image.url
+                // console.log(image.url)
+            } else {
+                spot.previewImage = "No image listed"
+            }
+        })
+
+        const spotData = {
+            id: spot.id,
+            ownerId: spot.ownerId,
+            address: spot.address,
+            city: spot.city,
+            state: spot.state,
+            country: spot.country,
+            lat: spot.lat,
+            lng: spot.lng,
+            name: spot.name,
+            description: spot.description,
+            price: spot.price,
+            createdAt: spot.createdAt,
+            updatedAt: spot.updatedAt,
+            avgRating: spot.avgRating,
+            previewImage: spot.previewImage
+        }
+
+        spotsArray.push(spotData)
+    })
+
+    // console.log(spotsArray)
+
+    const allSpotsData = {
+        Spots: spotsArray
+    };
+
 
     return res.json(allSpotsData)
 })
