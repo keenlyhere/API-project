@@ -1,13 +1,49 @@
 const express = require("express");
 
-const { setTokenCookie, restoreUser } = require("../../utils/auth");
+const { setTokenCookie, restoreUser, requireAuth } = require("../../utils/auth");
 const { Spot, Review, SpotImage, User, sequelize } = require("../../db/models");
 
-const { check } = require("express-validator");
-const { handleValidationErrors } = require("../../utils/validation");
+const { check, validationResult } = require("express-validator");
+
+const { handleValidationErrors, handleSpotValidationErrors } = require("../../utils/validation");
 
 const router = express.Router();
 
+
+
+// validate new spot middleware
+const validateNewSpot = [
+    check("address")
+        .notEmpty()
+        .withMessage("Street address is required"),
+    check("city")
+        .notEmpty()
+        .withMessage("City is required"),
+    check("state")
+        .notEmpty()
+        .withMessage("State is required"),
+    check("country")
+        .notEmpty()
+        .withMessage("Country is required"),
+    check("lat")
+        .notEmpty()
+        .isDecimal()
+        .withMessage("Latitude is not valid"),
+    check("lng")
+        .notEmpty()
+        .isDecimal()
+        .withMessage("Longitude is not valid"),
+    check("name")
+        .notEmpty()
+        .withMessage("Name is required"),
+    check("description")
+        .notEmpty()
+        .withMessage("Description is required"),
+    check("price")
+        .notEmpty()
+        .withMessage("Price per day is required"),
+    handleSpotValidationErrors
+];
 
 // GET /api/spots
 router.get("/", async (req, res, next) => {
@@ -178,7 +214,6 @@ router.get("/:spotId", async (req, res, next) => {
         err.statusCode = 404;
         err.title = "Not found"
         err.message = "Spot couldn't be found";
-        console.log(err);
         return next(err);
     }
 
@@ -198,7 +233,7 @@ router.get("/:spotId", async (req, res, next) => {
         }
     })
 
-    const avg = sum / count;
+    let avg = sum / count;
 
     if (isNaN(avg)) {
         avg = "Has not been rated yet"
@@ -220,6 +255,112 @@ router.get("/:spotId", async (req, res, next) => {
     })
 
     res.json(spotById);
+})
+
+
+// POST /api/spots
+router.post("/", restoreUser, validateNewSpot, async (req, res, next) => {
+    const { user } = req;
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+    const ownerId = user.id;
+
+    let spot = await Spot.newSpot({ ownerId, address, city, state, country, lat, lng, name, description, price })
+
+    spot = spot.toJSON();
+
+    res.json(spot);
+
+})
+
+// POST /api/spots/:spotId/images
+router.post("/:spotId/images", async (req, res, next) => {
+    const spotId = req.params.spotId;
+
+    const { url, preview } = req.body;
+
+    let spot = await Spot.findByPk(spotId);
+
+    if (!spot) {
+        const err = {};
+        err.message = "Spot couldn't be found";
+        err.statusCode = 404;
+        err.status = 404;
+        err.title = "Not found";
+        return next(err);
+    }
+
+    let newSpotImage = await SpotImage.newSpotImage({ spotId, url, preview })
+
+    res.json(newSpotImage);
+})
+
+// PUT /api/spots/:spotId
+router.put("/:spotId", requireAuth, validateNewSpot, async (req, res, next) => {
+    const { user } = req;
+    const spotId = req.params.spotId;
+
+    const updateSpot = await Spot.findByPk(spotId);
+
+    if (!updateSpot) {
+        const err = {};
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found"
+        err.message = "Spot couldn't be found";
+        return next(err);
+    }
+
+    if (user.id !== updateSpot.ownerId) {
+        const err = {};
+        err.title = "Authorization Error";
+        err.status = 401;
+        err.statusCode = 401;
+        err.message = "Spot doesn't belong to current user";
+        return next(err);
+    }
+
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+    if (address) {
+        updateSpot.address = address;
+    }
+
+    if (city) {
+        updateSpot.city = city;
+    }
+
+    if (state) {
+        updateSpot.state = state;
+    }
+
+    if (country) {
+        updateSpot.country = country;
+    }
+
+    if (lat) {
+        updateSpot.lat = lat;
+    }
+
+    if (lng) {
+        updateSpot.lng = lng;
+    }
+
+    if (name) {
+        updateSpot.name = name;
+    }
+
+    if (description) {
+        updateSpot.description = description;
+    }
+
+    if (price) {
+        updateSpot.price = price;
+    }
+
+    await updateSpot.save();
+
+    res.json(updateSpot)
 })
 
 module.exports = router;

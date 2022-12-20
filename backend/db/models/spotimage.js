@@ -9,6 +9,20 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+
+    static async newSpotImage({ spotId, url, preview }) {
+      const spotImage = await SpotImage.create({
+        spotId,
+        url,
+        preview
+      });
+      return await SpotImage.findByPk(spotImage.id, {
+        attributes: {
+          exclude: ['createdAt', 'updatedAt']
+        }
+      });
+    }
+
     static associate(models) {
       // define association here
 
