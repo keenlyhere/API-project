@@ -20,12 +20,12 @@ module.exports = {
     await queryInterface.addColumn(options, "firstName", {
       allowNull: false,
       type: Sequelize.STRING(30)
-    });
+    }, options);
 
     await queryInterface.addColumn(options, "lastName", {
       allowNull: false,
       type: Sequelize.STRING(30)
-    });
+    }, options);
   },
 
   async down (queryInterface, Sequelize) {
