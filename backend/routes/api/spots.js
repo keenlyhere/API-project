@@ -172,6 +172,16 @@ router.get("/:spotId", async (req, res, next) => {
 
     let spotById = await Spot.findByPk(spotId);
 
+    if (!spotById) {
+        const err = {};
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found"
+        err.message = "Spot couldn't be found";
+        console.log(err);
+        return next(err);
+    }
+
     spotById = spotById.toJSON();
 
     const count = await Review.count({
