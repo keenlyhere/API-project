@@ -33,11 +33,15 @@ router.get("/", async (req, res, next) => {
         include: [
             {
                 model: Review,
-                attributes: []
+                attributes: [],
+                required: false,
+                duplicating: false
             },
             {
                 model: SpotImage,
-                attributes: []
+                attributes: [],
+                required: false,
+                duplicating: false
             }
         ],
 
