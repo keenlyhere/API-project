@@ -15,8 +15,6 @@ module.exports = (sequelize, DataTypes) => {
         models.User,
         {
           foreignKey: "userId",
-          onDelete: "CASCADE",
-          hooks: true
         }
       );
 
@@ -24,8 +22,6 @@ module.exports = (sequelize, DataTypes) => {
         models.Spot,
         {
           foreignKey: "spotId",
-          onDelete: "CASCADE",
-          hooks: true
         }
       );
     }
