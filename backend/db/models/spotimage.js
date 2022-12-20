@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       return await SpotImage.findByPk(spotImage.id, {
         attributes: {
-          exclude: ['createdAt', 'updatedAt']
+          exclude: ['spotId', 'createdAt', 'updatedAt']
         }
       });
     }
