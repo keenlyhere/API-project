@@ -551,6 +551,12 @@ router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
             ]
         })
 
+        if (!spotBookings.length > 0) {
+            return res.json({
+                message: "No bookings for current spot"
+            })
+        }
+
         spotBookings.forEach(spotBooking => {
             spotBooking = spotBooking.toJSON();
 
