@@ -65,14 +65,14 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
         delete review.Spot.SpotImages;
 
-        if (review.ReviewImages.length > 0) {
-            for (let i = 0; i < review.ReviewImages.length; i++) {
-                if (!review.ReviewImages[i].url) {
-                    review.ReviewImages[i].url = "No image listed";
-                    console.log(review.ReviewImages[i].url)
-                }
-            }
-        }
+        // if (review.ReviewImages.length > 0) {
+        //     for (let i = 0; i < review.ReviewImages.length; i++) {
+        //         if (!review.ReviewImages[i].url) {
+        //             review.ReviewImages[i].url = "No image listed";
+        //             console.log(review.ReviewImages[i].url)
+        //         }
+        //     }
+        // }
 
         reviewsArray.push(review);
 
@@ -84,6 +84,53 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
 
     return res.json(reviewsByUserData)
+})
+
+router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const reviewId = req.params.reviewId;
+    const { url } = req.body;
+
+    let review = await Review.findByPk(reviewId);
+
+    const err = {};
+    if (!review) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found"
+        err.message = "Review couldn't be found";
+        return next(err);
+    }
+    if (user.id !== review.userId) {
+        err.title = "Forbidden";
+        err.status = 403;
+        err.statusCode = 403;
+        err.message = "Forbidden";
+        return next(err);
+    }
+
+    const allImagesInReview = await ReviewImage.findAll({
+        where: {
+            reviewId: reviewId
+        }
+    })
+
+    if (allImagesInReview.length >= 10) {
+        err.status = 403;
+        err.statusCode = 403;
+        err.message = "Maximum number of images for this resource was reached";
+        return next(err);
+    }
+
+    let addReviewImage = await review.createReviewImage({ url })
+
+
+    const addReviewImageData = {
+        id: addReviewImage.id,
+        url: addReviewImage.url
+    }
+
+    return res.json(addReviewImageData);
 })
 
 
