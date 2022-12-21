@@ -9,6 +9,17 @@ const { handleValidationErrors, handleSpotValidationErrors } = require("../../ut
 
 const router = express.Router();
 
+const validateReviews = [
+    check("review")
+        .notEmpty()
+        .withMessage("Review text is required"),
+    check("stars")
+        .notEmpty()
+        .isInt({ min: 0, max: 5 })
+        .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+];
+
 // get all reviews of current user
 // GET /api/reviews/current
 router.get("/current", requireAuth, async (req, res, next) => {
@@ -124,13 +135,80 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
 
     let addReviewImage = await review.createReviewImage({ url })
 
-
     const addReviewImageData = {
         id: addReviewImage.id,
         url: addReviewImage.url
     }
 
     return res.json(addReviewImageData);
+})
+
+router.put("/:reviewId", requireAuth, validateReviews, async (req, res, next) => {
+    const { user } = req;
+
+    const reviewId = req.params.reviewId;
+
+    let updateReview = await Review.findByPk(reviewId);
+
+    const err = {};
+    if (!updateReview) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found"
+        err.message = "Review couldn't be found";
+        return next(err);
+    }
+
+    if (user.id !== updateReview.userId) {
+        err.title = "Forbidden";
+        err.status = 403;
+        err.statusCode = 403;
+        err.message = "Forbidden";
+        return next(err);
+    }
+
+    const { review, stars } = req.body;
+
+    updateReview.review = review;
+    updateReview.stars = stars;
+
+
+    await updateReview.save();
+
+    return res.json(updateReview)
+})
+
+router.delete("/:reviewId", requireAuth, async (req, res, next) => {
+    const { user } = req;
+
+    const reviewId = req.params.reviewId;
+
+    let deleteReview = await Review.findByPk(reviewId);
+
+    const err = {};
+    if (!deleteReview) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found"
+        err.message = "Review couldn't be found";
+        return next(err);
+    }
+
+    if (user.id !== deleteReview.userId) {
+        err.title = "Forbidden";
+        err.status = 403;
+        err.statusCode = 403;
+        err.message = "Forbidden";
+        return next(err);
+    }
+
+    await deleteReview.destroy();
+    console.log(deleteReview)
+
+    res.json({
+        "message": "Successfully deleted",
+        "statusCode": 200
+    })
 })
 
 
