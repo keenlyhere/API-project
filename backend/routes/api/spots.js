@@ -489,5 +489,59 @@ router.post("/:spotId/reviews", requireAuth, validateNewReviews, async (req, res
 
 })
 
+// GET /api/spots/:spotId/bookings
+router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const spotId = req.params.spotId;
+
+    const spot = await Spot.findByPk(spotId);
+
+    const err = {};
+    if (!spot) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found"
+        err.message = "Spot couldn't be found";
+        return next(err);
+    }
+
+    console.log(spot)
+
+    const spotBookingsArray = [];
+    if (spot.ownerId !== user.id) {
+        const spotBookings = await spot.getBookings({
+            attributes: ['spotId', 'startDate', 'endDate']
+        });
+
+        spotBookings.forEach(spotBooking => {
+            spotBooking = spotBooking.toJSON();
+
+            spotBookingsArray.push(spotBooking);
+        })
+
+        return res.json({
+            "Bookings": spotBookingsArray
+        });
+    } else {
+        const spotBookings = await spot.getBookings({
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName']
+                }
+            ]
+        })
+
+        spotBookings.forEach(spotBooking => {
+            spotBooking = spotBooking.toJSON();
+
+            spotBookingsArray.push(spotBooking);
+        })
+
+        return res.json({
+            "Bookings": spotBookingsArray
+        })
+    }
+})
 
 module.exports = router;

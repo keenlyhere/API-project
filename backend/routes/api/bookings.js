@@ -21,6 +21,7 @@ const validateReviews = [
     handleValidationErrors
 ];
 
+// GET /api/bookings/current
 router.get("/current", requireAuth, async (req, res, next) => {
     const { user } = req;
 
@@ -51,12 +52,18 @@ router.get("/current", requireAuth, async (req, res, next) => {
     bookingsByUser.forEach(booking => {
         booking = booking.toJSON();
 
+        console.log(booking.Spot)
+
         if (booking.Spot.SpotImages.length > 0) {
             for (let i = 0; i < booking.Spot.SpotImages.length; i++) {
                 if (booking.Spot.SpotImages[i].preview === true) {
                     booking.Spot.previewImage = booking.Spot.SpotImages[i].url;
                 }
             }
+        }
+
+        if (!booking.Spot.previewImage) {
+            booking.Spot.previewImage = "No image listed"
         }
 
         delete booking.Spot.SpotImages;
