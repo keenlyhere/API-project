@@ -290,18 +290,27 @@ router.post("/", requireAuth, validateNewSpot, async (req, res, next) => {
 
 // POST /api/spots/:spotId/images
 router.post("/:spotId/images", requireAuth, async (req, res, next) => {
+    const { user } = req;
     const spotId = req.params.spotId;
 
     const { url, preview } = req.body;
 
     let spot = await Spot.findByPk(spotId);
 
+    const err = {};
     if (!spot) {
-        const err = {};
         err.message = "Spot couldn't be found";
         err.statusCode = 404;
         err.status = 404;
         err.title = "Not found";
+        return next(err);
+    }
+
+    if (user.id !== spot.ownerId) {
+        err.title = "Forbidden";
+        err.status = 403;
+        err.statusCode = 403;
+        err.message = "Forbidden";
         return next(err);
     }
 
