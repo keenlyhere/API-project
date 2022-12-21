@@ -46,7 +46,26 @@ const handleSpotValidationErrors = (req, _res, next) => {
     next();
 }
 
+const convertDates = (startDate, endDate) => {
+    console.log("CONVERT DATES")
+
+    const [ startYear, startMonth, startDay ] = startDate.split("-");
+    const [ endYear, endMonth, endDay ] = endDate.split("-");
+
+    console.log(startMonth);
+    console.log(endMonth);
+
+    const startMonthIndex = startMonth - 1;
+    const endMonthIndex = endMonth - 1;
+
+    const startDateObj = new Date(startYear, startMonthIndex, startDay);
+    const endDateObj = new Date(endYear, endMonthIndex, endDay);
+
+    return [ startDateObj, endDateObj ]
+}
+
 module.exports = {
     handleValidationErrors,
-    handleSpotValidationErrors
+    handleSpotValidationErrors,
+    convertDates
 }
