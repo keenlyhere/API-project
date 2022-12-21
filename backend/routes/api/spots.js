@@ -277,18 +277,25 @@ router.get("/:spotId", async (req, res, next) => {
 
     spotById.avgStarRating = avg;
 
-    spotById.SpotImages = await SpotImage.findAll({
+    const spotImages = await SpotImage.findAll({
         where: {
             spotId: spotId
         },
         attributes: ['id', 'url', 'preview']
     })
 
+    if (!spotImages.length > 0) {
+        spotById.SpotImages = "No images for spot"
+    } else {
+        spotById.SpotImages = spotImages
+    }
+
     spotById.Owner =  await User.findByPk(spotById.ownerId, {
         attributes: {
             exclude: ['username']
         }
     })
+
 
     res.json(spotById);
 })
@@ -445,19 +452,28 @@ router.get("/:spotId/reviews", async (req, res, next) => {
         ]
     });
 
+    if (!spotReviews.length > 0) {
+        return res.json({
+            message: "No reviews for current spot"
+        })
+    }
+
+
     const spotReviewsArray = [];
 
     spotReviews.forEach(spotReview => {
         spotReview = spotReview.toJSON();
 
-        // if (spotReview.ReviewImages.length > 0) {
-        //     for (let i = 0; i < spotReview.ReviewImages.length; i++) {
-        //         if (!spotReview.ReviewImages[i].url) {
-        //             spotReview.ReviewImages[i].url = "No image listed"
-        //             // console.log(spotReview.ReviewImages[i].url)
-        //         }
-        //     }
-        // }
+        if (spotReview.ReviewImages.length > 0) {
+            for (let i = 0; i < spotReview.ReviewImages.length; i++) {
+                if (!spotReview.ReviewImages[i].url) {
+                    spotReview.ReviewImages[i].url = "No image listed"
+                    console.log(spotReview.ReviewImages[i].url)
+                }
+            }
+        } else {
+            spotReview.ReviewImages = "No review images for spot"
+        }
 
         spotReviewsArray.push(spotReview);
     })
