@@ -42,7 +42,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     url: {
       allowNull: false,
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      get() {
+        if(!this.getDataValue('url'))
+          return "No Image URL"
+        return this.getDataValue('url')
+      }
     },
     preview: {
       allowNull: false,
