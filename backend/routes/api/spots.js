@@ -464,8 +464,16 @@ router.post("/:spotId/reviews", requireAuth, validateNewReviews, async (req, res
         }
     })
 
+    const err = {};
+    if (!spot) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found"
+        err.message = "Spot couldn't be found";
+        return next(err);
+    }
+
     if (reviewByUser) {
-        const err = {};
         err.status = 403;
         err.statusCode = 403;
         err.message = "User already has a review for this spot";
