@@ -587,66 +587,6 @@ const convertDates = (startDate, endDate) => {
     return [ startDateObj, endDateObj ]
 }
 
-// const checkValidDates = async (newStartDate, newEndDate, spotId) => {
-
-//     console.log("CHECK VALID DATES")
-
-//     const [ startDateObj, endDateObj ] = convertDates(newStartDate, newEndDate);
-
-//     console.log(startDateObj, endDateObj)
-
-//     const err = {};
-//     if ((endDateObj.getTime() - startDateObj.getTime()) <= 0) {
-//         console.log("ERROR LINE 587")
-//         err.status = 400;
-//         err.statusCode = 400;
-//         err.message = "Validation error";
-//         err.errors = ["endDate cannot be on or before startDate"];
-//         return next(err);
-//     }
-
-//     const spotBookings = await Booking.findAll({
-//         where: {
-//             spotId: spotId
-//         }
-//     });
-
-//     console.log("spotBookings", spotBookings);
-
-//     spotBookings.forEach(booking => {
-//         const [ bookingStartDateObj, bookingEndDateObj ] = convertDates(booking.startDate, booking.endDate);
-
-//         console.log("BOOKINGSTARTDATEOBJ", bookingStartDateObj);
-//         console.log("STARTDATEOBJ", startDateObj)
-//         console.log("BOOKINGENDDATEOBJ", bookingEndDateObj);
-//         console.log("ENDDATEOBJ", endDateObj)
-
-//         const err = {};
-//         if (startDateObj.getTime() >= bookingStartDateObj.getTime() && startDateObj.getTime() <= bookingEndDateObj.getTime()) {
-//             console.log("ERROR LINE 608")
-
-//             err.status = 403;
-//             err.statusCode = 403;
-//             err.message = "Sorry, this spot is already booked for the specified dates";
-//             err.errors = ["Start date conflicts with an existing booking"];
-//             return next(err);
-//         }
-
-//         if (endDateObj.getTime() >= bookingStartDateObj.getTime() && endDateObj.getTime() <= bookingEndDateObj.getTime()) {
-//             console.log("ERROR LINE 618")
-//             err.status = 403;
-//             err.statusCode = 403;
-//             err.message = "Sorry, this spot is already booked for the specified dates";
-//             err.errors = ["End date conflicts with an existing booking"];
-//             return next(err);
-//         }
-
-//     })
-
-//     return true;
-
-// }
-
 // POST /api/spots/:spotId/bookings
 router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
     const { user } = req;
