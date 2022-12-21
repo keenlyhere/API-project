@@ -3,81 +3,19 @@ const express = require("express");
 const { setTokenCookie, restoreUser, requireAuth } = require("../../utils/auth");
 const { Spot, Review, SpotImage, User, ReviewImage, Booking, sequelize } = require("../../db/models");
 
-const { check, validationResult, sanitize } = require("express-validator");
+const { check, validationResult } = require("express-validator");
 
-const { handleValidationErrors, handleSpotValidationErrors } = require("../../utils/validation");
+const { handleValidationErrors, handleSpotValidationErrors, validateQuery, validateNewSpot, validateNewReviews, convertDates } = require("../../utils/validation");
+
+const { Op } = require("sequelize");
 
 const router = express.Router();
 
-
-
-// validate new spot middleware
-const validateNewSpot = [
-    check("address")
-        .notEmpty()
-        .withMessage("Street address is required"),
-    check("city")
-        .notEmpty()
-        .withMessage("City is required"),
-    check("state")
-        .notEmpty()
-        .withMessage("State is required"),
-    check("country")
-        .notEmpty()
-        .withMessage("Country is required"),
-    check("lat")
-        .notEmpty()
-        .isDecimal()
-        .withMessage("Latitude is not valid"),
-    check("lng")
-        .notEmpty()
-        .isDecimal()
-        .withMessage("Longitude is not valid"),
-    check("name")
-        .notEmpty()
-        .withMessage("Name is required"),
-    check("description")
-        .notEmpty()
-        .withMessage("Description is required"),
-    check("price")
-        .notEmpty()
-        .withMessage("Price per day is required"),
-    handleSpotValidationErrors
-];
-
-const validateNewReviews = [
-    check("review")
-        .notEmpty()
-        .withMessage("Review text is required"),
-    check("stars")
-        .notEmpty()
-        .isInt({ min: 0, max: 5 })
-        .withMessage("Stars must be an integer from 1 to 5"),
-    handleValidationErrors
-];
-
-// const validateDates = [
-//     sanitize("endDate")
-//         .toDate(),
-//     check("startDate")
-//         .toDate()
-//         .custom((startDate, { req }) => {
-//             if (req.body.startDate.getTime() >= req.body.endDate.getTime()) {
-//                 const err = {};
-//                 err.status = 400;
-//                 err.statusCode = 400;
-//                 err.message = "Validation error";
-//             }
-
-//             return true;
-//         })
-//         .withMessage("endDate cannot be on or before startDate"),
-//     handleValidationErrors
-// ];
-
 // GET /api/spots
-router.get("/", async (req, res, next) => {
-    const allSpots = await Spot.findAll({
+router.get("/", validateQuery, async (req, res, next) => {
+
+    const query = {
+        where: {},
         include: [
             {
                 model: Review,
@@ -87,8 +25,93 @@ router.get("/", async (req, res, next) => {
                 model: SpotImage,
                 attributes: ['url', 'preview'],
             }
-        ],
-    })
+        ]
+    }
+
+    let page = req.query.page === undefined ? 1 : parseInt(req.query.page);
+    let size = req.query.size === undefined ? 20 : parseInt(req.query.size);
+
+    if (page > 10) {
+        page = 10;
+    }
+
+    if (size > 20) {
+        size = 20;
+    }
+
+    query.limit = size;
+    query.offset = size * (page - 1);
+
+    if (req.query.maxLat && !req.query.minLat) {
+        query.where.lat = {
+            [Op.lte]: req.query.maxLat
+        }
+    }
+
+    if (req.query.minLat && !req.query.maxLat) {
+        query.where.lat = {
+            [Op.gte]: req.query.minLat
+        }
+    }
+
+    if (req.query.maxLat && req.query.minLat) {
+        query.where.lat = {
+            [Op.and]: {
+                [Op.lte]: req.query.maxLat,
+                [Op.gte]: req.query.minLat
+            }
+        }
+    }
+
+    if (req.query.maxLng && !req.query.minLng) {
+        query.where.lng = {
+            [Op.lte]: req.query.maxLng
+        }
+    }
+
+    if (req.query.minLng && !req.query.maxLng) {
+        query.where.lng = {
+            [Op.gte]: req.query.minLng
+        }
+    }
+
+    if (req.query.maxLng && req.query.minLng) {
+        query.where.lng = {
+            [Op.and]: {
+                [Op.lte]: req.query.maxLng,
+                [Op.gte]: req.query.minLng
+            }
+        }
+    }
+
+    if (req.query.maxPrice && !req.query.minPrice) {
+        query.where.price = {
+            [Op.lte]: req.query.maxPrice
+        }
+    }
+
+    if (req.query.minPrice && !req.query.maxPrice) {
+        query.where.price = {
+            [Op.gte]: req.query.minPrice
+        }
+    }
+
+    if (req.query.minPrice && req.query.maxPrice) {
+        query.where.price = {
+            [Op.and]: {
+                [Op.lte]: req.query.maxPrice,
+                [Op.gte]: req.query.minPrice
+            }
+        }
+    }
+
+    const allSpots = await Spot.findAll(query)
+
+    if (!allSpots.length) {
+        return res.json({
+            message: "No spots to display"
+        })
+    }
 
     const spotsArray = [];
 
@@ -148,7 +171,9 @@ router.get("/", async (req, res, next) => {
 
 
     const allSpotsData = {
-        Spots: spotsArray
+        Spots: spotsArray,
+        page: page,
+        size: size
     };
 
 
@@ -585,24 +610,6 @@ router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
     }
 })
 
-const convertDates = (startDate, endDate) => {
-    console.log("CONVERT DATES")
-
-    const [ startYear, startMonth, startDay ] = startDate.split("-");
-    const [ endYear, endMonth, endDay ] = endDate.split("-");
-
-    console.log(startMonth);
-    console.log(endMonth);
-
-    const startMonthIndex = startMonth - 1;
-    const endMonthIndex = endMonth - 1;
-
-    const startDateObj = new Date(startYear, startMonthIndex, startDay);
-    const endDateObj = new Date(endYear, endMonthIndex, endDay);
-
-    return [ startDateObj, endDateObj ]
-}
-
 // POST /api/spots/:spotId/bookings
 router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
     const { user } = req;
@@ -631,7 +638,8 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    const [ startDateObj, endDateObj ] = convertDates(startDate, endDate);
+    const startDateObj = convertDates(startDate)
+    const endDateObj = convertDates(endDate);
 
     if ((endDateObj.getTime() - startDateObj.getTime()) <= 0) {
         console.log("ERROR LINE 587")
@@ -651,7 +659,8 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
     if (spotBookings.length) {
         for (let i = 0; i < spotBookings.length; i++) {
 
-            const [ bookingStartDateObj, bookingEndDateObj ] = convertDates(spotBookings[i].startDate, spotBookings[i].endDate);
+            const bookingStartDateObj = convertDates(spotBookings[i].startDate)
+            const bookingEndDateObj = convertDates(spotBookings[i].endDate);
             console.log("BOOKINGSTARTDATEOBJ", bookingStartDateObj);
             console.log("STARTDATEOBJ", startDateObj);
             console.log("BOOKINGENDDATEOBJ", bookingEndDateObj);
