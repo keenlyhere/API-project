@@ -68,6 +68,8 @@ router.get("/current", requireAuth, async (req, res, next) => {
                     console.log(review.Spot.previewImage)
                 }
             }
+        } else {
+            review.ReviewImages = "No review images for spot";
         }
 
         if (!review.Spot.previewImage) {
