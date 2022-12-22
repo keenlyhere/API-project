@@ -12,10 +12,10 @@ const router = express.Router();
 // checks to see if req.body.credential and req.body.password are empty
 // return error if either is empty
 const validateLogin = [
-    check("credential")
+    check("credential", "Email or username is required")
         .exists({ checkFalsy: true })
-        .notEmpty()
-        .withMessage("Please provide a valid email or username."),
+        .bail()
+        .notEmpty(),
     check("password")
         .exists({ checkFalsy: true })
         .withMessage("Password is required"), handleValidationErrors
