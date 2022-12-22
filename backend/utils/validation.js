@@ -117,6 +117,7 @@ const validateNewSpot = [
         .isDecimal(),
     check("name")
         .isLength({ max: 50 })
+        .withMessage("Name must be less than 50 characters")
         .notEmpty()
         .withMessage("Name is required"),
     check("description")
