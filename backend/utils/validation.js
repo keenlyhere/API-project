@@ -59,38 +59,37 @@ const convertDates = (date) => {
 
 const validateQuery = [
     check("minPrice")
-        .optional({nullable: true})
+        .optional()
         .isFloat({ min: 0 })
         .withMessage("Minimum price must be greater than or equal to 0"),
     check("maxPrice")
-        .optional({nullable: true})
+        .optional()
         .isFloat({ min: 0 })
         .withMessage("Maximum price must be greater than or equal to 0"),
     check("page")
-        .optional({nullable: true})
+        .optional()
         .isInt({ min: 1})
         .withMessage("Page must be greater than or equal to 1"),
     check("size")
-        .optional({nullable: true})
+        .optional()
         .isInt({ min: 1})
         .withMessage("Size must be greater than or equal to 1"),
     check("maxLat")
-        .optional({nullable: true})
+        .optional()
         .isDecimal()
         .withMessage("Maximum latitude is not valid"),
     check("minLat")
-        .optional({nullable: true})
+        .optional()
         .isDecimal()
         .withMessage("Minimum latitude is not valid"),
     check("maxLng")
-        .optional({nullable: true})
+        .optional()
         .isDecimal()
         .withMessage("Maximum longitude is not valid"),
     check("minLng")
-        .optional({nullable: true})
+        .optional()
         .isDecimal()
         .withMessage("Minimum longitude is not valid"),
-
     handleValidationErrors
 ];
 
