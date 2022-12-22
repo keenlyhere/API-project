@@ -91,7 +91,6 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
 
     const currentDate = new Date().getTime();
 
-    const bookingStartDateObj = convertDates(updateBooking.startDate);
     const bookingEndDateObj = convertDates(updateBooking.endDate);
     if (currentDate - bookingEndDateObj.getTime() >= 0) {
         err.status = 403;
@@ -190,7 +189,7 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
 
     const currentDate = new Date().getTime();
 
-    const [ bookingStartDateObj, bookingEndDateObj ] = convertDates(deletedBooking.startDate, deletedBooking.endDate);
+    const bookingStartDateObj = convertDates(deletedBooking.startDate);
 
     if (currentDate - bookingStartDateObj.getTime() >= 0) {
         err.status = 403;
@@ -205,6 +204,7 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
         message: "Successfully deleted",
         statusCode: 200
     });
+
 })
 
 module.exports = router;

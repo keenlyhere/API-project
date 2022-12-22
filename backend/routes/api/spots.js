@@ -629,6 +629,15 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
         return next(err);
     }
 
+    const currentDate = new Date().getTime();
+
+    if (currentDate - startDateObj.getTime() >= 0) {
+        err.status = 403;
+        err.statusCode = 403;
+        err.message = "Cannot create a booking in the past";
+        return next(err);
+    }
+
     const spotBookings = await Booking.findAll({
         where: {
             spotId: spotId
@@ -638,7 +647,7 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
     if (spotBookings.length) {
         for (let i = 0; i < spotBookings.length; i++) {
 
-            const bookingStartDateObj = convertDates(spotBookings[i].startDate)
+            const bookingStartDateObj = convertDates(spotBookings[i].startDate);
             const bookingEndDateObj = convertDates(spotBookings[i].endDate);
 
             const err = {};
