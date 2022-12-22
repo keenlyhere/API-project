@@ -34,6 +34,12 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
     const bookingsArray = [];
 
+    if (!bookingsByUser.length > 0) {
+        return res.json({
+            message: "User has not made any bookings"
+        })
+    }
+
     bookingsByUser.forEach(booking => {
         booking = booking.toJSON();
 
@@ -129,6 +135,15 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
                 err.statusCode = 403;
                 err.message = "Sorry, this spot is already booked for the specified dates";
 
+                if (startDateObj.getTime() <= spotBookingStartDateObj.getTime()
+                    && endDateObj.getTime() >= spotBookingStartDateObj.getTime()
+                    || startDateObj.getTime() <= spotBookingEndDateObj.getTime()
+                    && endDateObj.getTime() >= spotBookingEndDateObj.getTime()) {
+
+                    err.errors = [{ "Booking conflict": "Booking dates conflicts with an existing booking" }];
+                    return next(err);
+                }
+                
                 if (startDateObj.getTime() >= spotBookingStartDateObj.getTime() && startDateObj.getTime() <= spotBookingEndDateObj.getTime()) {
                     err.errors = [{ "startDate": "Start date conflicts with an existing booking" }];
                     return next(err);
@@ -139,14 +154,6 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
                     return next(err);
                 }
 
-                if (startDateObj.getTime() <= spotBookingStartDateObj.getTime()
-                    && endDateObj.getTime() >= spotBookingStartDateObj.getTime()
-                    || startDateObj.getTime() <= spotBookingEndDateObj.getTime()
-                    && endDateObj.getTime() >= spotBookingEndDateObj.getTime()) {
-
-                    err.errors = [{ "Booking conflict": "Booking dates conflicts with an existing booking" }];
-                    return next(err);
-                }
             }
 
 
