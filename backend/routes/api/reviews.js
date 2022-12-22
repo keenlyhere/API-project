@@ -44,6 +44,12 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
     const reviewsArray = [];
 
+    if (!reviewsByUser.length > 0) {
+        return res.json({
+            message: "User has not made any reviews"
+        })
+    }
+
     reviewsByUser.forEach(review => {
         review = review.toJSON();
 
