@@ -33,7 +33,7 @@ router.delete("/:imageId", requireAuth, async (req, res, next) => {
         err.title = "Forbidden";
         err.status = 403;
         err.statusCode = 403;
-        err.message = "Forbidden: you do not have permissions to delete the Review Image";
+        err.message = "Forbidden: you do not have permission to delete the Review Image";
         return next(err);
     }
 
