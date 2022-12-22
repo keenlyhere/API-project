@@ -3,7 +3,7 @@ const express = require("express");
 const { requireAuth } = require("../../utils/auth");
 const { Spot, Review, SpotImage, User, ReviewImage, Booking, sequelize } = require("../../db/models");
 
-const { validateQuery, validateNewSpot, validateReviews, convertDates } = require("../../utils/validation");
+const { validateQuery, validateNewSpot, validateReviews, convertDates, validateBookings } = require("../../utils/validation");
 
 const { Op } = require("sequelize");
 
@@ -607,7 +607,7 @@ router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
 })
 
 // POST /api/spots/:spotId/bookings
-router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
+router.post("/:spotId/bookings", requireAuth, validateBookings, async (req, res, next) => {
     const { user } = req;
     const spotId = req.params.spotId;
 

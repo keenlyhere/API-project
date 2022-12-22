@@ -34,6 +34,12 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
     const bookingsArray = [];
 
+    if (!bookingsByUser.length > 0) {
+        return res.json({
+            message: "User has not made any bookings"
+        })
+    }
+
     bookingsByUser.forEach(booking => {
         booking = booking.toJSON();
 

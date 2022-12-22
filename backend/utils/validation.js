@@ -140,12 +140,22 @@ const validateReviews = [
     handleValidationErrors
 ];
 
+const validateBookings = [
+    check("startDate")
+        .notEmpty()
+        .withMessage("Please enter a start date"),
+    check("endDate")
+        .notEmpty()
+        .withMessage("Please enter an end date"),
+    handleValidationErrors
+]
+
 module.exports = {
     handleValidationErrors,
     handleSpotValidationErrors,
     convertDates,
     validateQuery,
     validateNewSpot,
-    validateReviews
-
+    validateReviews,
+    validateBookings
 }
