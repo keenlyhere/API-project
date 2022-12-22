@@ -1,24 +1,11 @@
 const express = require("express");
 
-const { setTokenCookie, restoreUser, requireAuth } = require("../../utils/auth");
+const { requireAuth } = require("../../utils/auth");
 const { Spot, Review, SpotImage, User, ReviewImage, sequelize } = require("../../db/models");
 
-const { check, validationResult } = require("express-validator");
-
-const { handleValidationErrors, handleSpotValidationErrors } = require("../../utils/validation");
+const { validateReviews } = require("../../utils/validation");
 
 const router = express.Router();
-
-const validateReviews = [
-    check("review")
-        .notEmpty()
-        .withMessage("Review text is required"),
-    check("stars")
-        .notEmpty()
-        .isInt({ min: 0, max: 5 })
-        .withMessage("Stars must be an integer from 1 to 5"),
-    handleValidationErrors
-];
 
 // get all reviews of current user
 // GET /api/reviews/current
@@ -55,7 +42,6 @@ router.get("/current", requireAuth, async (req, res, next) => {
         ],
     })
 
-    // console.log(reviewsByUser)
     const reviewsArray = [];
 
     reviewsByUser.forEach(review => {
@@ -65,7 +51,6 @@ router.get("/current", requireAuth, async (req, res, next) => {
             for (let i = 0; i < review.Spot.SpotImages.length; i++) {
                 if (review.Spot.SpotImages[i].preview === true) {
                     review.Spot.previewImage = review.Spot.SpotImages[i].url;
-                    console.log(review.Spot.previewImage)
                 }
             }
         } else {
@@ -77,15 +62,6 @@ router.get("/current", requireAuth, async (req, res, next) => {
         }
 
         delete review.Spot.SpotImages;
-
-        // if (review.ReviewImages.length > 0) {
-        //     for (let i = 0; i < review.ReviewImages.length; i++) {
-        //         if (!review.ReviewImages[i].url) {
-        //             review.ReviewImages[i].url = "No image listed";
-        //             console.log(review.ReviewImages[i].url)
-        //         }
-        //     }
-        // }
 
         reviewsArray.push(review);
 
@@ -205,7 +181,6 @@ router.delete("/:reviewId", requireAuth, async (req, res, next) => {
     }
 
     await deleteReview.destroy();
-    console.log(deleteReview)
 
     res.json({
         "message": "Successfully deleted",

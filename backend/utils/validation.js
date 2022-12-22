@@ -57,24 +57,6 @@ const convertDates = (date) => {
     return dateObj;
 }
 
-// const convertDates = (startDate, endDate) => {
-//     console.log("CONVERT DATES")
-
-//     const [ startYear, startMonth, startDay ] = startDate.split("-");
-//     const [ endYear, endMonth, endDay ] = endDate.split("-");
-
-//     console.log(startMonth);
-//     console.log(endMonth);
-
-//     const startMonthIndex = startMonth - 1;
-//     const endMonthIndex = endMonth - 1;
-
-//     const startDateObj = new Date(startYear, startMonthIndex, startDay);
-//     const endDateObj = new Date(endYear, endMonthIndex, endDay);
-
-//     return [ startDateObj, endDateObj ]
-// }
-
 const validateQuery = [
     check("page")
         .optional({nullable: true})
@@ -145,7 +127,7 @@ const validateNewSpot = [
     handleSpotValidationErrors
 ];
 
-const validateNewReviews = [
+const validateReviews = [
     check("review")
         .notEmpty()
         .withMessage("Review text is required"),
@@ -162,6 +144,6 @@ module.exports = {
     convertDates,
     validateQuery,
     validateNewSpot,
-    validateNewReviews
+    validateReviews
 
 }

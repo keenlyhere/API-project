@@ -1,11 +1,9 @@
 const express = require("express");
 
-const { setTokenCookie, restoreUser, requireAuth } = require("../../utils/auth");
+const { requireAuth } = require("../../utils/auth");
 const { Spot, Review, SpotImage, User, ReviewImage, Booking, sequelize } = require("../../db/models");
 
-const { check, validationResult } = require("express-validator");
-
-const { handleValidationErrors, handleSpotValidationErrors, validateQuery, validateNewSpot, validateNewReviews, convertDates } = require("../../utils/validation");
+const { validateQuery, validateNewSpot, validateReviews, convertDates } = require("../../utils/validation");
 
 const { Op } = require("sequelize");
 
@@ -120,8 +118,6 @@ router.get("/", validateQuery, async (req, res, next) => {
         let sum = 0;
         spot = spot.toJSON();
 
-        console.log(spot)
-
         spot.Reviews.forEach(review => {
             sum += review.stars
         })
@@ -136,9 +132,8 @@ router.get("/", validateQuery, async (req, res, next) => {
 
         spot.SpotImages.forEach(image => {
             if (image.preview === true) {
-                // console.log("preview = true")
                 spot.previewImage = image.url
-                // console.log(image.url)
+
             } else {
                 spot.previewImage = "No image listed"
             }
@@ -208,8 +203,6 @@ router.get("/current", requireAuth, async (req, res, next) => {
         let sum = 0;
         spot = spot.toJSON();
 
-        console.log(spot)
-
         spot.Reviews.forEach(review => {
             sum += review.stars
         })
@@ -224,9 +217,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
         spot.SpotImages.forEach(image => {
             if (image.preview === true) {
-                // console.log("preview = true")
                 spot.previewImage = image.url
-                // console.log(image.url)
             } else {
                 spot.previewImage = "No image listed"
             }
@@ -422,8 +413,6 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
         }
     });
 
-    console.log(deletedSpot);
-
     const err = {};
     if (!deletedSpot) {
         err.status = 404;
@@ -442,7 +431,6 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
     }
 
     await deletedSpot.destroy();
-    console.log(deletedSpot)
 
     res.json({
         "message": "Successfully deleted",
@@ -493,7 +481,6 @@ router.get("/:spotId/reviews", async (req, res, next) => {
             for (let i = 0; i < spotReview.ReviewImages.length; i++) {
                 if (!spotReview.ReviewImages[i].url) {
                     spotReview.ReviewImages[i].url = "No image listed"
-                    console.log(spotReview.ReviewImages[i].url)
                 }
             }
         } else {
@@ -508,7 +495,7 @@ router.get("/:spotId/reviews", async (req, res, next) => {
     });
 })
 
-router.post("/:spotId/reviews", requireAuth, validateNewReviews, async (req, res, next) => {
+router.post("/:spotId/reviews", requireAuth, validateReviews, async (req, res, next) => {
     const { user } = req;
     const spotId = req.params.spotId;
 
@@ -542,8 +529,6 @@ router.post("/:spotId/reviews", requireAuth, validateNewReviews, async (req, res
 
     let spotReview = await user.createReview({ spotId, review, stars });
 
-    // spotReview = spotReview.toJSON();
-    // console.log(spotReview)
     return res.json(spotReview)
 
 
@@ -564,8 +549,6 @@ router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
         err.message = "Spot couldn't be found";
         return next(err);
     }
-
-    console.log(spot)
 
     const spotBookingsArray = [];
     if (spot.ownerId !== user.id) {
@@ -617,9 +600,6 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
 
     const { startDate, endDate } = req.body;
 
-    // console.log("start", startDate);
-    // console.log("end", endDate)
-
     const spot = await Spot.findByPk(spotId)
 
     const err = {};
@@ -642,7 +622,6 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
     const endDateObj = convertDates(endDate);
 
     if ((endDateObj.getTime() - startDateObj.getTime()) <= 0) {
-        console.log("ERROR LINE 587")
         err.status = 400;
         err.statusCode = 400;
         err.message = "Validation error";
@@ -661,42 +640,29 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
 
             const bookingStartDateObj = convertDates(spotBookings[i].startDate)
             const bookingEndDateObj = convertDates(spotBookings[i].endDate);
-            console.log("BOOKINGSTARTDATEOBJ", bookingStartDateObj);
-            console.log("STARTDATEOBJ", startDateObj);
-            console.log("BOOKINGENDDATEOBJ", bookingEndDateObj);
-            console.log("ENDDATEOBJ", endDateObj);
 
             const err = {};
+            err.status = 403;
+            err.statusCode = 403;
+            err.message = "Sorry, this spot is already booked for the specified dates";
 
             if (startDateObj.getTime() >= bookingStartDateObj.getTime() && startDateObj.getTime() <= bookingEndDateObj.getTime()) {
-                console.log("ERROR LINE 608")
-
-                err.status = 403;
-                err.statusCode = 403;
-                err.message = "Sorry, this spot is already booked for the specified dates";
-                err.errors = ["Start date conflicts with an existing booking"];
+                err.errors = [{ "startDate": "Start date conflicts with an existing booking" }];
                 return next(err);
+
             }
 
             if (endDateObj.getTime() >= bookingStartDateObj.getTime() && endDateObj.getTime() <= bookingEndDateObj.getTime()) {
-                console.log("ERROR LINE 618")
-                err.status = 403;
-                err.statusCode = 403;
-                err.message = "Sorry, this spot is already booked for the specified dates";
-                err.errors = ["End date conflicts with an existing booking"];
-                return next(err);
+                    err.errors = [{ "endDate": "End date conflicts with an existing booking" }];
+                    return next(err);
             }
 
             if (startDateObj.getTime() <= bookingStartDateObj.getTime()
                 && endDateObj.getTime() >= bookingStartDateObj.getTime()
                 || startDateObj.getTime() <= bookingEndDateObj.getTime()
                 && endDateObj.getTime() >= bookingEndDateObj.getTime()) {
-
-                err.status = 403;
-                err.statusCode = 403;
-                err.message = "Sorry, this spot is already booked for the specified dates";
-                err.errors = ["Booking dates conflicts with an existing booking"];
-                return next(err);
+                    err.errors = [{ "Booking conflict": "Booking dates conflicts with an existing booking" }];
+                    return next(err);
             }
 
 
