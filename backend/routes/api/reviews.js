@@ -100,7 +100,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
         err.title = "Forbidden";
         err.status = 403;
         err.statusCode = 403;
-        err.message = "Forbidden";
+        err.message = "Forbidden: you cannot add an image for a review that you did not write";
         return next(err);
     }
 
@@ -147,7 +147,7 @@ router.put("/:reviewId", requireAuth, validateReviews, async (req, res, next) =>
         err.title = "Forbidden";
         err.status = 403;
         err.statusCode = 403;
-        err.message = "Forbidden";
+        err.message = "Forbidden: not your review";
         return next(err);
     }
 
