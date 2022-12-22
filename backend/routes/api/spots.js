@@ -364,7 +364,7 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
         err.title = "Forbidden";
         err.status = 403;
         err.statusCode = 403;
-        err.message = "Forbidden";
+        err.message = "Forbidden: cannot add images to a Spot you do not own";
         return next(err);
     }
 
@@ -393,7 +393,7 @@ router.put("/:spotId", requireAuth, validateNewSpot, async (req, res, next) => {
         err.title = "Forbidden";
         err.status = 403;
         err.statusCode = 403;
-        err.message = "Forbidden";
+        err.message = "Forbidden: cannot edit a Spot that is not yours";
         return next(err);
     }
 
@@ -438,7 +438,7 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
         err.title = "Forbidden";
         err.status = 403;
         err.statusCode = 403;
-        err.message = "Forbidden";
+        err.message = "Forbidden: cannot delete a spot that is not yours";
         return next(err);
     }
 
