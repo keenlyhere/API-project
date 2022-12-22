@@ -668,14 +668,6 @@ router.post("/:spotId/bookings", requireAuth, validateBookings, async (req, res,
             err.statusCode = 403;
             err.message = "Sorry, this spot is already booked for the specified dates";
 
-            if (startDateObj.getTime() <= bookingStartDateObj.getTime()
-                && endDateObj.getTime() >= bookingStartDateObj.getTime()
-                || startDateObj.getTime() <= bookingEndDateObj.getTime()
-                && endDateObj.getTime() >= bookingEndDateObj.getTime()) {
-                    err.errors = [{ "Booking conflict": "Booking dates conflicts with an existing booking" }];
-                    return next(err);
-            }
-
             if (startDateObj.getTime() >= bookingStartDateObj.getTime() && startDateObj.getTime() <= bookingEndDateObj.getTime()) {
                 err.errors = [{ "startDate": "Start date conflicts with an existing booking" }];
                 return next(err);
@@ -687,6 +679,13 @@ router.post("/:spotId/bookings", requireAuth, validateBookings, async (req, res,
                     return next(err);
             }
 
+            if (startDateObj.getTime() <= bookingStartDateObj.getTime()
+                && endDateObj.getTime() >= bookingStartDateObj.getTime()
+                || startDateObj.getTime() <= bookingEndDateObj.getTime()
+                && endDateObj.getTime() >= bookingEndDateObj.getTime()) {
+                    err.errors = [{ "Booking conflict": "Booking dates conflicts with an existing booking" }];
+                    return next(err);
+            }
         }
     }
 
