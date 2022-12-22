@@ -197,12 +197,6 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
     const spotsArray = [];
 
-    if (!spotsArray.length > 0) {
-        spotsArray.push({
-            message: "User has no Spots"
-        })
-    }
-
     spotsByUser.forEach(spot => {
         let count = spot.Reviews.length;
         let sum = 0;
@@ -220,7 +214,12 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
         spot.avgRating = avg;
 
+        if (!spot.SpotImages.length) {
+            spot.previewImage = "No image listed"
+        }
+
         spot.SpotImages.forEach(image => {
+            console.log("CHECK FOR PREVIEW IMAGE");
             if (image.preview === true) {
                 spot.previewImage = image.url
             } else {
@@ -254,6 +253,13 @@ router.get("/current", requireAuth, async (req, res, next) => {
         Spots: spotsArray
     };
 
+    if (!spotsArray.length > 0) {
+        return res.json({
+            Spots: [{
+                "message": "User has no Spots"
+            }]
+        })
+    }
 
     return res.json(spotsByUserData)
 })
@@ -331,6 +337,7 @@ router.post("/", requireAuth, validateNewSpot, async (req, res, next) => {
 
     spot = spot.toJSON();
 
+    res.status(201);
     res.json(spot);
 
 })
