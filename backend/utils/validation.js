@@ -116,6 +116,7 @@ const validateNewSpot = [
         .bail()
         .isDecimal(),
     check("name")
+        .isLength({ max: 50 })
         .notEmpty()
         .withMessage("Name is required"),
     check("description")
