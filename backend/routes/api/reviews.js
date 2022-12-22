@@ -44,6 +44,12 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
     const reviewsArray = [];
 
+    if (!reviewsByUser.length > 0) {
+        return res.json({
+            message: "User has not made any reviews"
+        })
+    }
+
     reviewsByUser.forEach(review => {
         review = review.toJSON();
 
@@ -54,11 +60,11 @@ router.get("/current", requireAuth, async (req, res, next) => {
                 }
             }
         } else {
-            review.ReviewImages = "No review images for spot";
+            review.Spot.previewImage = "No preview images for spot";
         }
 
-        if (!review.Spot.previewImage) {
-            review.Spot.previewImage = "No image listed"
+        if (!review.ReviewImages.length > 0) {
+            review.ReviewImages = "No review image listed"
         }
 
         delete review.Spot.SpotImages;

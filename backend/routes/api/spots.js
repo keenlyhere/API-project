@@ -541,6 +541,7 @@ router.post("/:spotId/reviews", requireAuth, validateReviews, async (req, res, n
 
     let spotReview = await user.createReview({ spotId, review, stars });
 
+    res.status(201);
     return res.json(spotReview)
 
 
