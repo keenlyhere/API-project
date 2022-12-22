@@ -175,7 +175,6 @@ router.get("/", validateQuery, async (req, res, next) => {
     return res.json(allSpotsData)
 })
 
-
 // GET /api/spots/current
 router.get("/current", requireAuth, async (req, res, next) => {
     const { user } = req;
@@ -197,6 +196,12 @@ router.get("/current", requireAuth, async (req, res, next) => {
     })
 
     const spotsArray = [];
+
+    if (!spotsArray.length > 0) {
+        spotsArray.push({
+            message: "User has no Spots"
+        })
+    }
 
     spotsByUser.forEach(spot => {
         let count = spot.Reviews.length;
