@@ -3,7 +3,7 @@ const express = require("express");
 const { requireAuth } = require("../../utils/auth");
 const { Spot, Review, SpotImage, User, ReviewImage, Booking, sequelize } = require("../../db/models");
 
-const { validateQuery, validateNewSpot, validateReviews, convertDates } = require("../../utils/validation");
+const { validateQuery, validateNewSpot, validateReviews, convertDates, validateBookings } = require("../../utils/validation");
 
 const { Op } = require("sequelize");
 
@@ -607,7 +607,7 @@ router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
 })
 
 // POST /api/spots/:spotId/bookings
-router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
+router.post("/:spotId/bookings", requireAuth, validateBookings, async (req, res, next) => {
     const { user } = req;
     const spotId = req.params.spotId;
 
@@ -668,6 +668,14 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
             err.statusCode = 403;
             err.message = "Sorry, this spot is already booked for the specified dates";
 
+            if (startDateObj.getTime() <= bookingStartDateObj.getTime()
+                && endDateObj.getTime() >= bookingStartDateObj.getTime()
+                || startDateObj.getTime() <= bookingEndDateObj.getTime()
+                && endDateObj.getTime() >= bookingEndDateObj.getTime()) {
+                    err.errors = [{ "Booking conflict": "Booking dates conflicts with an existing booking" }];
+                    return next(err);
+            }
+
             if (startDateObj.getTime() >= bookingStartDateObj.getTime() && startDateObj.getTime() <= bookingEndDateObj.getTime()) {
                 err.errors = [{ "startDate": "Start date conflicts with an existing booking" }];
                 return next(err);
@@ -678,15 +686,6 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
                     err.errors = [{ "endDate": "End date conflicts with an existing booking" }];
                     return next(err);
             }
-
-            if (startDateObj.getTime() <= bookingStartDateObj.getTime()
-                && endDateObj.getTime() >= bookingStartDateObj.getTime()
-                || startDateObj.getTime() <= bookingEndDateObj.getTime()
-                && endDateObj.getTime() >= bookingEndDateObj.getTime()) {
-                    err.errors = [{ "Booking conflict": "Booking dates conflicts with an existing booking" }];
-                    return next(err);
-            }
-
 
         }
     }
