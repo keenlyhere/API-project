@@ -1,25 +1,12 @@
 const express = require("express");
 
-const { setTokenCookie, restoreUser, requireAuth } = require("../../utils/auth");
-const { Spot, Review, SpotImage, User, ReviewImage, Booking, sequelize } = require("../../db/models");
+const { requireAuth } = require("../../utils/auth");
+const { Spot, SpotImage, Booking, sequelize } = require("../../db/models");
 
-const { check, validationResult } = require("express-validator");
-
-const { handleValidationErrors, handleSpotValidationErrors, convertDates } = require("../../utils/validation");
+const { convertDates } = require("../../utils/validation");
 const { noExtendLeft } = require("sequelize/lib/operators");
 
 const router = express.Router();
-
-const validateReviews = [
-    check("review")
-        .notEmpty()
-        .withMessage("Review text is required"),
-    check("stars")
-        .notEmpty()
-        .isInt({ min: 0, max: 5 })
-        .withMessage("Stars must be an integer from 1 to 5"),
-    handleValidationErrors
-];
 
 // GET /api/bookings/current
 router.get("/current", requireAuth, async (req, res, next) => {
@@ -45,14 +32,10 @@ router.get("/current", requireAuth, async (req, res, next) => {
         ]
     })
 
-    // console.log(bookingsByUser)
-
     const bookingsArray = [];
 
     bookingsByUser.forEach(booking => {
         booking = booking.toJSON();
-
-        console.log(booking.Spot)
 
         if (booking.Spot.SpotImages.length > 0) {
             for (let i = 0; i < booking.Spot.SpotImages.length; i++) {
@@ -98,8 +81,7 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
     }
 
     if (updateBooking.userId !== user.id) {
-        console.log("update", updateBooking.userId);
-        console.log("user", user.id);
+
         err.title = "Forbidden";
         err.status = 403;
         err.statusCode = 403;
@@ -109,7 +91,7 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
 
     const currentDate = new Date().getTime();
 
-    const [ bookingStartDateObj, bookingEndDateObj ] = convertDates(updateBooking.startDate, updateBooking.endDate);
+    const bookingEndDateObj = convertDates(updateBooking.endDate);
     if (currentDate - bookingEndDateObj.getTime() >= 0) {
         err.status = 403;
         err.statusCode = 403;
@@ -117,7 +99,8 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    const [ startDateObj, endDateObj ] = convertDates(startDate, endDate);
+    const startDateObj = convertDates(startDate);
+    const endDateObj = convertDates(endDate);
 
     if ((endDateObj.getTime() - startDateObj.getTime()) <= 0) {
         err.status = 400;
@@ -136,32 +119,36 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
     if (spotBookings.length) {
         for (let i = 0; i < spotBookings.length; i++) {
 
-            const [ bookingStartDateObj, bookingEndDateObj ] = convertDates(spotBookings[i].startDate, spotBookings[i].endDate);
-            console.log("BOOKINGSTARTDATEOBJ", bookingStartDateObj);
-            console.log("STARTDATEOBJ", startDateObj);
-            console.log("BOOKINGENDDATEOBJ", bookingEndDateObj);
-            console.log("ENDDATEOBJ", endDateObj);
+            if (spotBookings[i].id !== updateBooking.id) {
 
-            const err = {};
+                const spotBookingStartDateObj = convertDates(spotBookings[i].startDate)
+                const spotBookingEndDateObj = convertDates(spotBookings[i].endDate);
 
-            if (startDateObj.getTime() >= bookingStartDateObj.getTime() && startDateObj.getTime() <= bookingEndDateObj.getTime()) {
-                console.log("ERROR LINE 608")
-
+                const err = {};
                 err.status = 403;
                 err.statusCode = 403;
                 err.message = "Sorry, this spot is already booked for the specified dates";
-                err.errors = ["Start date conflicts with an existing booking"];
-                return next(err);
+
+                if (startDateObj.getTime() >= spotBookingStartDateObj.getTime() && startDateObj.getTime() <= spotBookingEndDateObj.getTime()) {
+                    err.errors = [{ "startDate": "Start date conflicts with an existing booking" }];
+                    return next(err);
+                }
+
+                if (endDateObj.getTime() >= spotBookingStartDateObj.getTime() && endDateObj.getTime() <= spotBookingEndDateObj.getTime()) {
+                    err.errors = [{ "endDate": "End date conflicts with an existing booking" }];
+                    return next(err);
+                }
+
+                if (startDateObj.getTime() <= spotBookingStartDateObj.getTime()
+                    && endDateObj.getTime() >= spotBookingStartDateObj.getTime()
+                    || startDateObj.getTime() <= spotBookingEndDateObj.getTime()
+                    && endDateObj.getTime() >= spotBookingEndDateObj.getTime()) {
+
+                    err.errors = [{ "Booking conflict": "Booking dates conflicts with an existing booking" }];
+                    return next(err);
+                }
             }
 
-            if (endDateObj.getTime() >= bookingStartDateObj.getTime() && endDateObj.getTime() <= bookingEndDateObj.getTime()) {
-                console.log("ERROR LINE 618")
-                err.status = 403;
-                err.statusCode = 403;
-                err.message = "Sorry, this spot is already booked for the specified dates";
-                err.errors = ["End date conflicts with an existing booking"];
-                return next(err);
-            }
 
         }
     }
@@ -193,8 +180,6 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
     }
 
     if (deletedBooking.userId !== user.id) {
-        console.log("delete", deletedBooking.userId);
-        console.log("user", user.id);
         err.title = "Forbidden";
         err.status = 403;
         err.statusCode = 403;
@@ -204,7 +189,7 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
 
     const currentDate = new Date().getTime();
 
-    const [ bookingStartDateObj, bookingEndDateObj ] = convertDates(deletedBooking.startDate, deletedBooking.endDate);
+    const bookingStartDateObj = convertDates(deletedBooking.startDate);
 
     if (currentDate - bookingStartDateObj.getTime() >= 0) {
         err.status = 403;
@@ -214,12 +199,12 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
     }
 
     await deletedBooking.destroy();
-    console.log(deletedBooking)
 
     res.json({
         message: "Successfully deleted",
         statusCode: 200
     });
+
 })
 
 module.exports = router;
