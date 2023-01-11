@@ -1,25 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@700&display=swap');
 
-.LoginFormPage-container {
+.SignupFormPage-container {
     margin: auto;
+    margin-top: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 400px;
     height: 300px;
-    /* border: 1px solid #808080; */
 }
 
-.LoginFormPage-form {
+.SignupFormPage-form {
     width: 300px;
 }
 
-.LoginFormPage-group {
+.SignupFormPage-group {
     margin: 0px 5px 18px 5px;
     position: relative;
 }
 
-.LoginFormPage-form input {
+.SignupFormPage-form input {
     border: none;
     border-bottom: 2px solid #bbb;
     outline: none;
@@ -51,7 +51,6 @@ input:valid + label {
     color:#ff385c;
     font-size: 8px;
     top: -17px;
-    /* left: -9px; */
     padding: 0;
     left: 0;
     text-transform: uppercase;
@@ -63,7 +62,7 @@ input:valid {
     border-bottom: 2px solid #ff385c;
 }
 
-.LoginFormPage-submit {
+.SignupFormPage-submit {
     background-color: #ff385c;
     width: 100%;
     border: none;
