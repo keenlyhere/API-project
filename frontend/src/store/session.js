@@ -44,6 +44,27 @@ export const restoreUser = () => async (dispatch) => {
     return res;
 }
 
+// thunk action to signup
+export const signup = (user) => async (dispatch) => {
+    const { username, firstName, lastName, email, password } = user;
+
+    const res = await csrfFetch(`/api/users`, {
+        method: "POST",
+        body: JSON.stringify({
+            username,
+            firstName,
+            lastName,
+            email,
+            password
+        })
+    });
+
+    const data = await res.json();
+    // console.log("data:", data);  // data: { username, fN, lN, email, pw }
+    dispatch(actionSetUser(data));
+    return res;
+}
+
 // thunk action to logout
 export const thunkActionLogout = () => async (dispatch) => {
     const res = await csrfFetch(`/api/session`, {
