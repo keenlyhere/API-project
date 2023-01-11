@@ -7,6 +7,8 @@
     border-top: 1px solid #a5a5a5;
     border-bottom: 1px solid #a5a5a5;
     padding: 10px 0px;
+    position: sticky;
+    font-family: Roboto, sans-serif;
 }
 .Navigation-list {
     list-style-type: none;
@@ -19,11 +21,49 @@
 .Navigation-links:link, .Navigation-links:visited {
     color: #000000;
     text-decoration: none;
-    font-family: Roboto;
+    /* font-family: Roboto; */
     font-size: 12px;
 }
 
 
 .Navigation-links:not(:last-child) {
     padding: 0px 10px;
+}
+
+.profile-dropdown {
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    list-style-type: none;
+    font-size: 12px;
+    position: absolute;
+    right: 5px;
+    top: 30px;
+    background-color: #ffffff;
+    border: 1px solid #a5a5a5;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.profile-dropdown.hidden {
+    display: none;
+}
+
+.profile-dropdown-links {
+    padding: 5px 0px;
+    position: relative;
+    display: inline-block;
+}
+
+.ProfileButton-icon {
+    width: 100%;
+    background: none;
+    border: none;
+    align-self: flex-end;
+}
+
+.ProfileButton-dropdown-container {
+    display: flex;
+    flex-direction: column;
 }

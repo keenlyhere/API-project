@@ -1,8 +1,30 @@
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux"
 import * as sessionActions from "../../store/session";
 
 export default function ProfileButton({ user }) {
     const dispatch = useDispatch();
+    const [ showMenu, setShowMenu ] = useState(false);
+    const ulRef = useRef();
+
+    const openMenu = () => {
+        if (showMenu) return;
+        setShowMenu(true);
+    }
+
+    useEffect(() => {
+        if (!showMenu) return;
+
+        const closeMenu = (e) => {
+            if (!ulRef.current.contains(e.target)) {
+                setShowMenu(false);
+            }
+        }
+
+        document.addEventListener("click", closeMenu);
+
+        return () => document.removeEventListener("click", closeMenu);
+    }, [showMenu])
 
     const logout = (e) => {
         e.preventDefault();
@@ -10,19 +32,19 @@ export default function ProfileButton({ user }) {
         dispatch(sessionActions.logout());
     }
 
-    const ulClassName = "profile-dropdown";
+    const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
     return (
-        <div>
-            <button className="ProfileButton-icon">
+        <div className="ProfileButton-dropdown-container">
+            <button onClick={openMenu} className="ProfileButton-icon">
                 <i class="fa-solid fa-circle-user"></i>
             </button>
-            <ul className={ulClassName}>
-                <li>{user.username}</li>
-                <li>{user.firstName} {user.lastName}</li>
-                <li>{user.email}</li>
-                <li>
-                    <button onClick={logout}>Log Out</button>
+            <ul className={ulClassName} ref={ulRef}>
+                <li className="profile-dropdown-links">{user.username}</li>
+                <li className="profile-dropdown-links">{user.firstName} {user.lastName}</li>
+                <li className="profile-dropdown-links">{user.email}</li>
+                <li className="profile-dropdown-links">
+                    <button onClick={logout} className="profile-dropdown-logout">Log Out</button>
                 </li>
             </ul>
         </div>
