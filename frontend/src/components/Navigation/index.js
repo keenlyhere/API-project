@@ -9,32 +9,26 @@ export default function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
     const dispatch = useDispatch();
 
-    const logout = (e) => {
-        e.preventDefault();
-        dispatch(sessionActions.logout());
-    }
-
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
             <li>
                 <ProfileButton user={sessionUser} />
-                <button onClick={logout}>Log Out</button>
             </li>
         );
     } else {
         sessionLinks = (
             <li>
-                <NavLink to="/login">Log In</NavLink>
-                <NavLink to="/signup">Sign Up</NavLink>
+                <NavLink to="/login" className="Navigation-links">Log In</NavLink>
+                <NavLink to="/signup" className="Navigation-links">Sign Up</NavLink>
             </li>
         );
     }
     return (
-        <nav className="Navigation">
-            <ul>
+        <nav className="Navigation-container">
+            <ul className="Navigation-list">
                 <li>
-                    <NavLink to="/">Home</NavLink>
+                    <NavLink to="/" className="Navigation-links">Home</NavLink>
                 </li>
                 { isLoaded && sessionLinks }
             </ul>

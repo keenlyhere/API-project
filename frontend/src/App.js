@@ -17,16 +17,16 @@ function App() {
     return (
       <div className="App-container">
         <Navigation isLoaded={isLoaded} />
-            isLoaded && (
+            {isLoaded && (
                 <Switch>
                     <Route path="/login">
-                    <LoginFormPage />
+                        <LoginFormPage />
                     </Route>
                     <Route path="/signup">
-                    <SignupFormPage />
+                        <SignupFormPage />
                     </Route>
                 </Switch>
-            );
+            )}
       </div>
     )
 

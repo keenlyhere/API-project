@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+}
+
+.Navigation-container {
+    width: 100%;
+    border-top: 1px solid #a5a5a5;
+    border-bottom: 1px solid #a5a5a5;
+    padding: 10px 0px;
+}
+.Navigation-list {
+    list-style-type: none;
+    display: flex;
+    padding: 0px 10px;
+    justify-content: space-between;
+    color: #000000;
+}
+
+.Navigation-links:link, .Navigation-links:visited {
+    color: #000000;
+    text-decoration: none;
+    font-family: Roboto;
+    font-size: 12px;
+}
+
+
+.Navigation-links:not(:last-child) {
+    padding: 0px 10px;
+}

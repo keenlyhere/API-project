@@ -58,8 +58,7 @@ input:valid + label {
     letter-spacing: 1px;
 }
 
-input:focus,
-input:valid {
+input:focus {
     border-bottom: 2px solid #ff385c;
 }
 
