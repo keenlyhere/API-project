@@ -1,29 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@700&display=swap');
 
-.LoginFormPage-container {
+* {
+    font-family: Roboto, sans-serif;
+}
+
+.LoginFormModal-container {
     margin: auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 400px;
     height: 300px;
+    gap: 20px;
     /* border: 1px solid #808080; */
 }
 
-.LoginFormPage-form {
+.LoginFormModal-form {
     width: 300px;
 }
 
-.LoginFormPage-group {
+.LoginFormModal-group {
     margin: 0px 5px 18px 5px;
     position: relative;
 }
 
-.LoginFormPage-form input {
+.LoginFormModal-form input {
     border: none;
     border-bottom: 2px solid #bbb;
     outline: none;
     padding: 0;
+}
+
+.LoginFormModal-errors {
+    list-style-type: none;
+    font-size: 12px;
+    padding: 0px;
+    color: #ff385c;
 }
 
 label {
@@ -62,7 +75,7 @@ input:focus {
     border-bottom: 2px solid #ff385c;
 }
 
-.LoginFormPage-submit {
+.LoginFormModal-submit {
     background-color: #ff385c;
     width: 100%;
     border: none;

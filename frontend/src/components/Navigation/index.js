@@ -1,13 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import * as sessionActions from "../../store/session";
 import "./Navigation.css";
+import OpenModalButton from "../OpenModalButton";
+import LoginFormModal from "../LoginFormModal";
 
 export default function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
-    const dispatch = useDispatch();
 
     let sessionLinks;
     if (sessionUser) {
@@ -19,7 +20,10 @@ export default function Navigation({ isLoaded }) {
     } else {
         sessionLinks = (
             <li>
-                <NavLink to="/login" className="Navigation-links">Log In</NavLink>
+                <OpenModalButton
+                    buttonText="Log In"
+                    modalComponent={<LoginFormModal />}
+                />
                 <NavLink to="/signup" className="Navigation-links">Sign Up</NavLink>
             </li>
         );
