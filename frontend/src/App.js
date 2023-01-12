@@ -8,6 +8,7 @@ import AllSpots from "./components/Spots/AllSpots";
 import * as sessionActions from "./store/session";
 
 import "./index.css";
+import UserSpots from "./components/Spots/UserSpots";
 
 function App() {
     const dispatch = useDispatch();
@@ -24,6 +25,9 @@ function App() {
                 <Switch>
                     <Route exact path="/">
                         <AllSpots />
+                    </Route>
+                    <Route path ="/my-spots">
+                        <UserSpots />
                     </Route>
                 </Switch>
             )}

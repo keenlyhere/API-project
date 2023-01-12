@@ -1,20 +1,21 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { loadSpots } from "../../../store/spotReducer";
+import { useDispatch, useSelector } from "react-redux"
+import { loadUserSpots } from "../../../store/spotReducer";
 
 import "../Spots.css";
 
-export default function AllSpots() {
+export default function UserSpots() {
     const dispatch = useDispatch();
 
+    const sessionUser = useSelector(state => state.session.user);
     const allSpots = useSelector(state => state.spots.spots);
-    const spots = [];
-    Object.values(allSpots).forEach(spot => spots.push(spot));
-    console.log("AllSpots - spots:", spots);
+    const userSpots = Object.values(allSpots).filter(spot => spot.ownerId === sessionUser.id);
+    console.log("UserSpts - sessionUser", sessionUser);
+    console.log("UserSpots - userSpots", userSpots);
 
     useEffect(() => {
-        dispatch(loadSpots());
-    }, [dispatch]);
+        dispatch(loadUserSpots());
+    }, [dispatch])
 
     const starRating = (rating) => {
         if (typeof rating === "number") {
@@ -35,8 +36,8 @@ export default function AllSpots() {
 
     return (
         <div className="Spots-container">
-            { spots && (
-                spots.map((spot) => (
+            { userSpots && (
+                userSpots.map((spot) => (
                     <div key={spot.id} className="Spots-card">
                         <div className="Spots-image">
                             <img
