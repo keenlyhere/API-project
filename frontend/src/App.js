@@ -4,7 +4,10 @@ import { Route, Switch } from "react-router-dom";
 import LoginFormModal from "./components/LoginFormModal";
 import Navigation from "./components/Navigation";
 import SignupFormModal from "./components/SignupFormModal";
+import AllSpots from "./components/Spots/AllSpots";
 import * as sessionActions from "./store/session";
+
+import "./index.css";
 
 function App() {
     const dispatch = useDispatch();
@@ -19,6 +22,9 @@ function App() {
         <Navigation isLoaded={isLoaded} />
             {isLoaded && (
                 <Switch>
+                    <Route exact path="/">
+                        <AllSpots />
+                    </Route>
                 </Switch>
             )}
       </div>
