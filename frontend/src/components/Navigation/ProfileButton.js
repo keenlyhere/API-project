@@ -29,10 +29,13 @@ export default function ProfileButton({ user }) {
         return () => document.removeEventListener("click", closeMenu);
     }, [showMenu])
 
+    const closeMenu = () => setShowMenu(false);
+
     const logout = (e) => {
         e.preventDefault();
 
         dispatch(sessionActions.logout());
+        closeMenu();
     }
 
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -40,7 +43,7 @@ export default function ProfileButton({ user }) {
     return (
         <div className="ProfileButton-dropdown-container">
             <button onClick={openMenu} className="ProfileButton-icon">
-                <i class="fa-solid fa-circle-user"></i>
+                <i className="fa-solid fa-circle-user"></i>
             </button>
             <ul className={ulClassName} ref={ulRef}>
                 { user ? (
@@ -57,12 +60,14 @@ export default function ProfileButton({ user }) {
                         <li>
                             <OpenModalButton
                                 buttonText="Log In"
+                                onButtonClick={closeMenu}
                                 modalComponent={<LoginFormModal />}
                             />
                         </li>
                         <li>
                             <OpenModalButton
                                 buttonText="Sign Up"
+                                onButtonClick={closeMenu}
                                 modalComponent={<SignupFormModal />}
                             />
                         </li>

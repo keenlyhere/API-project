@@ -30,8 +30,7 @@ export const login = (user) => async (dispatch) => {
 
     if (res.ok) {
         const data = await res.json();
-        console.log("data:", data);
-        dispatch(actionSetUser(data))
+        dispatch(actionSetUser(data));
         return data;
     }
 }
@@ -60,7 +59,6 @@ export const signup = (user) => async (dispatch) => {
     });
 
     const data = await res.json();
-    // console.log("data:", data);  // data: { username, fN, lN, email, pw }
     dispatch(actionSetUser(data));
     return res;
 }
@@ -83,7 +81,6 @@ export default function sessionReducer(state = initialState, action) {
     switch(action.type) {
         case SET_USER: {
             newState.user = action.user;
-            console.log("setUser / newState:", newState);
             return newState;
         };
         case REMOVE_USER: {
