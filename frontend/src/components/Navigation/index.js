@@ -6,6 +6,7 @@ import * as sessionActions from "../../store/session";
 import "./Navigation.css";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
 
 export default function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
@@ -19,12 +20,15 @@ export default function Navigation({ isLoaded }) {
         );
     } else {
         sessionLinks = (
-            <li>
+            <li className="Navigation-session-group">
                 <OpenModalButton
                     buttonText="Log In"
                     modalComponent={<LoginFormModal />}
                 />
-                <NavLink to="/signup" className="Navigation-links">Sign Up</NavLink>
+                <OpenModalButton
+                    buttonText="Sign Up"
+                    modalComponent={<SignupFormModal />}
+                />
             </li>
         );
     }

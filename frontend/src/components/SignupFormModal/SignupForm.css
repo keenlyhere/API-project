@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@700&display=swap');
 
-.SignupFormPage-container {
+.SignupFormModal-container {
     margin: auto;
     margin-top: 50px;
     display: flex;
@@ -10,16 +10,16 @@
     height: 300px;
 }
 
-.SignupFormPage-form {
+.SignupFormModal-form {
     width: 300px;
 }
 
-.SignupFormPage-group {
+.SignupFormModal-group {
     margin: 0px 5px 18px 5px;
     position: relative;
 }
 
-.SignupFormPage-form input {
+.SignupFormModal-form input {
     border: none;
     border-bottom: 2px solid #bbb;
     outline: none;
@@ -61,7 +61,7 @@ input:focus {
     border-bottom: 2px solid #ff385c;
 }
 
-.SignupFormPage-submit {
+.SignupFormModal-submit {
     background-color: #ff385c;
     width: 100%;
     border: none;

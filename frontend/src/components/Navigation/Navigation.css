@@ -13,9 +13,16 @@
 .Navigation-list {
     list-style-type: none;
     display: flex;
+    flex-direction: row;
     padding: 0px 10px;
     justify-content: space-between;
     color: #000000;
+}
+
+.Navigation-session-group {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
 }
 
 .Navigation-links:link, .Navigation-links:visited {

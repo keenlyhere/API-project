@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
 import "./SignupForm.css"
 
-export default function SignupFormPage() {
+export default function SignupFormModal() {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
     const [ email, setEmail ] = useState("");
@@ -14,34 +15,37 @@ export default function SignupFormPage() {
     const [ password, setPassword ] = useState("");
     const [ confirmPassword, setConfirmPassword ] = useState("");
     const [ errors, setErrors ] = useState([]);
+    const { closeModal } = useModal();
 
-    if (sessionUser) return (
-            <Redirect to="/" />
-        )
+    // if (sessionUser) return (
+    //         <Redirect to="/" />
+    //     )
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (password === confirmPassword) {
-        setErrors([]);
-        return dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
-            .catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) setErrors(data.errors);
-            });
+            setErrors([]);
+            return dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
+                .then(closeModal)
+                .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors);
+                });
         }
+        
         return setErrors(['Confirm Password field must be the same as the Password field']);
     };
 
     return (
-        <div className="SignupFormPage-container">
+        <div className="SignupFormModal-container">
             <form
                 onSubmit={handleSubmit}
-                className="SignupFormPage-form"
+                className="SignupFormModal-form"
             >
             <ul>
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>
-            <div className="SignupFormPage-group">
+            <div className="SignupFormModal-group">
                 <input
                     id="email"
                     type="text"
@@ -53,7 +57,7 @@ export default function SignupFormPage() {
                     Email
                 </label>
             </div>
-            <div className="SignupFormPage-group">
+            <div className="SignupFormModal-group">
                 <input
                     id="username"
                     type="text"
@@ -65,7 +69,7 @@ export default function SignupFormPage() {
                     Username
                 </label>
             </div>
-            <div className="SignupFormPage-group">
+            <div className="SignupFormModal-group">
                 <input
                     id="firstName"
                     type="text"
@@ -77,7 +81,7 @@ export default function SignupFormPage() {
                     First Name
                 </label>
             </div>
-            <div className="SignupFormPage-group">
+            <div className="SignupFormModal-group">
                 <input
                     id="lastName"
                     type="text"
@@ -89,7 +93,7 @@ export default function SignupFormPage() {
                     Last Name
                 </label>
             </div>
-            <div className="SignupFormPage-group">
+            <div className="SignupFormModal-group">
                 <input
                     id="password"
                     type="password"
@@ -101,7 +105,7 @@ export default function SignupFormPage() {
                     Password
                 </label>
             </div>
-            <div className="SignupFormPage-group">
+            <div className="SignupFormModal-group">
                 <input
                     id="confirmPassword"
                     type="password"
@@ -113,10 +117,10 @@ export default function SignupFormPage() {
                     Confirm Password
                 </label>
             </div>
-            <div className="SignupFormPage-group">
+            <div className="SignupFormModal-group">
                 <button
                     type="submit"
-                    className="SignupFormPage-submit"
+                    className="SignupFormModal-submit"
                 >Sign Up</button>
             </div>
             </form>
