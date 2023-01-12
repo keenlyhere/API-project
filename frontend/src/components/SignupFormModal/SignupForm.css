@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@700&display=swap');
+
+.SignupFormModal-container {
+    margin: auto;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 300px;
+}
+
+.SignupFormModal-form {
+    width: 300px;
+}
+
+.SignupFormModal-group {
+    margin: 0px 5px 18px 5px;
+    position: relative;
+}
+
+.SignupFormModal-form input {
+    border: none;
+    border-bottom: 2px solid #bbb;
+    outline: none;
+    padding: 0;
+}
+
+label {
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 0;
+    color: #808080;
+    align-items: center;
+    cursor: text;
+    padding: 2px;
+    padding-left: 8px;
+    font-family: Roboto, Helvetica, sans-serif;
+    font-size: 13px;
+    transition: 0.2s ease-in-out;
+}
+
+input, label {
+    width: 100%;
+    height: 28px;
+}
+
+input:focus + label,
+input:valid + label {
+    color:#ff385c;
+    font-size: 8px;
+    top: -17px;
+    padding: 0;
+    left: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+input:focus {
+    border-bottom: 2px solid #ff385c;
+}
+
+.SignupFormModal-submit {
+    background-color: #ff385c;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    height: 48px;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 0;
+}
