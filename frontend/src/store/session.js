@@ -77,13 +77,14 @@ export const logout = () => async (dispatch) => {
 const initialState = { user: null }
 
 export default function sessionReducer(state = initialState, action) {
-    let newState = { ...state };
-    switch(action.type) {
+    switch (action.type) {
         case SET_USER: {
+            const newState = { ...state };
             newState.user = action.user;
             return newState;
         };
         case REMOVE_USER: {
+            const newState = { ...state };
             newState.user = null;
             return newState;
         };
