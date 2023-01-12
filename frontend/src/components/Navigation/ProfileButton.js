@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux"
 import * as sessionActions from "../../store/session";
+import LoginFormModal from "../LoginFormModal";
+import OpenModalButton from "../OpenModalButton";
+import SignupFormModal from "../SignupFormModal";
 
 export default function ProfileButton({ user }) {
     const dispatch = useDispatch();
@@ -40,12 +43,38 @@ export default function ProfileButton({ user }) {
                 <i class="fa-solid fa-circle-user"></i>
             </button>
             <ul className={ulClassName} ref={ulRef}>
-                <li className="profile-dropdown-links">{user.username}</li>
+                { user ? (
+                    <div>
+                        <li className="profile-dropdown-links">{user.username}</li>
+                        <li className="profile-dropdown-links">{user.firstName} {user.lastName}</li>
+                        <li className="profile-dropdown-links">{user.email}</li>
+                        <li className="profile-dropdown-links">
+                            <button onClick={logout} className="profile-dropdown-logout">Log Out</button>
+                        </li>
+                    </div>
+                ) : (
+                    <div>
+                        <li>
+                            <OpenModalButton
+                                buttonText="Log In"
+                                modalComponent={<LoginFormModal />}
+                            />
+                        </li>
+                        <li>
+                            <OpenModalButton
+                                buttonText="Sign Up"
+                                modalComponent={<SignupFormModal />}
+                            />
+                        </li>
+                    </div>
+                )}
+
+                {/* <li className="profile-dropdown-links">{user.username}</li>
                 <li className="profile-dropdown-links">{user.firstName} {user.lastName}</li>
                 <li className="profile-dropdown-links">{user.email}</li>
                 <li className="profile-dropdown-links">
                     <button onClick={logout} className="profile-dropdown-logout">Log Out</button>
-                </li>
+                </li> */}
             </ul>
         </div>
     )

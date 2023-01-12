@@ -11,34 +11,17 @@ import SignupFormModal from "../SignupFormModal";
 export default function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
 
-    let sessionLinks;
-    if (sessionUser) {
-        sessionLinks = (
-            <li>
-                <ProfileButton user={sessionUser} />
-            </li>
-        );
-    } else {
-        sessionLinks = (
-            <li className="Navigation-session-group">
-                <OpenModalButton
-                    buttonText="Log In"
-                    modalComponent={<LoginFormModal />}
-                />
-                <OpenModalButton
-                    buttonText="Sign Up"
-                    modalComponent={<SignupFormModal />}
-                />
-            </li>
-        );
-    }
     return (
         <nav className="Navigation-container">
             <ul className="Navigation-list">
                 <li>
                     <NavLink to="/" className="Navigation-links">Home</NavLink>
                 </li>
-                { isLoaded && sessionLinks }
+                { isLoaded && (
+                    <li>
+                        <ProfileButton user={sessionUser} />
+                    </li>
+                ) }
             </ul>
         </nav>
     )

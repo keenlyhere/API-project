@@ -60,7 +60,6 @@
 .profile-dropdown-links {
     padding: 5px 0px;
     position: relative;
-    display: inline-block;
 }
 
 .ProfileButton-icon {
@@ -73,4 +72,11 @@
 .ProfileButton-dropdown-container {
     display: flex;
     flex-direction: column;
+}
+
+.profile-dropdown-logout {
+    background: none;
+    border: 0;
+    font-size: 12px;
+    padding: 0;
 }
