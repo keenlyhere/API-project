@@ -1,0 +1,34 @@
+.SpotDetails-container {
+    padding: 20px;
+}
+
+.SpotDetails-name {
+    font-size: 24px;
+}
+
+.SpotDetails-subtitle, .SpotDetails-subtitle-left, .SpotDetails-subtitle-right {
+    display: flex;
+    justify-content: space-between;
+}
+
+.SpotDetails-subtitle-left > .SpotDetails-subtitle-text {
+    padding-right: 18px;
+}
+
+.SpotDetails-images {
+    display: flex;
+    justify-content: center;
+}
+
+.SpotDetails-images > img {
+    width: 30%;
+    padding: 20px;
+}
+
+.SpotDetails-host-details, .SpotDetails-description, .SpotDetails-reviews-container {
+    padding: 10px 0px;
+}
+
+.SpotDetails-subtitle-right > .SpotDetails-subtitle-text:last-child {
+    padding-left: 18px;
+}

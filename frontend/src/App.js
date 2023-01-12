@@ -9,6 +9,7 @@ import * as sessionActions from "./store/session";
 
 import "./index.css";
 import UserSpots from "./components/Spots/UserSpots";
+import SpotDetails from "./components/Spots/SpotDetails";
 
 function App() {
     const dispatch = useDispatch();
@@ -28,6 +29,9 @@ function App() {
                     </Route>
                     <Route path ="/my-spots">
                         <UserSpots />
+                    </Route>
+                    <Route path = "/spots/:spotId">
+                        <SpotDetails />
                     </Route>
                 </Switch>
             )}
