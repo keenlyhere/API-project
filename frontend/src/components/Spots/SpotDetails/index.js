@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { loadUserReviews } from "../../../store/reviewReducer";
+import { loadSpotReviews } from "../../../store/reviewReducer";
 import { deleteSpot, loadSpotDetails } from "../../../store/spotReducer";
 
 import "./SpotDetails.css";
@@ -12,15 +12,15 @@ function SpotDetails() {
     const history = useHistory();
 
     const spot = useSelector(state => state.spots.spot[spotId]);
-    console.log("SpotDetails - spotById:", spot);
+    // console.log("SpotDetails - spotById:", spot);
     const user = useSelector(state => state.session.user);
-    console.log("SpotDetails - user:", user);
-    const reviews = useSelector(state => state.reviews);
+    // console.log("SpotDetails - user:", user);
+    const reviews = useSelector(state => Object.values(state.reviews.spot));
     console.log("SpotDetails - reviews:", reviews);
 
     useEffect(() => {
+        dispatch(loadSpotReviews(+spotId));
         dispatch(loadSpotDetails(+spotId));
-        dispatch(loadUserReviews)
     }, [dispatch, spotId])
 
     const randomNum = () => {
@@ -36,9 +36,16 @@ function SpotDetails() {
         history.push("/my-spots");
     }
 
+    // const getMonthYear = (date) => {
+    //     const newDate = new Date(date);
+    //     console.log("newDate", newDate);
+    // }
+
     if (spot === undefined) return null;
 
     if (user === undefined) return null;
+
+    if (reviews === undefined) return null;
 
     return spot && (
         <div className="SpotDetails-container">
@@ -88,7 +95,12 @@ function SpotDetails() {
 
             <div className="SpotDetails-reviews-container">
                 <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>
-                PUT SPOT REVIEWS HERE
+                { reviews && reviews.map((review) => (
+                    <div key={review.id} className="SpotDetails-review-card">
+                        <p className="Reviews-name">{review.User.firstName}</p>
+                        <p className="Reviews-small-text">{review.review}</p>
+                    </div>
+                ))}
             </div>
 
         </div>
