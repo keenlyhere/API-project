@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadSpots } from "../../../store/spotReducer";
+import previewHandler from "../../../utils/previewHandler";
 
 import "../Spots.css";
 
@@ -8,6 +9,7 @@ export default function AllSpots() {
     const dispatch = useDispatch();
 
     const allSpots = useSelector(state => state.spots.spots);
+    console.log("AllSpots - allSpots:", allSpots);
     const spots = [];
     Object.values(allSpots).forEach(spot => spots.push(spot));
     console.log("AllSpots - spots:", spots);
@@ -21,15 +23,6 @@ export default function AllSpots() {
             return rating;
         } else {
             return 0;
-        }
-    }
-
-    const previewHandler = (image) => {
-        if (image === "No image listed") {
-            image = "https://www.insticc.org/node/TechnicalProgram/56e7352809eb881d8c5546a9bbf8406e.png";
-            return image;
-        } else {
-            return image;
         }
     }
 

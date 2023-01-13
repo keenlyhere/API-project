@@ -10,6 +10,7 @@ import * as sessionActions from "./store/session";
 import "./index.css";
 import UserSpots from "./components/Spots/UserSpots";
 import SpotDetails from "./components/Spots/SpotDetails";
+import CreateSpotForm from "./components/Spots/CreateSpot";
 
 function App() {
     const dispatch = useDispatch();
@@ -27,11 +28,14 @@ function App() {
                     <Route exact path="/">
                         <AllSpots />
                     </Route>
-                    <Route path ="/my-spots">
+                    <Route path="/my-spots">
                         <UserSpots />
                     </Route>
-                    <Route path = "/spots/:spotId">
+                    <Route path="/spots/:spotId">
                         <SpotDetails />
+                    </Route>
+                    <Route path="/create-spot">
+                        <CreateSpotForm />
                     </Route>
                 </Switch>
             )}

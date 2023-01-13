@@ -38,6 +38,13 @@ export const actionLoadSpotDetails = (spot) => {
     }
 }
 
+export const actionAddSpot = (spot) => {
+    return {
+        type: ADD_SPOT,
+        spot
+    }
+}
+
 // thunk actions
 export const loadSpots = () => async (dispatch) => {
     const res = await csrfFetch("/api/spots");
@@ -72,6 +79,24 @@ export const loadSpotDetails = (spotId) => async (dispatch) => {
     }
 }
 
+export const addSpot = (spot) => async (dispatch) => {
+    const res = await csrfFetch("/api/spots", {
+        method: "POST",
+        headers: {
+            "Content-Type":
+            "application/json"
+        },
+        body: JSON.stringify(spot)
+    })
+
+    if (res.ok) {
+        const newSpot = await res.json();
+        console.log("addSpot - newSpot:", newSpot);
+        dispatch(actionAddSpot(newSpot));
+        return newSpot;
+    }
+}
+
 const initialState = {
     spots: {},
     spot: {}
@@ -92,10 +117,19 @@ export default function spotReducer(state = initialState, action) {
         }
         case LOAD_SPOT_DETAILS: {
             console.log("STATE:", state)
-            const spotDetails = { ...state.spots };
+            const spotDetails = { ...state };
             spotDetails.spot = { [action.spot.id]: action.spot }
             console.log("LOAD_SPOT_DETAILS - spotDetails", spotDetails);
             return spotDetails;
+        }
+        case ADD_SPOT: {
+            const newSpotsState = { ...state };
+            console.log("ADD_SPOT - action.spot", action.spot);
+            newSpotsState.spots = { ...state.spots, [ action.spot.id ]: action.spot}
+            // const newSpotsState = { ...state, spots: { ...state.spots, [action.spot.id]: action.spot } };
+            // newSpotsState.spots[action.spot.id] = action.spot;
+            console.log("ADD_SPOT - newSpotsState", newSpotsState);
+            return newSpotsState;
         }
         default:
             return state;
