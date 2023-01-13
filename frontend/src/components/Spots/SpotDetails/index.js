@@ -36,10 +36,16 @@ function SpotDetails() {
         history.push("/my-spots");
     }
 
-    // const getMonthYear = (date) => {
-    //     const newDate = new Date(date);
-    //     console.log("newDate", newDate);
-    // }
+    const getMonthYear = (date) => {
+        const newDate = new Date(date);
+        console.log("newDate:", newDate);
+
+        return newDate;
+    }
+
+    console.log("reviews", reviews[0])
+    // const newDate = getMonthYear(reviews[0].createdAt);
+    // console.log("2 newDate:", newDate);
 
     if (spot === undefined) return null;
 
@@ -98,6 +104,7 @@ function SpotDetails() {
                 { reviews && reviews.map((review) => (
                     <div key={review.id} className="SpotDetails-review-card">
                         <p className="Reviews-name">{review.User.firstName}</p>
+                        {/* <p className="Reviews-date">{getMonthYear(review.createdAt)}</p> */}
                         <p className="Reviews-small-text">{review.review}</p>
                     </div>
                 ))}
