@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { loadSpotDetails, loadSpots } from "../../../store/spotReducer";
+import { deleteSpot, loadSpotDetails, loadSpots } from "../../../store/spotReducer";
 
 import "./SpotDetails.css";
 
@@ -28,6 +28,11 @@ export default function SpotDetails() {
         history.push(`/spots/${spotId}/edit`);
     }
 
+    const handleDelete = () => {
+        dispatch(deleteSpot(+spotId))
+        history.push("/my-spots");
+    }
+
     if (spot === undefined) return null;
 
     return spot && (
@@ -42,6 +47,7 @@ export default function SpotDetails() {
                     { spot.ownerId === user.id ? (
                         <div className="SpotDetails-subtitle-right">
                             <button onClick={handleEdits}>Edit Spot</button>
+                            <button onClick={handleDelete}>Delete Spot</button>
                         </div>
                     ) : (
                         <div className="SpotDetails-subtitle-right">
