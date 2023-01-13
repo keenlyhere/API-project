@@ -45,6 +45,14 @@ export const actionAddSpot = (spot) => {
     }
 }
 
+export const actionEditSpot = (editedSpotId, editedSpot) => {
+    return {
+        type: EDIT_SPOT,
+        editedSpotId,
+        editedSpot
+    }
+}
+
 // thunk actions
 export const loadSpots = () => async (dispatch) => {
     const res = await csrfFetch("/api/spots");
@@ -97,6 +105,24 @@ export const addSpot = (spot) => async (dispatch) => {
     }
 }
 
+export const editSpot = (spotId, spot) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type":
+            "application/json"
+        },
+        body: JSON.stringify(spot)
+    })
+
+    if (res.ok) {
+        const editedSpot = await res.json();
+        console.log("editSpot - editedSpot:", editedSpot);
+        dispatch(actionEditSpot(spotId, editedSpot));
+        return editedSpot;
+    }
+}
+
 const initialState = {
     spots: {},
     spot: {}
@@ -125,11 +151,17 @@ export default function spotReducer(state = initialState, action) {
         case ADD_SPOT: {
             const newSpotsState = { ...state };
             console.log("ADD_SPOT - action.spot", action.spot);
-            newSpotsState.spots = { ...state.spots, [ action.spot.id ]: action.spot}
+            newSpotsState.spots = { ...state.spots, [ action.spot.id ]: action.spot }
             // const newSpotsState = { ...state, spots: { ...state.spots, [action.spot.id]: action.spot } };
             // newSpotsState.spots[action.spot.id] = action.spot;
             console.log("ADD_SPOT - newSpotsState", newSpotsState);
             return newSpotsState;
+        }
+        case EDIT_SPOT: {
+            const editSpotState = { ...state };
+            editSpotState.spots = { ...state.spots, [ action.editedSpotId ]: action.editedSpot };
+            console.log("EDIT_SPOT - editSpotState:", editSpotState);
+            return editSpotState;
         }
         default:
             return state;

@@ -31,6 +31,7 @@ export default function LoginFormModal() {
 
     return (
         <div className="LoginFormModal-container">
+            <h1 className="LoginFormModal-header">Welcome to BearBnB</h1>
             <ul className="LoginFormModal-errors">
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>

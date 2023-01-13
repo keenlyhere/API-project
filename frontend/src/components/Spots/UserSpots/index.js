@@ -1,11 +1,14 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
+import { useHistory } from "react-router-dom";
 import { loadUserSpots } from "../../../store/spotReducer";
+import previewHandler from "../../../utils/previewHandler";
 
 import "../Spots.css";
 
 export default function UserSpots() {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const sessionUser = useSelector(state => state.session.user);
     const allSpots = useSelector(state => state.spots.spots);
@@ -25,13 +28,8 @@ export default function UserSpots() {
         }
     }
 
-    const previewHandler = (image) => {
-        if (image === "No image listed") {
-            image = "https://www.insticc.org/node/TechnicalProgram/56e7352809eb881d8c5546a9bbf8406e.png";
-            return image;
-        } else {
-            return image;
-        }
+    const handleClick = (spotId) => {
+        history.push(`/spots/${spotId}`)
     }
 
     return (
@@ -42,6 +40,7 @@ export default function UserSpots() {
                         <div className="Spots-image">
                             <img
                                 src={previewHandler(spot.previewImage)}
+                                onClick={() => handleClick(spot.id)}
                             />
                         </div>
                         <div className="Spots-card-description">

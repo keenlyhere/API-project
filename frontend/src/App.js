@@ -11,6 +11,7 @@ import "./index.css";
 import UserSpots from "./components/Spots/UserSpots";
 import SpotDetails from "./components/Spots/SpotDetails";
 import CreateSpotForm from "./components/Spots/CreateSpot";
+import EditSpotForm from "./components/Spots/EditSpot";
 
 function App() {
     const dispatch = useDispatch();
@@ -31,11 +32,14 @@ function App() {
                     <Route path="/my-spots">
                         <UserSpots />
                     </Route>
-                    <Route path="/spots/:spotId">
+                    <Route exact path="/spots/:spotId">
                         <SpotDetails />
                     </Route>
                     <Route path="/create-spot">
                         <CreateSpotForm />
+                    </Route>
+                    <Route path="/spots/:spotId/edit">
+                        <EditSpotForm />
                     </Route>
                 </Switch>
             )}

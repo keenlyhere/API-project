@@ -23,7 +23,7 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         spotId: 2,
-        url: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.sherlock-holmes.co.uk%2F&psig=AOvVaw1gT1gDGiIkg2ejZKXeXeNk&ust=1671577022328000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCICb5ubjhvwCFQAAAAAdAAAAABAE',
+        url: 'hhttps://www.sherlock-holmes.co.uk/wp-content/uploads/2020/02/museum-crop-scaled.jpg',
         preview: true
       },
       {
@@ -59,6 +59,6 @@ module.exports = {
      */
 
     return queryInterface.bulkDelete(options, {}, {});
-    
+
   }
 };
