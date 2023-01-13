@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { loadSpots } from "../../../store/spotReducer";
 import previewHandler from "../../../utils/previewHandler";
 
@@ -7,6 +8,7 @@ import "../Spots.css";
 
 export default function AllSpots() {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const allSpots = useSelector(state => state.spots.spots);
     console.log("AllSpots - allSpots:", allSpots);
@@ -22,8 +24,12 @@ export default function AllSpots() {
         if (typeof rating === "number") {
             return rating;
         } else {
-            return 0;
+            return "";
         }
+    }
+
+    const handleClick = (spotId) => {
+        history.push(`/spots/${spotId}`)
     }
 
     return (
@@ -34,6 +40,7 @@ export default function AllSpots() {
                         <div className="Spots-image">
                             <img
                                 src={previewHandler(spot.previewImage)}
+                                onClick={() => handleClick(spot.id)}
                             />
                         </div>
                         <div className="Spots-card-description">
