@@ -53,6 +53,13 @@ export const actionEditSpot = (editedSpotId, editedSpot) => {
     }
 }
 
+export const actionDeleteSpot = (spotId) => {
+    return {
+        type: DELETE_SPOT,
+        spotId
+    }
+}
+
 // thunk actions
 export const loadSpots = () => async (dispatch) => {
     const res = await csrfFetch("/api/spots");
@@ -123,6 +130,19 @@ export const editSpot = (spotId, spot) => async (dispatch) => {
     }
 }
 
+export const deleteSpot = (spotId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}`, {
+        method: "DELETE"
+    })
+
+    if (res.ok) {
+        const deletedSpot = await res.json();
+        console.log("deleteSpot - deletedSpot:", deletedSpot);
+        dispatch(actionDeleteSpot(+deletedSpot.id));
+        return deletedSpot;
+    }
+}
+
 const initialState = {
     spots: {},
     spot: {}
@@ -162,6 +182,12 @@ export default function spotReducer(state = initialState, action) {
             editSpotState.spots = { ...state.spots, [ action.editedSpotId ]: action.editedSpot };
             console.log("EDIT_SPOT - editSpotState:", editSpotState);
             return editSpotState;
+        }
+        case DELETE_SPOT: {
+            const deleteSpotState = { ...state };
+            console.log("DELETE_SPOT - deleteSpotState:", deleteSpotState);
+            delete deleteSpotState.spots[action.spotId]
+            return deleteSpotState;
         }
         default:
             return state;
