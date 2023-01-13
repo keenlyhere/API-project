@@ -31,6 +31,7 @@ export default function LoginFormModal() {
 
     return (
         <div className="LoginFormModal-container">
+            <h1 className="LoginFormModal-header">Welcome to BearBnB</h1>
             <ul className="LoginFormModal-errors">
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>
@@ -64,7 +65,7 @@ export default function LoginFormModal() {
                         onChange={(e) => setCredential(e.target.value)}
                         required
                     />
-                    <label for="credential">Username or Email</label>
+                    <label htmlFor="credential">Username or Email</label>
                 </div>
                 <div className="LoginFormModal-group">
                     <input
@@ -74,7 +75,7 @@ export default function LoginFormModal() {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <label for="password">Password</label>
+                    <label htmlFor="password">Password</label>
                 </div>
                 <div className="LoginFormModal-group">
                     <button

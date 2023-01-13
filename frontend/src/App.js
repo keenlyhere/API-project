@@ -4,7 +4,14 @@ import { Route, Switch } from "react-router-dom";
 import LoginFormModal from "./components/LoginFormModal";
 import Navigation from "./components/Navigation";
 import SignupFormModal from "./components/SignupFormModal";
+import AllSpots from "./components/Spots/AllSpots";
 import * as sessionActions from "./store/session";
+
+import "./index.css";
+import UserSpots from "./components/Spots/UserSpots";
+import SpotDetails from "./components/Spots/SpotDetails";
+import CreateSpotForm from "./components/Spots/CreateSpot";
+import EditSpotForm from "./components/Spots/EditSpot";
 
 function App() {
     const dispatch = useDispatch();
@@ -12,13 +19,28 @@ function App() {
 
     useEffect(() => {
         dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-    }, [dispatch])
+    }, [dispatch]);
 
     return (
       <div className="App-container">
         <Navigation isLoaded={isLoaded} />
             {isLoaded && (
                 <Switch>
+                    <Route exact path="/">
+                        <AllSpots />
+                    </Route>
+                    <Route path="/my-spots">
+                        <UserSpots />
+                    </Route>
+                    <Route exact path="/spots/:spotId">
+                        <SpotDetails />
+                    </Route>
+                    <Route path="/create-spot">
+                        <CreateSpotForm />
+                    </Route>
+                    <Route path="/spots/:spotId/edit">
+                        <EditSpotForm />
+                    </Route>
                 </Switch>
             )}
       </div>

@@ -7,7 +7,9 @@
     border-top: 1px solid #a5a5a5;
     border-bottom: 1px solid #a5a5a5;
     padding: 10px 0px;
-    position: sticky;
+    position: fixed;
+    top: 0;
+    background-color: #ffffff;
     font-family: Roboto, sans-serif;
 }
 .Navigation-list {
@@ -53,7 +55,7 @@
     padding: 10px;
 }
 
-.profile-dropdown.hidden {
+.hidden {
     display: none;
 }
 
