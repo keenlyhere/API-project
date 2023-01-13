@@ -11,10 +11,10 @@ export default function AllSpots() {
     const history = useHistory();
 
     const allSpots = useSelector(state => state.spots.spots);
-    console.log("AllSpots - allSpots:", allSpots);
+    // console.log("AllSpots - allSpots:", allSpots);
     const spots = [];
     Object.values(allSpots).forEach(spot => spots.push(spot));
-    console.log("AllSpots - spots:", spots);
+    // console.log("AllSpots - spots:", spots);
 
     useEffect(() => {
         dispatch(loadSpots());
@@ -37,8 +37,9 @@ export default function AllSpots() {
             { spots && (
                 spots.map((spot) => (
                     <div key={spot.id} className="Spots-card">
-                        <div className="Spots-image">
+                        <div className="Spots-card-image">
                             <img
+                                className="Spots-image"
                                 src={previewHandler(spot.previewImage)}
                                 onClick={() => handleClick(spot.id)}
                             />

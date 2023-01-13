@@ -28,11 +28,12 @@ export const login = (user) => async (dispatch) => {
         })
     })
 
-    if (res.ok) {
+    // if (res.ok) {
         const data = await res.json();
-        dispatch(actionSetUser(data));
+        console.log("login - data:", data)
+        dispatch(actionSetUser(data.user));
         return data;
-    }
+    // }
 }
 
 // thunk action to restore user session
@@ -59,6 +60,7 @@ export const signup = (user) => async (dispatch) => {
     });
 
     const data = await res.json();
+    console.log("signup - data:", data)
     dispatch(actionSetUser(data));
     return res;
 }
@@ -79,7 +81,7 @@ const initialState = { user: null }
 export default function sessionReducer(state = initialState, action) {
     switch (action.type) {
         case SET_USER: {
-            const newState = { ...state };
+            const newState = { ...state, };
             newState.user = action.user;
             return newState;
         };
