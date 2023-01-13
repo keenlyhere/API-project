@@ -1,5 +1,7 @@
 .SpotDetails-container {
     padding: 20px;
+    width: 60vw;
+    margin: auto;
 }
 
 .SpotDetails-name {
@@ -20,8 +22,8 @@
     justify-content: center;
 }
 
-.SpotDetails-images > img {
-    width: 30%;
+.SpotDetails-image {
+    width: 80%;
     padding: 20px;
 }
 

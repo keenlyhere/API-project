@@ -19,7 +19,7 @@ function App() {
 
     useEffect(() => {
         dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-    }, [dispatch])
+    }, [dispatch]);
 
     return (
       <div className="App-container">

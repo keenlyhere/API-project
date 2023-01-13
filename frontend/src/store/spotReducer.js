@@ -88,7 +88,7 @@ export const loadSpotDetails = (spotId) => async (dispatch) => {
 
     if (res.ok) {
         const spot = await res.json();
-        console.log("loadSpotDetails", spot);
+        console.log("loadSpotDetails:::", spot);
         dispatch(actionLoadSpotDetails(spot));
         return spot;
     }
@@ -164,7 +164,7 @@ export default function spotReducer(state = initialState, action) {
         case LOAD_SPOT_DETAILS: {
             console.log("STATE:", state)
             const spotDetails = { ...state };
-            spotDetails.spot = { [action.spot.id]: action.spot }
+            spotDetails.spot = { ...state.spot, [action.spot.id]: action.spot }
             console.log("LOAD_SPOT_DETAILS - spotDetails", spotDetails);
             return spotDetails;
         }

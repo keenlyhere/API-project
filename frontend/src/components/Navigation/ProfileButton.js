@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux"
 import * as sessionActions from "../../store/session";
 import LoginFormModal from "../LoginFormModal";
@@ -10,10 +10,12 @@ export default function ProfileButton({ user }) {
     const [ showMenu, setShowMenu ] = useState(false);
     const ulRef = useRef();
 
+    console.log("ProfileButton - user:", user);
+
     const openMenu = () => {
         if (showMenu) return;
         setShowMenu(true);
-    }
+    };
 
     useEffect(() => {
         if (!showMenu) return;

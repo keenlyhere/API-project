@@ -1,4 +1,7 @@
-* {-webkit-font-smoothing: antialiased;}
+* {
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+}
 
 .AllSpots-container {
     width: 90%;
@@ -25,11 +28,11 @@
     grid-row: 1 / 2;
     overflow: hidden;
     border-radius: 18px;
-    object-fit: fill;
 }
 
 .AllSpots-spot-image > img {
     max-height: 100%;
+    object-fit: cover;
 }
 
 .AllSpots-spot-card-description {
