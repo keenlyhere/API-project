@@ -34,3 +34,13 @@
 .SpotDetails-subtitle-right > .SpotDetails-subtitle-text:last-child {
     padding-left: 18px;
 }
+
+.SpotDetails-reviews-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.SpotDetails-review-card {
+    width: 50%;
+}

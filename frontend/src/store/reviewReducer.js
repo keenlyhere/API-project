@@ -49,7 +49,7 @@ export const loadSpotReviews = (spotId) => async (dispatch) => {
     if (res.ok) {
         const reviews = await res.json();
         console.log("loadSpotReviews - reviews:", reviews);
-        dispatch(actionLoadSpotReviews(spotId, reviews.Reviews));
+        dispatch(actionLoadSpotReviews(spotId, reviews));
         return reviews;
     }
 }
@@ -69,7 +69,11 @@ export default function reviewReducer(state = initialState, action) {
         case LOAD_SPOT_REVIEWS: {
             const spotReviewsState = { ...state };
             console.log("LOAD_SPOT_REVIEWS - action.reviews:", action.reviews)
-            spotReviewsState.spot = normalize(action.reviews);
+            if (action.reviews.Reviews) {
+                spotReviewsState.spot = normalize(action.reviews.Reviews);
+            } else {
+                return { ...state, spot: null }
+            }
             console.log("LOAD_SPOT_REVIEWS - spotReviewsState:", spotReviewsState)
             return spotReviewsState;
         }
