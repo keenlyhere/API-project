@@ -15,13 +15,23 @@ function SpotDetails() {
     // console.log("SpotDetails - spotById:", spot);
     const user = useSelector(state => state.session.user);
     // console.log("SpotDetails - user:", user);
+<<<<<<< HEAD
     const reviews = useSelector(state => Object.values(state.reviews.spot));
+=======
+    const reviews = useSelector(state => state.reviews);
+
+
+>>>>>>> feature-reviews
     console.log("SpotDetails - reviews:", reviews);
 
     useEffect(() => {
         dispatch(loadSpotReviews(+spotId));
         dispatch(loadSpotDetails(+spotId));
+<<<<<<< HEAD
     }, [dispatch, spotId])
+=======
+    }, [spotId, dispatch])
+>>>>>>> feature-reviews
 
     const randomNum = () => {
         return Math.ceil(Math.random() * 10);
@@ -39,6 +49,7 @@ function SpotDetails() {
     const getMonthYear = (date) => {
         const newDate = new Date(date);
         console.log("newDate:", newDate);
+<<<<<<< HEAD
 
         return newDate;
     }
@@ -47,12 +58,91 @@ function SpotDetails() {
     // const newDate = getMonthYear(reviews[0].createdAt);
     // console.log("2 newDate:", newDate);
 
+=======
+        const month = newDate.toLocaleString('default', { month: 'long' });
+        const year = newDate.getFullYear();
+
+        return (
+            <p className="Reviews-date">{month} {year}</p>
+        )
+    }
+
+>>>>>>> feature-reviews
     if (spot === undefined) return null;
 
     if (user === undefined) return null;
 
     if (reviews === undefined) return null;
 
+<<<<<<< HEAD
+=======
+    if (reviews.spot === null) {
+        return spot && (
+                <div className="SpotDetails-container">
+                    <h1 className="SpotDetails-name">{spot.name}</h1>
+                    <div className="SpotDetails-subtitle">
+                        <div className="SpotDetails-subtitle-left">
+                            <p className="SpotDetails-subtitle-text">{spot.numReviews} reviews</p>
+                            <p className="SpotDetails-subtitle-text">|</p>
+                            <p className="SpotDetails-subtitle-text">{spot.city},{spot.state},{spot.country}</p>
+                        </div>
+                        { user && spot.ownerId === user.id ? (
+                            <div className="SpotDetails-subtitle-right">
+                                <button onClick={handleEdits}>Edit Spot</button>
+                                <button onClick={handleDelete}>Delete Spot</button>
+                            </div>
+                        ) : (
+                            <div className="SpotDetails-subtitle-right">
+                                <p className="SpotDetails-subtitle-text">Share</p>
+                                <p className="SpotDetails-subtitle-text">Save</p>
+                            </div>
+                        ) }
+                    </div>
+                    <div className="SpotDetails-images">
+                        { spot.SpotImages && spot.SpotImages.length > 0 && spot.SpotImages !== "No images for spot" && spot.SpotImages.map(image => (
+                                <div className="SpotDetails-images">
+                                    <img className="SpotDetails-image" src={image.url} />
+                                </div>
+                            ))}
+                    </div>
+                    <div className="SpotDetails-header">
+                        <h2 className="SpotDetails-host">Hosted by {spot.Owner.firstName}</h2>
+                        <p>{randomNum()} guests | {randomNum()} bedrooms | {randomNum()} beds | {randomNum()} baths</p>
+                    </div>
+
+                    <div className="SpotDetails-host-details">
+                        <p className="SpotDetails-host-details-header">Experienced host</p>
+                        <p className="SpotDetails-host-details-desc">{spot.Owner.firstName} has {spot.numReviews} reviews for other places.</p>
+                        <p className="SpotDetails-host-details-header">Highly rated Host</p>
+                        <p className="SpotDetails-host-details-desc">{spot.Owner.firstName} has received 5-star ratings from 95% of recent guests.</p>
+                        <p className="SpotDetails-host-details-header">Great communication</p>
+                        <p className="SpotDetails-host-details-desc">100% of recent guests rated {spot.Owner.firstName} 5-star in communication.</p>
+                    </div>
+
+                    <div className="SpotDetails-description">
+                        {spot.description}
+                    </div>
+
+                    <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>
+                    {/* <div className="SpotDetails-reviews-container">
+                        { reviews && reviews.map((review) => (
+                            <div key={review.id} className="SpotDetails-review-card">
+                                <p className="Reviews-name">{review.User.firstName}</p>
+                                {console.log("REVIEW", review)}
+                                <p className="Reviews-date">{getMonthYear(review.createdAt)}</p>
+                                <p className="Reviews-small-text">{review.review}</p>
+                            </div>
+                        ))}
+                    </div> */}
+
+                </div>
+            )
+    }
+
+    const actualReviews = Object.values(reviews.spot);
+    console.log("actual reviews:", actualReviews)
+
+>>>>>>> feature-reviews
     return spot && (
         <div className="SpotDetails-container">
             <h1 className="SpotDetails-name">{spot.name}</h1>
@@ -99,12 +189,22 @@ function SpotDetails() {
                 {spot.description}
             </div>
 
+<<<<<<< HEAD
             <div className="SpotDetails-reviews-container">
                 <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>
                 { reviews && reviews.map((review) => (
                     <div key={review.id} className="SpotDetails-review-card">
                         <p className="Reviews-name">{review.User.firstName}</p>
                         {/* <p className="Reviews-date">{getMonthYear(review.createdAt)}</p> */}
+=======
+            <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>
+            <div className="SpotDetails-reviews-container">
+                { actualReviews && actualReviews.map((review) => (
+                    <div key={review.id} className="SpotDetails-review-card">
+                        <p className="Reviews-name">{review.User.firstName}</p>
+                        {console.log("REVIEW", review)}
+                        <p className="Reviews-date">{getMonthYear(review.createdAt)}</p>
+>>>>>>> feature-reviews
                         <p className="Reviews-small-text">{review.review}</p>
                     </div>
                 ))}
