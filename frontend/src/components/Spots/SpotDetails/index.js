@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { loadSpotReviews } from "../../../store/reviewReducer";
 import { deleteSpot, loadSpotDetails } from "../../../store/spotReducer";
+import AddReviewForm from "../../AddReviewForm";
 
 import "./SpotDetails.css";
 
@@ -15,23 +16,15 @@ function SpotDetails() {
     // console.log("SpotDetails - spotById:", spot);
     const user = useSelector(state => state.session.user);
     // console.log("SpotDetails - user:", user);
-<<<<<<< HEAD
-    const reviews = useSelector(state => Object.values(state.reviews.spot));
-=======
     const reviews = useSelector(state => state.reviews);
 
 
->>>>>>> feature-reviews
     console.log("SpotDetails - reviews:", reviews);
 
     useEffect(() => {
         dispatch(loadSpotReviews(+spotId));
         dispatch(loadSpotDetails(+spotId));
-<<<<<<< HEAD
-    }, [dispatch, spotId])
-=======
     }, [spotId, dispatch])
->>>>>>> feature-reviews
 
     const randomNum = () => {
         return Math.ceil(Math.random() * 10);
@@ -49,16 +42,6 @@ function SpotDetails() {
     const getMonthYear = (date) => {
         const newDate = new Date(date);
         console.log("newDate:", newDate);
-<<<<<<< HEAD
-
-        return newDate;
-    }
-
-    console.log("reviews", reviews[0])
-    // const newDate = getMonthYear(reviews[0].createdAt);
-    // console.log("2 newDate:", newDate);
-
-=======
         const month = newDate.toLocaleString('default', { month: 'long' });
         const year = newDate.getFullYear();
 
@@ -67,15 +50,12 @@ function SpotDetails() {
         )
     }
 
->>>>>>> feature-reviews
     if (spot === undefined) return null;
 
     if (user === undefined) return null;
 
     if (reviews === undefined) return null;
 
-<<<<<<< HEAD
-=======
     if (reviews.spot === null) {
         return spot && (
                 <div className="SpotDetails-container">
@@ -105,9 +85,11 @@ function SpotDetails() {
                                 </div>
                             ))}
                     </div>
+            <div className="SpotDetails-main-content">
+                <div className="SpotDetails-main-content-left">
                     <div className="SpotDetails-header">
                         <h2 className="SpotDetails-host">Hosted by {spot.Owner.firstName}</h2>
-                        <p>{randomNum()} guests | {randomNum()} bedrooms | {randomNum()} beds | {randomNum()} baths</p>
+                        <p className="SpotDetails-room-details">{randomNum()} guests | {randomNum()} bedrooms | {randomNum()} beds | {randomNum()} baths</p>
                     </div>
 
                     <div className="SpotDetails-host-details">
@@ -122,6 +104,11 @@ function SpotDetails() {
                     <div className="SpotDetails-description">
                         {spot.description}
                     </div>
+                </div>
+                <div className="SpotDetails-main-content-right">
+                    <AddReviewForm host={spot.Owner.firstName} />
+                </div>
+            </div>
 
                     <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>
                     {/* <div className="SpotDetails-reviews-container">
@@ -142,7 +129,6 @@ function SpotDetails() {
     const actualReviews = Object.values(reviews.spot);
     console.log("actual reviews:", actualReviews)
 
->>>>>>> feature-reviews
     return spot && (
         <div className="SpotDetails-container">
             <h1 className="SpotDetails-name">{spot.name}</h1>
@@ -171,41 +157,39 @@ function SpotDetails() {
                         </div>
                     ))}
             </div>
-            <div className="SpotDetails-header">
-                <h2 className="SpotDetails-host">Hosted by {spot.Owner.firstName}</h2>
-                <p>{randomNum()} guests | {randomNum()} bedrooms | {randomNum()} beds | {randomNum()} baths</p>
+            <div className="SpotDetails-main-content">
+                <div className="SpotDetails-main-content-left">
+                    <div className="SpotDetails-header">
+                        <h2 className="SpotDetails-host">Hosted by {spot.Owner.firstName}</h2>
+                        <p className="SpotDetails-room-details">{randomNum()} guests | {randomNum()} bedrooms | {randomNum()} beds | {randomNum()} baths</p>
+                    </div>
+
+                    <div className="SpotDetails-host-details">
+                        <p className="SpotDetails-host-details-header">Experienced host</p>
+                        <p className="SpotDetails-host-details-desc">{spot.Owner.firstName} has {spot.numReviews} reviews for other places.</p>
+                        <p className="SpotDetails-host-details-header">Highly rated Host</p>
+                        <p className="SpotDetails-host-details-desc">{spot.Owner.firstName} has received 5-star ratings from 95% of recent guests.</p>
+                        <p className="SpotDetails-host-details-header">Great communication</p>
+                        <p className="SpotDetails-host-details-desc">100% of recent guests rated {spot.Owner.firstName} 5-star in communication.</p>
+                    </div>
+
+                    <div className="SpotDetails-description">
+                        {spot.description}
+                    </div>
+                </div>
+                <div className="SpotDetails-main-content-right">
+                    <AddReviewForm host={spot.Owner.firstName} />
+                </div>
             </div>
 
-            <div className="SpotDetails-host-details">
-                <p className="SpotDetails-host-details-header">Experienced host</p>
-                <p className="SpotDetails-host-details-desc">{spot.Owner.firstName} has {spot.numReviews} reviews for other places.</p>
-                <p className="SpotDetails-host-details-header">Highly rated Host</p>
-                <p className="SpotDetails-host-details-desc">{spot.Owner.firstName} has received 5-star ratings from 95% of recent guests.</p>
-                <p className="SpotDetails-host-details-header">Great communication</p>
-                <p className="SpotDetails-host-details-desc">100% of recent guests rated {spot.Owner.firstName} 5-star in communication.</p>
-            </div>
-
-            <div className="SpotDetails-description">
-                {spot.description}
-            </div>
-
-<<<<<<< HEAD
-            <div className="SpotDetails-reviews-container">
-                <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>
-                { reviews && reviews.map((review) => (
-                    <div key={review.id} className="SpotDetails-review-card">
-                        <p className="Reviews-name">{review.User.firstName}</p>
-                        {/* <p className="Reviews-date">{getMonthYear(review.createdAt)}</p> */}
-=======
             <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>
             <div className="SpotDetails-reviews-container">
                 { actualReviews && actualReviews.map((review) => (
                     <div key={review.id} className="SpotDetails-review-card">
                         <p className="Reviews-name">{review.User.firstName}</p>
                         {console.log("REVIEW", review)}
-                        <p className="Reviews-date">{getMonthYear(review.createdAt)}</p>
->>>>>>> feature-reviews
-                        <p className="Reviews-small-text">{review.review}</p>
+                        {getMonthYear(review.createdAt)}
+                        <p className="Reviews-review-text">{review.review}</p>
                     </div>
                 ))}
             </div>

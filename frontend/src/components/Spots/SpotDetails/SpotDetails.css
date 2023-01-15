@@ -1,16 +1,22 @@
 .SpotDetails-container {
     padding: 20px;
-    width: 60vw;
+    width: 80vw;
     margin: auto;
 }
 
 .SpotDetails-name {
-    font-size: 24px;
+    font-size: 26px;
+}
+
+.SpotDetails-host {
+    font-size: 22px;
 }
 
 .SpotDetails-subtitle, .SpotDetails-subtitle-left, .SpotDetails-subtitle-right {
     display: flex;
     justify-content: space-between;
+    font-size: 14px;
+    line-height: 20px;
 }
 
 .SpotDetails-subtitle-left > .SpotDetails-subtitle-text {
@@ -27,23 +33,73 @@
     padding: 20px;
 }
 
-.SpotDetails-host-details, .SpotDetails-description, .SpotDetails-reviews-container {
-    padding: 10px 0px;
+.SpotDetails-main-content {
+    display: flex;
+    gap: 58px;
+}
+
+.SpotDetails-header, .SpotDetails-host-details {
+    border-bottom: 1px solid #717171;
+}
+
+.SpotDetails-reviews-num {
+    border-top: 1px solid #717171;
+}
+
+.SpotDetails-main-content-left {
+    width: 60%;
+}
+
+.SpotDetails-main-content-right {
+    width: 40%;
+}
+
+.SpotDetails-header, .SpotDetails-host-details, .SpotDetails-description, .SpotDetails-reviews-container {
+    padding: 32px 0px;
+}
+
+.SpotDetails-room-details {
+    font-size: 16px;
+}
+
+.SpotDetails-host-details-header {
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 8px;
+}
+
+.SpotDetails-host-details-desc, .Reviews-date {
+    font-size: 14px;
+    padding-bottom: 16px;
+    color: #717171;
 }
 
 .SpotDetails-subtitle-right > .SpotDetails-subtitle-text:last-child {
     padding-left: 18px;
 }
-<<<<<<< HEAD
-=======
+
+.SpotDetails-reviews-num {
+    padding-top: 32px;
+}
 
 .SpotDetails-reviews-container {
     width: 100%;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .SpotDetails-review-card {
     width: 50%;
+    height: 196px;
 }
->>>>>>> feature-reviews
+
+.Reviews-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.Reviews-review-text {
+    font-size: 16px;
+    padding: 0;
+}
