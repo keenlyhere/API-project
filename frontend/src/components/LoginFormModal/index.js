@@ -31,7 +31,16 @@ export default function LoginFormModal() {
 
     return (
         <div className="LoginFormModal-container">
-            <h1 className="LoginFormModal-header">Welcome to BearBnB</h1>
+            <div className="LoginFormModal-top">
+                <button
+                    className="LoginFormModal-close"
+                    onClick={closeModal}
+                >
+                    <i class="fa-sharp fa-solid fa-xmark"></i>
+                </button>
+                <h2 className="LoginFormModal-Login">Log in</h2>
+            </div>
+            <h1 className="LoginFormModal-header">Welcome to Deja-Moo</h1>
             <ul className="LoginFormModal-errors">
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>
@@ -39,45 +48,29 @@ export default function LoginFormModal() {
                 className="LoginFormModal-form"
                 onSubmit={handleSubmit}
             >
-                {/* <label>
-                    Username or Email
-                    <input
-                        type="text"
-                        value={credential}
-                        onChange={(e) => setCredential(e.target.value)}
-                        required
-                    />
-                </label>
-                <label>
-                    Password
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </label> */}
                 <div className="LoginFormModal-group">
-                    <input
-                        id="credential"
-                        type="text"
-                        value={credential}
-                        onChange={(e) => setCredential(e.target.value)}
-                        required
-                    />
-                    <label htmlFor="credential">Username or Email</label>
+                    <div className="LoginFormModal-group-credential">
+                        <input
+                            id="credential"
+                            type="text"
+                            value={credential}
+                            onChange={(e) => setCredential(e.target.value)}
+                            required
+                        />
+                        <label htmlFor="credential">Username or Email</label>
+                    </div>
+                    <div className="LoginFormModal-group-password">
+                        <input
+                            id="password"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        <label htmlFor="password">Password</label>
+                    </div>
                 </div>
-                <div className="LoginFormModal-group">
-                    <input
-                        id="password"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                    <label htmlFor="password">Password</label>
-                </div>
-                <div className="LoginFormModal-group">
+                <div className="LoginFormModal-button-container">
                     <button
                         type="submit"
                         className="LoginFormModal-submit"
