@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router";
-import { addReview } from "../../store/reviewReducer";
+import { addReview, loadSpotReviews } from "../../store/reviewReducer";
+import { loadSpotDetails } from "../../store/spotReducer";
 
 import "./AddReviewForm.css";
-
-// TO-DO:
-// fix res.json error on submit
 
 export default function AddReviewForm({ host }) {
     const { spotId } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
 
-    console.log("AddReviewForm - spotId:", spotId);
+    // console.log("AddReviewForm - spotId:", spotId);
 
     const [ review, setReview ] = useState("");
     const [ stars, setStars ] = useState("");
@@ -42,19 +40,25 @@ export default function AddReviewForm({ host }) {
             stars
         };
 
+        let sendNewReview;
+
         console.log("newReview:", newReview);
+
+        try {
+            sendNewReview = await dispatch(addReview(spotId, newReview))
+            // console.log("AddReviewForm - sendNewReview:", sendNewReview);
+            dispatch(loadSpotDetails(+spotId));
+            dispatch(loadSpotReviews(+spotId));
+            history.push(`/spots/${spotId}`);
+        } catch(err) {
+            const data = await err.json();
+            console.log("AddReviewForm - err data:", data);
+            setErrors([...Object.values(data.errors)]);
+        }
 
         setErrors([]);
 
-        const sendNewReview = await dispatch(addReview(spotId, newReview))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) setErrors(data.errors);
-            })
 
-        console.log("AddReviewForm - sendNewReview:", sendNewReview);
-
-        history.push(`/spots/${spotId}`);
     }
     return (
         <div className="AddReviewForm-container">
@@ -77,8 +81,8 @@ export default function AddReviewForm({ host }) {
                     value={review}
                     onChange={(e) => setReview(e.target.value)}
                     required
+                    placeholder="Say a few words about your stay!"
                 />
-                <label htmlFor="review">Say a few words about your stay!</label>
             </div>
             <div className="AddReviewForm-group">
                 <p className="AddReviewForm-subheader">Enter a star rating:</p>

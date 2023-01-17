@@ -102,7 +102,7 @@ export default function reviewReducer(state = initialState, action) {
         }
         case ADD_REVIEW: {
             const addReviewState = { ...state };
-            addReviewState.spot = { ...state.spot, [action.review.id]: action.review }
+            addReviewState.user = { ...state.user, [action.review.id]: action.review }
             console.log("ADD_REVIEW - addReviewState:", addReviewState);
             return addReviewState;
         }
