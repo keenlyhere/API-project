@@ -165,7 +165,7 @@ export const addSpotImage = (spotId, url, preview) => async (dispatch) => {
     if (res.ok) {
         const spotImage = await res.json();
         console.log("addSpotImage - spotImage:", spotImage);
-        dispatch(actionAddSpotImage(+spotId, url, preview))
+        dispatch(actionAddSpotImage(+spotId, url, preview));
         return spotImage;
     }
 }
