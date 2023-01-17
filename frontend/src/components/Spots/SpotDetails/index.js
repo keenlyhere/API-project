@@ -40,6 +40,18 @@ function SpotDetails() {
         history.push("/my-spots");
     }
 
+    const starRating = (rating) => {
+        if (typeof rating === "number") {
+            return (
+                <div>
+                    {rating.toFixed(2)}
+                </div>
+                );
+        } else {
+            return "";
+        }
+    }
+
     if (spot === undefined) return null;
 
     if (user === undefined) return null;
@@ -51,7 +63,7 @@ function SpotDetails() {
                 <div className="SpotDetails-subtitle-left">
                     <div className="SpotDetails-subtitle-rating">
                         <div className="SpotDetails-subtitle-rating-star"><i class="fa-solid fa-star"></i></div>
-                        <p className="SpotDetails-subtitle-text SpotDetails-subtitle-rating-rating"> {spot.avgStarRating.toFixed(2)}</p>
+                        <p className="SpotDetails-subtitle-text SpotDetails-subtitle-rating-rating"> {starRating(spot.avgStarRating)}</p>
                     </div>
                     <p className="SpotDetails-subtitle-text">·</p>
                     <p className="SpotDetails-subtitle-text">{spot.numReviews} reviews</p>

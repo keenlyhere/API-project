@@ -20,7 +20,7 @@ export default function EditSpotForm() {
     const [ name, setName ] = useState(spot.name);
     const [ description, setDescription ] = useState(spot.description);
     const [ price, setPrice ] = useState(spot.price);
-    const [ imageUrl, setImageUrl ] = useState("");
+    // const [ imageUrl, setImageUrl ] = useState("");
 
     const [ errors, setErrors ] = useState([]);
 
@@ -85,11 +85,11 @@ export default function EditSpotForm() {
                 if (data && data.errors) setErrors(data.errors);
             })
 
-        const newSpotImage = await dispatch(addSpotImage(editSpotId.id, imageUrl, true))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) setErrors(data.errors);
-            })
+        // const newSpotImage = await dispatch(addSpotImage(editSpotId.id, imageUrl, true))
+        //     .catch(async (res) => {
+        //         const data = await res.json();
+        //         if (data && data.errors) setErrors(data.errors);
+        //     })
 
         console.log("EditSpotForm - editSpotId:", editSpotId);
         history.push(`/spots/${editSpotId.id}`);
@@ -236,7 +236,7 @@ export default function EditSpotForm() {
                     </label>
                 </div>
 
-                <div className="Form-group">
+                {/* <div className="Form-group">
                     <input
                         id="image"
                         type="text"
@@ -247,7 +247,7 @@ export default function EditSpotForm() {
                     <label htmlFor="image">
                         Image
                     </label>
-                </div>
+                </div> */}
 
                 <button type="submit" className="Form-submit">Edit Spot</button>
 

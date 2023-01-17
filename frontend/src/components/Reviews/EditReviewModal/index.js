@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router";
 import { useModal } from "../../../context/Modal";
 import { editReview, loadSpotReviews } from "../../../store/reviewReducer";
 import { loadSpotDetails } from "../../../store/spotReducer";
