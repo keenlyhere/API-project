@@ -2,6 +2,7 @@
 
 * {
     font-family: Roboto, sans-serif;
+    box-sizing: border-box;
 }
 
 .LoginFormModal-container {
@@ -43,7 +44,7 @@
 .LoginFormModal-header {
     font-size: 22px;
     font-weight: 500;
-    margin: 20px 18px 0px 18px;
+    margin: 100px 18px 0px 18px;
 }
 
 /* .LoginFormModal-form {
@@ -72,6 +73,7 @@
 
 .LoginFormModal-group-credential > input {
     height: 56px;
+    width: 100%;
     border: 0;
     border-bottom: 1px solid #c4c4c4;
     border-radius: 8px;
@@ -83,6 +85,7 @@
 
 .LoginFormModal-group-password > input {
     height: 56px;
+    width: 100%;
     border: 0;
     border-top: 0;
     border-radius: 8px;
@@ -101,6 +104,10 @@
     left: 0;
     color: #878787;
     transition: 0.2s ease-in-out;
+    padding: 2px;
+    padding-left: 8px;
+    font-size: 13px;
+    transition: 0.2s ease-in-out;
 }
 
 .LoginFormModal-group-password label {
@@ -111,6 +118,10 @@
     top: 0;
     left: 0;
     color: #878787;
+    transition: 0.2s ease-in-out;
+    padding: 2px;
+    padding-left: 8px;
+    font-size: 13px;
     transition: 0.2s ease-in-out;
 }
 
@@ -130,7 +141,8 @@
     color:#878787;
     font-size: 8px;
     top: -13px;
-    left: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .LoginFormModal-group-credential > input:focus,
@@ -153,6 +165,7 @@
     font-weight: 500;
     font-size: 16px;
     padding: 0;
+    margin-bottom: 28px;
 }
 
 .LoginFormModal-submit:hover {

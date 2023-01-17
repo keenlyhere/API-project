@@ -22,7 +22,8 @@
     border-radius: 15px;
     position: absolute;
     background-color:white;
-    height: 400px;
+    height: max-content;
+    padding-bottom: 24px;
     display: flex;
     justify-content: center;
 }
