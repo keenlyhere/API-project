@@ -21,39 +21,40 @@ export default function CreateSpotForm() {
 
     const [ errors, setErrors ] = useState([]);
 
-    useEffect(() => {
-        const errors = [];
+    // just take errors from backend
+    // useEffect(() => {
+    //     const errors = [];
 
-        if (address && !address.length) {
-            errors.push("Address is required.");
-        }
+    //     if (address && !address.length) {
+    //         errors.push("Address is required.");
+    //     }
 
-        if (city && !city.length) {
-            errors.push("City is required.");
-        }
+    //     if (city && !city.length) {
+    //         errors.push("City is required.");
+    //     }
 
-        if (state && !state.length) {
-            errors.push("State is required.");
-        }
+    //     if (state && !state.length) {
+    //         errors.push("State is required.");
+    //     }
 
-        if (country && !country.length) {
-            errors.push("Country is required.");
-        }
+    //     if (country && !country.length) {
+    //         errors.push("Country is required.");
+    //     }
 
-        if (name && !name.length) {
-            errors.push("Name is required.")
-        }
+    //     if (name && !name.length) {
+    //         errors.push("Name is required.")
+    //     }
 
-        if (description && !description.length) {
-            errors.push("Description is required.")
-        }
+    //     if (description && !description.length) {
+    //         errors.push("Description is required.")
+    //     }
 
-        if (price && price < 1) {
-            errors.push("Price per night must be greater than 0.")
-        }
+    //     if (price && price < 1) {
+    //         errors.push("Price per night must be greater than 0.")
+    //     }
 
-        setErrors(errors);
-    }, [address, city, state, country, name, description, price]);
+    //     setErrors(errors);
+    // }, [address, city, state, country, name, description, price]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
