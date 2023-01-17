@@ -60,6 +60,15 @@ export const actionDeleteSpot = (spotId) => {
     }
 }
 
+export const actionAddSpotImage = (spotId, url, preview) => {
+    return {
+        type: ADD_SPOT_IMAGE,
+        spotId,
+        url,
+        preview
+    }
+}
+
 // thunk actions
 export const loadSpots = () => async (dispatch) => {
     const res = await csrfFetch("/api/spots");
@@ -143,6 +152,24 @@ export const deleteSpot = (spotId) => async (dispatch) => {
     }
 }
 
+export const addSpotImage = (spotId, url, preview) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}/images`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            url,
+            preview
+        })
+    })
+
+    if (res.ok) {
+        const spotImage = await res.json();
+        console.log("addSpotImage - spotImage:", spotImage);
+        dispatch(actionAddSpotImage(+spotId, url, preview))
+        return spotImage;
+    }
+}
+
 const initialState = {
     spots: {},
     spot: {}
@@ -186,8 +213,14 @@ export default function spotReducer(state = initialState, action) {
         case DELETE_SPOT: {
             const deleteSpotState = { ...state };
             console.log("DELETE_SPOT - deleteSpotState:", deleteSpotState);
-            delete deleteSpotState.spots[action.spotId]
+            delete deleteSpotState.spots[action.spotId];
             return deleteSpotState;
+        }
+        case ADD_SPOT_IMAGE: {
+            const addSpotImageState = { ...state };
+            console.log("ADD_SPOT_IMAGE - addSpotImageState:", addSpotImageState);
+            addSpotImageState.spots = { ...state.spots, [action.spotId.previewImage]: action.url}
+            return addSpotImageState;
         }
         default:
             return state;
