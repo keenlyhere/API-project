@@ -22,7 +22,12 @@ export default function AllSpots() {
 
     const starRating = (rating) => {
         if (typeof rating === "number") {
-            return rating;
+            return (
+                <div>
+                    <i class="fa-solid fa-star"></i>
+                    {rating.toFixed(2)}
+                </div>
+                );
         } else {
             return "";
         }
@@ -47,7 +52,9 @@ export default function AllSpots() {
                         <div className="Spots-card-description">
                             <div className="Spots-header">
                                 <p className="Spots-location">{spot.city}, {spot.state}</p>
-                                <p className="Spots-rating">{starRating(spot.avgRating)}</p>
+                                <p className="Spots-rating">
+                                    {starRating(spot.avgRating)}
+                                </p>
                             </div>
                             <div className="Spots-footer">
                                 <span className="Spots-price">${spot.price}</span> night

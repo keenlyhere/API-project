@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "../../../Forms.css";
-import { addSpot } from "../../../store/spotReducer";
+import { addSpot, addSpotImage } from "../../../store/spotReducer";
 
 export default function CreateSpotForm() {
     const dispatch = useDispatch();
@@ -12,11 +12,12 @@ export default function CreateSpotForm() {
     const [ city, setCity ] = useState("");
     const [ state, setState ] = useState("");
     const [ country, setCountry ] = useState("");
-    const [ lat, setLat ] = useState("");
-    const [ lng, setLng ] = useState("");
+    const [ lat, setLat ] = useState(111.11);
+    const [ lng, setLng ] = useState(22.2222);
     const [ name, setName ] = useState("");
     const [ description, setDescription ] = useState("");
     const [ price, setPrice ] = useState("");
+    const [ imageUrl, setImageUrl ] = useState("");
 
     const [ errors, setErrors ] = useState([]);
 
@@ -39,14 +40,6 @@ export default function CreateSpotForm() {
             errors.push("Country is required.");
         }
 
-        if (lat && !lat.length) {
-            errors.push("Latitude is required.");
-        }
-
-        if (lng && !lng.length) {
-            errors.push("Longitude is required.")
-        }
-
         if (name && !name.length) {
             errors.push("Name is required.")
         }
@@ -60,7 +53,7 @@ export default function CreateSpotForm() {
         }
 
         setErrors(errors);
-    }, [address, city, state, country, lat, lng, name, description, price]);
+    }, [address, city, state, country, name, description, price]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -80,6 +73,12 @@ export default function CreateSpotForm() {
         setErrors([]);
 
         const newSpotId = await dispatch(addSpot(newSpot))
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors);
+            })
+
+        const newSpotImage = await dispatch(addSpotImage(newSpotId.id, imageUrl, true))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
@@ -216,6 +215,18 @@ export default function CreateSpotForm() {
                     />
                     <label htmlFor="price">
                         Price
+                    </label>
+                </div>
+                <div className="Form-group">
+                    <input
+                        id="image"
+                        type="text"
+                        value={imageUrl}
+                        onChange={(e) => setImageUrl(e.target.value)}
+                        required
+                    />
+                    <label htmlFor="image">
+                        Image
                     </label>
                 </div>
 

@@ -6,45 +6,36 @@
 
 .Spots-container {
     width: 100%;
-    /* display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center; */
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
     gap: 18px;
     padding: 20px;
 }
 
 .Spots-card {
-    /* min-width: 250px;
-    max-width: 15%; */
     height: 380px;
-    display: grid;
+    /* display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 7fr 1fr 1fr 1fr;
-    gap: 5px;
+    gap: 5px; */
+    display: flex;
+    flex-direction: column;
 }
 
 .Spots-card-image {
     width: 100%;
     height: 100%;
     grid-column: 1 / 4;
-    /* grid-row: 1 / 2; */
     overflow: hidden;
     border-radius: 18px;
-    /* object-fit: contain; */
 }
 
 .Spots-image {
-    /* max-width: 800px; */
-    /* min-height: 400px; */
     object-fit: cover;
+    vertical-align: bottom;
     width: 100%;
-    height: max(14rem, 65vh);
-    margin-right: 1rem;
-    margin-top: -3.5rem;
-
+    height: 100%;
+    float: left;
 }
 
 .Spots-card-description {
@@ -58,14 +49,6 @@
     display: flex;
     justify-content: space-between;
 }
-
-/* .Spots-rating {
-    justify-self: right;
-} */
-
-/* .Spots-footer {
-    display: flex;
-} */
 
 .Spots-price {
     font-weight: bold;

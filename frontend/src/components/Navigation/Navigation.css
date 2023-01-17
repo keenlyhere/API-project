@@ -11,6 +11,7 @@
     top: 0;
     background-color: #ffffff;
     font-family: Roboto, sans-serif;
+    z-index: 1;
 }
 .Navigation-list {
     list-style-type: none;

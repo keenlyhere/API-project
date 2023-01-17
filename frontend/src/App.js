@@ -36,10 +36,10 @@ function App() {
                         <SpotDetails />
                     </Route>
                     <Route path="/create-spot">
-                        <CreateSpotForm />
+                        <CreateSpotForm type={"create"} />
                     </Route>
-                    <Route path="/spots/:spotId/edit">
-                        <EditSpotForm />
+                    <Route exact path="/spots/:spotId/edit">
+                        <EditSpotForm type={"edit"} />
                     </Route>
                 </Switch>
             )}

@@ -1,0 +1,38 @@
+.AddReviewForm-container {
+    width: 60%;
+    position: sticky;
+    top: 80px;
+}
+
+.AddReviewForm-header {
+    font-size: 20px;
+}
+
+.AddReviewForm-subheader {
+    font-size: 14px;
+}
+
+.AddReviewForm-form {
+    width: 100%;
+}
+
+.AddReviewForm-review {
+    width: 80%;
+    height: 80px;
+    padding: 0;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    resize: none;
+    outline: none;
+    padding-top: 7px;
+}
+
+.AddReviewForm-stars {
+    width: 30px;
+    padding: 0;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    resize: none;
+    outline: none;
+    padding-top: 7px;
+}
