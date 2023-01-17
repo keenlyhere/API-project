@@ -65,6 +65,7 @@
 
 .SpotDetails-main-content-right {
     width: 40%;
+    margin-bottom: 10px;
 }
 
 .SpotDetails-header, .SpotDetails-host-details, .SpotDetails-description, .SpotDetails-reviews-container {
@@ -115,4 +116,8 @@
 .Reviews-review-text {
     font-size: 16px;
     padding: 0;
+}
+
+.Sticky {
+    height: 200px;
 }

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router";
-import { addReview, loadSpotReviews } from "../../store/reviewReducer";
-import { loadSpotDetails } from "../../store/spotReducer";
+import { addReview, loadSpotReviews } from "../../../store/reviewReducer";
+import { loadSpotDetails } from "../../../store/spotReducer";
 
 import "./AddReviewForm.css";
 
@@ -10,8 +10,6 @@ export default function AddReviewForm({ host }) {
     const { spotId } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
-
-    // console.log("AddReviewForm - spotId:", spotId);
 
     const [ review, setReview ] = useState("");
     const [ stars, setStars ] = useState("");

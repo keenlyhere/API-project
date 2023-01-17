@@ -1,5 +1,7 @@
 .AddReviewForm-container {
-    width: 100%;
+    width: 60%;
+    position: sticky;
+    top: 80px;
 }
 
 .AddReviewForm-header {

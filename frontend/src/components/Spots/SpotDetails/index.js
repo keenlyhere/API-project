@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { loadSpotReviews } from "../../../store/reviewReducer";
 import { deleteSpot, loadSpotDetails } from "../../../store/spotReducer";
-import AddReviewForm from "../../AddReviewForm";
+import AddReviewForm from "../../Reviews/AddReviewForm";
 import AllReviews from "../../Reviews/AllReviews";
 
 import "./SpotDetails.css";
@@ -40,100 +40,9 @@ function SpotDetails() {
         history.push("/my-spots");
     }
 
-    // const getMonthYear = (date) => {
-    //     const newDate = new Date(date);
-    //     // console.log("newDate:", newDate);
-    //     const month = newDate.toLocaleString('default', { month: 'long' });
-    //     const year = newDate.getFullYear();
-
-    //     return (
-    //         <p className="Reviews-date">{month} {year}</p>
-    //     )
-    // }
-
     if (spot === undefined) return null;
 
     if (user === undefined) return null;
-
-    // if (reviews === undefined) return null;
-
-    // if (reviews.spot === null) {
-    //     return spot && (
-    //             <div className="SpotDetails-container">
-    //                 <h1 className="SpotDetails-name">{spot.name}</h1>
-    //                 <div className="SpotDetails-subtitle">
-    //                     <div className="SpotDetails-subtitle-left">
-    //                         <p className="SpotDetails-subtitle-text">{spot.numReviews} reviews</p>
-    //                         <p className="SpotDetails-subtitle-text">|</p>
-    //                         <p className="SpotDetails-subtitle-text">{spot.city},{spot.state},{spot.country}</p>
-    //                     </div>
-    //                     { user && spot.ownerId === user.id ? (
-    //                         <div className="SpotDetails-subtitle-right">
-    //                             <button onClick={handleEdits}>Edit Spot</button>
-    //                             <button onClick={handleDelete}>Delete Spot</button>
-    //                         </div>
-    //                     ) : (
-    //                         <div className="SpotDetails-subtitle-right">
-    //                             <p className="SpotDetails-subtitle-text">Share</p>
-    //                             <p className="SpotDetails-subtitle-text">Save</p>
-    //                         </div>
-    //                     ) }
-    //                 </div>
-    //                 <div className="SpotDetails-images">
-    //                     { spot.SpotImages && spot.SpotImages.length > 0 && spot.SpotImages !== "No images for spot" && spot.SpotImages.map(image => (
-    //                             <div className="SpotDetails-images">
-    //                                 <img className="SpotDetails-image" src={image.url} />
-    //                             </div>
-    //                         ))}
-    //                 </div>
-    //         <div className="SpotDetails-main-content">
-    //             <div className="SpotDetails-main-content-left">
-    //                 <div className="SpotDetails-header">
-    //                     <h2 className="SpotDetails-host">Hosted by {spot.Owner.firstName}</h2>
-    //                     <p className="SpotDetails-room-details">{randomNum()} guests | {randomNum()} bedrooms | {randomNum()} beds | {randomNum()} baths</p>
-    //                 </div>
-
-    //                 <div className="SpotDetails-host-details">
-    //                     <p className="SpotDetails-host-details-header">Experienced host</p>
-    //                     <p className="SpotDetails-host-details-desc">{spot.Owner.firstName} has {spot.numReviews} reviews for other places.</p>
-    //                     <p className="SpotDetails-host-details-header">Highly rated Host</p>
-    //                     <p className="SpotDetails-host-details-desc">{spot.Owner.firstName} has received 5-star ratings from 95% of recent guests.</p>
-    //                     <p className="SpotDetails-host-details-header">Great communication</p>
-    //                     <p className="SpotDetails-host-details-desc">100% of recent guests rated {spot.Owner.firstName} 5-star in communication.</p>
-    //                 </div>
-
-    //                 <div className="SpotDetails-description">
-    //                     {spot.description}
-    //                 </div>
-    //             </div>
-    //             <div className="SpotDetails-main-content-right">
-    //                 <AddReviewForm host={spot.Owner.firstName} />
-    //             </div>
-    //         </div>
-
-    //                 <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>
-    //                 {/* <div className="SpotDetails-reviews-container">
-    //                     { reviews && reviews.map((review) => (
-    //                         <div key={review.id} className="SpotDetails-review-card">
-    //                             <p className="Reviews-name">{review.User.firstName}</p>
-    //                             {console.log("REVIEW", review)}
-    //                             <p className="Reviews-date">{getMonthYear(review.createdAt)}</p>
-    //                             <p className="Reviews-small-text">{review.review}</p>
-    //                         </div>
-    //                     ))}
-    //                 </div> */}
-
-    //             </div>
-    //         )
-    // }
-
-    // let actualReviews;
-
-    // if (reviews.spot) {
-    //     actualReviews = Object.values(reviews.spot);
-    //     console.log("actual reviews:", actualReviews)
-    // }
-
 
     return spot && (
         <div className="SpotDetails-container">
@@ -144,9 +53,9 @@ function SpotDetails() {
                         <div className="SpotDetails-subtitle-rating-star"><i class="fa-solid fa-star"></i></div>
                         <p className="SpotDetails-subtitle-text SpotDetails-subtitle-rating-rating"> {spot.avgStarRating.toFixed(2)}</p>
                     </div>
-                    <p className="SpotDetails-subtitle-text">|</p>
+                    <p className="SpotDetails-subtitle-text">·</p>
                     <p className="SpotDetails-subtitle-text">{spot.numReviews} reviews</p>
-                    <p className="SpotDetails-subtitle-text">|</p>
+                    <p className="SpotDetails-subtitle-text">·</p>
                     <p className="SpotDetails-subtitle-text">{spot.city},{spot.state},{spot.country}</p>
                 </div>
                 { user && spot.ownerId === user.id ? (
@@ -172,7 +81,7 @@ function SpotDetails() {
                 <div className="SpotDetails-main-content-left">
                     <div className="SpotDetails-header">
                         <h2 className="SpotDetails-host">Hosted by {spot.Owner.firstName}</h2>
-                        <p className="SpotDetails-room-details">{randomNum()} guests | {randomNum()} bedrooms | {randomNum()} beds | {randomNum()} baths</p>
+                        <p className="SpotDetails-room-details">{randomNum()} guests · {randomNum()} bedrooms · {randomNum()} beds · {randomNum()} baths</p>
                     </div>
 
                     <div className="SpotDetails-host-details">
@@ -194,7 +103,7 @@ function SpotDetails() {
             </div>
 
             <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>
-            <AllReviews spotId={spotId} spot={spot} user={user} />
+                <AllReviews spotId={spotId} spot={spot} user={user} />
             {/* {spot.numReviews === 0 ? (
                 <div className="SpotDetails-reviews-container">No reviews to display.</div>
             ) : (

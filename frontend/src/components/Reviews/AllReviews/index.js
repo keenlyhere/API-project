@@ -1,18 +1,38 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { deleteReview, loadSpotReviews } from "../../../store/reviewReducer";
 import { loadSpotDetails } from "../../../store/spotReducer";
+import OpenModalButton from "../../OpenModalButton";
+import EditReviewModal from "../EditReviewModal";
 
 export default function AllReviews({ spotId, spot, user }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const reviews = useSelector(state => state.reviews);
+    const [ showMenu, setShowMenu ] = useState(false);
+    const ulRef = useRef();
 
     useEffect(() => {
         dispatch(loadSpotReviews(+spotId));
         dispatch(loadSpotDetails(+spotId));
     }, [spotId, dispatch]);
+
+    useEffect(() => {
+        if (!showMenu) return;
+
+        const closeMenu = (e) => {
+            if (!ulRef.current.contains(e.target)) {
+                setShowMenu(false);
+            }
+        }
+
+        document.addEventListener("click", closeMenu);
+
+        return () => document.removeEventListener("click", closeMenu);
+    }, [showMenu])
+
+    const closeMenu = () => setShowMenu(false);
 
     const handleDelete = (reviewId) => {
         dispatch(deleteReview(reviewId));
@@ -30,8 +50,6 @@ export default function AllReviews({ spotId, spot, user }) {
             <p className="Reviews-date">{month} {year}</p>
         )
     }
-
-    console.log("SPOT!!!", spot);
 
     if (spot === undefined) return null;
 
@@ -54,17 +72,23 @@ export default function AllReviews({ spotId, spot, user }) {
                 <div className="SpotDetails-reviews-container">
                     { actualReviews && actualReviews.map((review) => (
                         <div key={review.id} className="SpotDetails-review-card">
-                            <p className="Reviews-name">{review.User.firstName}</p>
                             {console.log("REVIEW", review)}
+                            <p className="Reviews-name">{review.User.firstName}</p>
                             {getMonthYear(review.createdAt)}
                             <p className="Reviews-review-text">{review.review}</p>
                             {user.id === review.User.id ? (
                                 <div className="Reviews-actions">
-                                    <button className="Reviews-buttons">Edit</button>
+                                    <OpenModalButton
+                                        buttonText="Edit"
+                                        onButtonClick={closeMenu}
+                                        modalComponent={<EditReviewModal host={spot.Owner.firstName} reviewId={review.id} spotId={spotId} />}
+                                    />
                                     <button
                                         onClick={() => handleDelete(review.id)}
                                         className="Reviews-buttons"
-                                    >Delete</button>
+                                    >
+                                        Delete
+                                    </button>
                                 </div>
                             ) : ""}
                         </div>
