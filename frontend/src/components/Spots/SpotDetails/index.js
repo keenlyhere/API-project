@@ -44,7 +44,6 @@ function SpotDetails() {
         if (typeof rating === "number") {
             return (
                 <div>
-                    <i class="fa-solid fa-star"></i>
                     {rating.toFixed(2)}
                 </div>
                 );
