@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
-import "./SignupForm.css"
+import "./SignupForm.css";
 
 export default function SignupFormModal() {
     const dispatch = useDispatch();
@@ -37,15 +37,26 @@ export default function SignupFormModal() {
     };
 
     return (
-        <div className="SignupFormModal-container">
-            <form
-                onSubmit={handleSubmit}
-                className="SignupFormModal-form"
-            >
-            <ul>
+        <div className="Form-container">
+            <div className="Form-top">
+                <button
+                    className="Form-close"
+                    onClick={closeModal}
+                >
+                    <i class="fa-sharp fa-solid fa-xmark"></i>
+                </button>
+                <h2 className="Form-create">Sign up</h2>
+            </div>
+            <h1 className="Form-title">Welcome to Deja-Moo</h1>
+            <ul className="Form-errors">
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>
-            <div className="SignupFormModal-group">
+            <form
+                onSubmit={handleSubmit}
+                className="Form-form"
+            >
+            <div className="Form-main-container">
+            <div className="Form-group-top email">
                 <input
                     id="email"
                     type="text"
@@ -57,7 +68,7 @@ export default function SignupFormModal() {
                     Email
                 </label>
             </div>
-            <div className="SignupFormModal-group">
+            <div className="Form-group-middle username">
                 <input
                     id="username"
                     type="text"
@@ -69,7 +80,7 @@ export default function SignupFormModal() {
                     Username
                 </label>
             </div>
-            <div className="SignupFormModal-group">
+            <div className="Form-group-middle firstName">
                 <input
                     id="firstName"
                     type="text"
@@ -81,7 +92,7 @@ export default function SignupFormModal() {
                     First Name
                 </label>
             </div>
-            <div className="SignupFormModal-group">
+            <div className="Form-group-middle lastName">
                 <input
                     id="lastName"
                     type="text"
@@ -93,7 +104,7 @@ export default function SignupFormModal() {
                     Last Name
                 </label>
             </div>
-            <div className="SignupFormModal-group">
+            <div className="Form-group-middle password">
                 <input
                     id="password"
                     type="password"
@@ -105,7 +116,7 @@ export default function SignupFormModal() {
                     Password
                 </label>
             </div>
-            <div className="SignupFormModal-group">
+            <div className="Form-group-bottom confirmPassword">
                 <input
                     id="confirmPassword"
                     type="password"
@@ -117,10 +128,11 @@ export default function SignupFormModal() {
                     Confirm Password
                 </label>
             </div>
-            <div className="SignupFormModal-group">
+            </div>
+            <div className="Form-button-container">
                 <button
                     type="submit"
-                    className="SignupFormModal-submit"
+                    className="Form-submit"
                 >Sign Up</button>
             </div>
             </form>

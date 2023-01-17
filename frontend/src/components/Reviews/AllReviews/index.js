@@ -72,11 +72,11 @@ export default function AllReviews({ spotId, spot, user }) {
                 <div className="SpotDetails-reviews-container">
                     { actualReviews && actualReviews.map((review) => (
                         <div key={review.id} className="SpotDetails-review-card">
-                            {console.log("REVIEW", review)}
+                            {console.log("REVIEW", review.User.firstName)}
                             <p className="Reviews-name">{review.User.firstName}</p>
                             {getMonthYear(review.createdAt)}
                             <p className="Reviews-review-text">{review.review}</p>
-                            {user.id === review.User.id ? (
+                            {user && user.id === review.User.id ? (
                                 <div className="Reviews-actions">
                                     <OpenModalButton
                                         buttonText="Edit"
