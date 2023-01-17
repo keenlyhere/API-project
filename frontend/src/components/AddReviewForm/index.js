@@ -56,6 +56,8 @@ export default function AddReviewForm({ host }) {
             setErrors([...Object.values(data.errors)]);
         }
 
+        setReview("");
+        setStars("");
         setErrors([]);
 
 

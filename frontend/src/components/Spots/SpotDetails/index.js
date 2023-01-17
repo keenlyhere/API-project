@@ -4,6 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { loadSpotReviews } from "../../../store/reviewReducer";
 import { deleteSpot, loadSpotDetails } from "../../../store/spotReducer";
 import AddReviewForm from "../../AddReviewForm";
+import AllReviews from "../../Reviews/AllReviews";
 
 import "./SpotDetails.css";
 
@@ -13,18 +14,18 @@ function SpotDetails() {
     const history = useHistory();
 
     const spot = useSelector(state => state.spots.spot[spotId]);
-    // console.log("SpotDetails - spotById:", spot);
+    console.log("SpotDetails - spotById:", spot);
     const user = useSelector(state => state.session.user);
     // console.log("SpotDetails - user:", user);
-    const reviews = useSelector(state => state.reviews);
+    // const reviews = useSelector(state => state.reviews);
 
 
     // console.log("SpotDetails - reviews:", reviews);
 
     useEffect(() => {
-        dispatch(loadSpotReviews(+spotId));
+        // dispatch(loadSpotReviews(+spotId));
         dispatch(loadSpotDetails(+spotId));
-    }, [spotId, dispatch])
+    }, [spotId, dispatch]);
 
     const randomNum = () => {
         return Math.ceil(Math.random() * 10);
@@ -39,22 +40,22 @@ function SpotDetails() {
         history.push("/my-spots");
     }
 
-    const getMonthYear = (date) => {
-        const newDate = new Date(date);
-        // console.log("newDate:", newDate);
-        const month = newDate.toLocaleString('default', { month: 'long' });
-        const year = newDate.getFullYear();
+    // const getMonthYear = (date) => {
+    //     const newDate = new Date(date);
+    //     // console.log("newDate:", newDate);
+    //     const month = newDate.toLocaleString('default', { month: 'long' });
+    //     const year = newDate.getFullYear();
 
-        return (
-            <p className="Reviews-date">{month} {year}</p>
-        )
-    }
+    //     return (
+    //         <p className="Reviews-date">{month} {year}</p>
+    //     )
+    // }
 
     if (spot === undefined) return null;
 
     if (user === undefined) return null;
 
-    if (reviews === undefined) return null;
+    // if (reviews === undefined) return null;
 
     // if (reviews.spot === null) {
     //     return spot && (
@@ -126,12 +127,12 @@ function SpotDetails() {
     //         )
     // }
 
-    let actualReviews;
+    // let actualReviews;
 
-    if (reviews.spot) {
-        actualReviews = Object.values(reviews.spot);
-        console.log("actual reviews:", actualReviews)
-    }
+    // if (reviews.spot) {
+    //     actualReviews = Object.values(reviews.spot);
+    //     console.log("actual reviews:", actualReviews)
+    // }
 
 
     return spot && (
@@ -139,6 +140,11 @@ function SpotDetails() {
             <h1 className="SpotDetails-name">{spot.name}</h1>
             <div className="SpotDetails-subtitle">
                 <div className="SpotDetails-subtitle-left">
+                    <div className="SpotDetails-subtitle-rating">
+                        <div className="SpotDetails-subtitle-rating-star"><i class="fa-solid fa-star"></i></div>
+                        <p className="SpotDetails-subtitle-text SpotDetails-subtitle-rating-rating"> {spot.avgStarRating.toFixed(2)}</p>
+                    </div>
+                    <p className="SpotDetails-subtitle-text">|</p>
                     <p className="SpotDetails-subtitle-text">{spot.numReviews} reviews</p>
                     <p className="SpotDetails-subtitle-text">|</p>
                     <p className="SpotDetails-subtitle-text">{spot.city},{spot.state},{spot.country}</p>
@@ -188,7 +194,8 @@ function SpotDetails() {
             </div>
 
             <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>
-            {spot.numReviews === 0 ? (
+            <AllReviews spotId={spotId} spot={spot} user={user} />
+            {/* {spot.numReviews === 0 ? (
                 <div className="SpotDetails-reviews-container">No reviews to display.</div>
             ) : (
                 <div className="SpotDetails-reviews-container">
@@ -198,10 +205,16 @@ function SpotDetails() {
                             {console.log("REVIEW", review)}
                             {getMonthYear(review.createdAt)}
                             <p className="Reviews-review-text">{review.review}</p>
+                            {user.id === review.User.id ? (
+                                <div className="Reviews-actions">
+                                    <button className="Reviews-buttons">Edit</button>
+                                    <button className="Reviews-buttons">Delete</button>
+                                </div>
+                            ) : ""}
                         </div>
                     ))}
                 </div>
-            )}
+            )} */}
 
 
         </div>

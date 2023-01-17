@@ -19,8 +19,21 @@
     line-height: 20px;
 }
 
+.SpotDetails-subtitle-rating-rating {
+    padding-right: 18px;
+}
+
 .SpotDetails-subtitle-left > .SpotDetails-subtitle-text {
     padding-right: 18px;
+}
+
+.SpotDetails-subtitle-rating {
+    display: flex;
+    align-items: center;
+}
+
+.SpotDetails-subtitle-rating-star {
+    padding-right: 5px;
 }
 
 .SpotDetails-images {
