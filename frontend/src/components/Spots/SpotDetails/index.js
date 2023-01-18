@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { loadSpotReviews } from "../../../store/reviewReducer";
 import { deleteSpot, loadSpotDetails } from "../../../store/spotReducer";
+import OpenModalButton from "../../OpenModalButton";
 import AddReviewForm from "../../Reviews/AddReviewForm";
 import AllReviews from "../../Reviews/AllReviews";
+import EditSpotForm from "../EditSpot";
 
 import "./SpotDetails.css";
 
@@ -16,11 +18,30 @@ function SpotDetails() {
     const spot = useSelector(state => state.spots.spot[spotId]);
     console.log("SpotDetails - spotById:", spot);
     const user = useSelector(state => state.session.user);
-    // console.log("SpotDetails - user:", user);
-    // const reviews = useSelector(state => state.reviews);
+    const [ showMenu, setShowMenu ] = useState(false);
+    const ulRef = useRef();
 
+    const openMenu = () => {
+        if (showMenu) return;
+        setShowMenu(true);
+    };
 
-    // console.log("SpotDetails - reviews:", reviews);
+    useEffect(() => {
+        if (!showMenu) return;
+
+        const closeMenu = (e) => {
+            if (!ulRef.current.contains(e.target)) {
+                setShowMenu(false);
+            }
+        }
+
+        document.addEventListener("click", closeMenu);
+
+        return () => document.removeEventListener("click", closeMenu);
+    }, [showMenu])
+
+    const closeMenu = () => setShowMenu(false);
+
 
     useEffect(() => {
         // dispatch(loadSpotReviews(+spotId));
@@ -72,7 +93,11 @@ function SpotDetails() {
                 </div>
                 { user && spot.ownerId === user.id ? (
                     <div className="SpotDetails-subtitle-right">
-                        <button onClick={handleEdits}>Edit Spot</button>
+                        <OpenModalButton
+                                buttonText="Edit Spot"
+                                onButtonClick={closeMenu}
+                                modalComponent={<EditSpotForm spot={spot} />}
+                        />
                         <button onClick={handleDelete}>Delete Spot</button>
                     </div>
                 ) : (

@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+import { useModal } from "../../../context/Modal";
 import "../../../Forms.css";
-import { editSpot, loadSpotDetails, addSpotImage } from "../../../store/spotReducer";
+import { editSpot, loadSpotDetails } from "../../../store/spotReducer";
 
-export default function EditSpotForm() {
+export default function EditSpotForm({ spot }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const { spotId } = useParams();
-    const spot = useSelector(state => state.spots.spot[spotId])
+    const { closeModal } = useModal();
+    // const spot = useSelector(state => state.spots.spot[spotId])
     const user = useSelector(state => state.session.user);
 
     const [ address, setAddress ] = useState(spot.address);
@@ -27,40 +29,6 @@ export default function EditSpotForm() {
     useEffect(() => {
         dispatch(loadSpotDetails(Number(spotId)))
     }, [dispatch])
-
-    useEffect(() => {
-        const errors = [];
-
-        if (address && !address.length) {
-            errors.push("Address is required.");
-        }
-
-        if (city && !city.length) {
-            errors.push("City is required.");
-        }
-
-        if (state && !state.length) {
-            errors.push("State is required.");
-        }
-
-        if (country && !country.length) {
-            errors.push("Country is required.");
-        }
-
-        if (name && !name.length) {
-            errors.push("Name is required.")
-        }
-
-        if (description && !description.length) {
-            errors.push("Description is required.")
-        }
-
-        if (price && price < 1) {
-            errors.push("Price per night must be greater than 0.")
-        }
-
-        setErrors(errors);
-    }, [address, city, state, country, lat, lng, name, description, price]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -85,12 +53,6 @@ export default function EditSpotForm() {
                 if (data && data.errors) setErrors(data.errors);
             })
 
-        // const newSpotImage = await dispatch(addSpotImage(editSpotId.id, imageUrl, true))
-        //     .catch(async (res) => {
-        //         const data = await res.json();
-        //         if (data && data.errors) setErrors(data.errors);
-        //     })
-
         console.log("EditSpotForm - editSpotId:", editSpotId);
         history.push(`/spots/${editSpotId.id}`);
 
@@ -108,7 +70,15 @@ export default function EditSpotForm() {
 
     return spot && (
         <div className="Form-container">
-            <h1 className="Form-title">Edit Your Spot!</h1>
+            <div className="Form-top">
+                <button
+                    className="Form-close"
+                    onClick={closeModal}
+                >
+                    <i class="fa-sharp fa-solid fa-xmark"></i>
+                </button>
+                <h2 className="Form-create">Edit Your Spot!</h2>
+            </div>
             <ul className="Form-errors">
                 {errors.map((error, idx) => (
                     <li key={idx}>{error}</li>
@@ -118,7 +88,8 @@ export default function EditSpotForm() {
                 onSubmit={handleSubmit}
                 className="Form-form"
             >
-                <div className="Form-group">
+                <div className="Form-main-container">
+                <div className="Form-group-top address">
                     <input
                         id="address"
                         type="text"
@@ -131,7 +102,7 @@ export default function EditSpotForm() {
                     </label>
                 </div>
 
-                <div className="Form-group">
+                <div className="Form-group-middle city">
                     <input
                         id="city"
                         type="text"
@@ -144,7 +115,7 @@ export default function EditSpotForm() {
                     </label>
                 </div>
 
-                <div className="Form-group">
+                <div className="Form-group-middle state">
                     <input
                         id="state"
                         type="text"
@@ -157,7 +128,7 @@ export default function EditSpotForm() {
                     </label>
                 </div>
 
-                <div className="Form-group">
+                <div className="Form-group-middle country">
                     <input
                         id="country"
                         type="text"
@@ -170,33 +141,34 @@ export default function EditSpotForm() {
                     </label>
                 </div>
 
-                <div className="Form-group">
-                    <input
-                        id="lat"
-                        type="number"
-                        value={lat}
-                        onChange={(e) => setLat(e.target.value)}
-                        required
-                    />
-                    <label htmlFor="lat">
-                        Latitude
-                    </label>
+                <div className="Form-group-middle-latlng">
+                    <div className="lat">
+                        <input
+                            id="lat"
+                            type="number"
+                            value={lat}
+                            onChange={(e) => setLat(e.target.value)}
+                            required
+                        />
+                        <label htmlFor="lat">
+                            Latitude
+                        </label>
+                    </div>
+                    <div className="lng">
+                        <input
+                            id="lng"
+                            type="number"
+                            value={lng}
+                            onChange={(e) => setLng(e.target.value)}
+                            required
+                        />
+                        <label htmlFor="lng">
+                            Longitude
+                        </label>
+                    </div>
                 </div>
 
-                <div className="Form-group">
-                    <input
-                        id="lng"
-                        type="number"
-                        value={lng}
-                        onChange={(e) => setLng(e.target.value)}
-                        required
-                    />
-                    <label htmlFor="lng">
-                        Longitude
-                    </label>
-                </div>
-
-                <div className="Form-group">
+                <div className="Form-group-middle name">
                     <input
                         id="name"
                         type="text"
@@ -209,7 +181,7 @@ export default function EditSpotForm() {
                     </label>
                 </div>
 
-                <div className="Form-group">
+                <div className="Form-group-description description">
                     <textarea
                         className="Form-description"
                         id="description"
@@ -223,7 +195,7 @@ export default function EditSpotForm() {
                     </label>
                 </div>
 
-                <div className="Form-group">
+                <div className="Form-group-bottom price bottom-price">
                     <input
                         id="price"
                         type="number"
@@ -236,20 +208,10 @@ export default function EditSpotForm() {
                     </label>
                 </div>
 
-                {/* <div className="Form-group">
-                    <input
-                        id="image"
-                        type="text"
-                        value={imageUrl}
-                        onChange={(e) => setImageUrl(e.target.value)}
-                        required
-                    />
-                    <label htmlFor="image">
-                        Image
-                    </label>
-                </div> */}
-
-                <button type="submit" className="Form-submit">Edit Spot</button>
+                </div>
+                <div className="Form-button-container">
+                    <button type="submit" className="Form-submit">Edit Spot</button>
+                </div>
 
             </form>
         </div>
