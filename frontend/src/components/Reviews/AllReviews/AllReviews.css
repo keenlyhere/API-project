@@ -8,7 +8,14 @@
 
 .SpotDetails-review-card {
     width: calc(50% - 28px);
-    height: 196px;
+    min-height: 100px;
+    max-height: 196px;
+    display: flex;
+    gap: 18px;
+}
+
+.Reviews-profile-image {
+    padding: 8px;
 }
 
 .Reviews-name {
@@ -24,6 +31,15 @@
 .Reviews-actions {
     display: flex;
     padding-top: 18px;
+    align-items: center;
+    flex-direction: row;
+    gap: 24px;
+    width: 200%;
+}
+
+.Review-action-edit {
+    display: flex;
+    align-items: center;
 }
 
 .Reviews-buttons {

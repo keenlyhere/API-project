@@ -19,7 +19,7 @@
     height: 100%;
     display: flex;
     flex-direction: row;
-    padding: 0px 10px;
+    padding: 0px;
     justify-content: space-between;
     align-items: center;
     color: #000000;
@@ -41,6 +41,16 @@
 
 .Navigation-links:not(:last-child) {
     padding: 0px 10px;
+}
+
+.Navigation-list-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.Navigation-list-modal {
+    font-weight: bold;
 }
 
 .profile-dropdown {
@@ -106,6 +116,7 @@
 .ProfileButton-dropdown-container {
     display: flex;
     flex-direction: column;
+    padding-right: 80px;
 }
 
 .profile-dropdown-logout {
@@ -120,4 +131,14 @@
     padding-top: 8px;
     border-top: 1px solid black;
     /* padding: 0px; */
+}
+
+.Navigation-logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.Navigation-logo {
+    padding-left: 80px;
+    height: 40px;
 }
