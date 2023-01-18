@@ -74,24 +74,35 @@ export default function AllReviews({ spotId, spot, user }) {
                 <div className="SpotDetails-reviews-container">
                     { actualReviews && actualReviews.map((review) => (
                         <div key={review.id} className="SpotDetails-review-card">
-                            <p className="Reviews-name">{review.User.firstName}</p>
-                            {getMonthYear(review.createdAt)}
-                            <p className="Reviews-review-text">{review.review}</p>
-                            {user && user.id === review.User.id ? (
-                                <div className="Reviews-actions">
-                                    <OpenModalButton
-                                        buttonText="Edit"
-                                        onButtonClick={closeMenu}
-                                        modalComponent={<EditReviewModal host={spot.Owner.firstName} reviewId={review.id} spotId={spotId} />}
-                                    />
-                                    <button
-                                        onClick={() => handleDelete(review.id)}
-                                        className="Reviews-buttons"
-                                    >
-                                        Delete
-                                    </button>
-                                </div>
-                            ) : ""}
+                            <div className="Reviews-profile-image">
+                                <i className="fa-solid fa-circle-user user"></i>
+                            </div>
+                            <div className="Reviews-card-right">
+                                <p className="Reviews-name">{review.User.firstName}</p>
+                                {getMonthYear(review.createdAt)}
+                                <p className="Reviews-review-text">{review.review}</p>
+                                {user && user.id === review.User.id ? (
+                                    <div className="Reviews-actions">
+                                        <div className="Review-action-edit">
+                                            <i className="fa-regular fa-pen-to-square"></i>
+                                            <OpenModalButton
+                                                buttonText="Edit"
+                                                onButtonClick={closeMenu}
+                                                modalComponent={<EditReviewModal host={spot.Owner.firstName} reviewId={review.id} spotId={spotId} />}
+                                            />
+                                        </div>
+                                        <div className="Review-action-delete">
+                                            <i className="fa-solid fa-trash"></i>
+                                            <button
+                                                onClick={() => handleDelete(review.id)}
+                                                className="Reviews-buttons"
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                ) : ""}
+                            </div>
                         </div>
                     ))}
                 </div>
