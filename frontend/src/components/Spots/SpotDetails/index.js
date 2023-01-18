@@ -62,7 +62,7 @@ function SpotDetails() {
             <div className="SpotDetails-subtitle">
                 <div className="SpotDetails-subtitle-left">
                     <div className="SpotDetails-subtitle-rating">
-                        <div className="SpotDetails-subtitle-rating-star"><i class="fa-solid fa-star"></i></div>
+                        <div className="SpotDetails-subtitle-rating-star"><i className="fa-solid fa-star"></i></div>
                         <p className="SpotDetails-subtitle-text SpotDetails-subtitle-rating-rating"> {starRating(spot.avgStarRating)}</p>
                     </div>
                     <p className="SpotDetails-subtitle-text">·</p>

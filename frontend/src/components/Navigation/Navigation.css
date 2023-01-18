@@ -51,12 +51,13 @@
     list-style-type: none;
     font-size: 12px;
     position: absolute;
-    right: 5px;
-    top: 30px;
+    right: 10px;
+    top: 70px;
     background-color: #ffffff;
-    border: 1px solid #a5a5a5;
+    /* border: 1px solid #a5a5a5; */
+    box-shadow: 0 0 12px 0 #c4c4c4;
     border-radius: 8px;
-    padding: 10px;
+    padding: 8px 0px;
 }
 
 .hidden {
@@ -64,15 +65,42 @@
 }
 
 .profile-dropdown-links {
-    padding: 5px 0px;
-    position: relative;
+    padding: 5px 18px;
+    height: 42px;
+    display: flex;
+    align-items: center;
 }
 
-.ProfileButton-icon {
+.profile-dropdown-links:hover {
+    background-color: #f7f7f7;
+}
+
+.ProfileButton-icons {
     width: 100%;
     background: none;
     border: none;
     align-self: flex-end;
+    border: 1px solid #c4c4c4;
+    border-radius: 21px;
+    padding: 5px 5px 5px 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: box-shadow 0.2s ease;
+}
+
+.ProfileButton-icons:hover,
+.ProfileButton-icons:focus {
+    box-shadow: 0 2px 3px 0 #c4c4c4;
+}
+
+.hamburger {
+    padding: 8px;
+}
+
+.user {
+    font-size: 24px;
+    padding-right: 3px;
 }
 
 .ProfileButton-dropdown-container {
@@ -85,4 +113,11 @@
     border: 0;
     font-size: 12px;
     padding: 0;
+}
+
+.profile-dropdown-divide {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid black;
+    /* padding: 0px; */
 }

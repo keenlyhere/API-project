@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router";
-import { addReview, loadSpotReviews } from "../../../store/reviewReducer";
+import { addReview, addReviewImage, loadSpotReviews } from "../../../store/reviewReducer";
 import { loadSpotDetails } from "../../../store/spotReducer";
 
 import "./AddReviewForm.css";
@@ -13,6 +13,7 @@ export default function AddReviewForm({ host }) {
 
     const [ review, setReview ] = useState("");
     const [ stars, setStars ] = useState("");
+    const [ reviewImageUrl, setReviewImageUrl ] = useState("");
 
     const [ errors, setErrors ] = useState([]);
 
@@ -38,6 +39,10 @@ export default function AddReviewForm({ host }) {
             stars
         };
 
+        const newReviewImage = {
+            reviewImageUrl
+        }
+
         let sendNewReview;
 
         console.log("newReview:", newReview);
@@ -47,6 +52,9 @@ export default function AddReviewForm({ host }) {
             // console.log("AddReviewForm - sendNewReview:", sendNewReview);
             dispatch(loadSpotDetails(+spotId));
             dispatch(loadSpotReviews(+spotId));
+            if (newReviewImage.length) {
+                const newReviewImage = await dispatch(addReviewImage(sendNewReview.id, reviewImageUrl))
+            }
             history.push(`/spots/${spotId}`);
         } catch(err) {
             const data = await err.json();
@@ -92,6 +100,17 @@ export default function AddReviewForm({ host }) {
                     type="number"
                     value={stars}
                     onChange={(e) => setStars(e.target.value)}
+                    required
+                />
+            </div>
+            <div className="AddReviewForm-group">
+                <p className="AddReviewForm-subheader">Add a review image:</p>
+                <input
+                className="AddReviewForm-image"
+                    id="image"
+                    type="text"
+                    value={reviewImageUrl}
+                    onChange={(e) => setReviewImageUrl(e.target.value)}
                     required
                 />
             </div>

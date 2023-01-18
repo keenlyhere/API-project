@@ -54,6 +54,14 @@ export const actionEditReview = (reviewId, review) => {
     }
 }
 
+export const actionAddReviewImage = (reviewId, url) => {
+    return {
+        type: ADD_REVIEW_IMAGE,
+        reviewId,
+        url
+    }
+}
+
 // thunk actions
 export const loadUserReviews = (userId) => async (dispatch) => {
     const res = await csrfFetch("/api/reviews/current");
@@ -120,6 +128,23 @@ export const editReview = (reviewId, review) => async (dispatch) => {
     }
 }
 
+export const addReviewImage = (reviewId, url) => async (dispatch) => {
+    const res = await csrfFetch(`/api/reviews/${reviewId}/images`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            url
+        })
+    })
+
+    if (res.ok) {
+        const reviewImage = await res.json();
+        console.log("addReviewImage - reviewImage:", reviewImage);
+        dispatch(actionAddReviewImage(+reviewId, url));
+        return reviewImage;
+    }
+}
+
 const initialState = {
     spot: {},
     user: {}
@@ -160,6 +185,13 @@ export default function reviewReducer(state = initialState, action) {
             editReviewState.spot = { ...state.spot, [action.reviewId]: { ...state.spot[action.reviewId], review: action.review.review, stars: action.review.stars} };
             editReviewState.user = { ...state.user, [action.reviewId]: action.review };
             return editReviewState;
+        }
+        case ADD_REVIEW_IMAGE: {
+            const addReviewImageState = { ...state };
+            // console.log("ADD_REVIEW_IMAGE - addReviewImageState:", addReviewImageState);
+            addReviewImageState.spot = { ...state.spot, [action.reviewId]: { ...state.spot[action.reviewId]}};
+            addReviewImageState.spot[action.reviewId].ReviewImages = { ...state.spot.ReviewImages, ...action.url }
+            return addReviewImageState;
         }
         default:
             return state;

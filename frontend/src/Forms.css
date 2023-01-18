@@ -4,9 +4,34 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     width: 400px;
     gap: 20px;
+}
+
+.Form-top {
+    height: 48px;
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0px;
+    position: absolute;
+    top: 0px;
+}
+
+.Form-close {
+    position: relative;
+    top: 15px;
+    left: 20px;
+    background: none;
+    border: 0;
+}
+
+.Form-create {
+    position: absolute;
+    top: 15px;
+    left: 150px;
+    font-size: 16px;
+    font-weight: 900;
+    background: none;
 }
 
 .Form-errors {
@@ -17,37 +42,185 @@
 }
 
 .Form-title {
-    padding-bottom: 20px;
+    font-size: 22px;
+    font-weight: 500;
+    margin: 100px 18px 0px 18px;
 }
 
 .Form-form {
     width: 100%;
 }
 
-.Form-group {
-    margin: 0px 5px 18px 5px;
+.Form-main-container {
+    border: 1px solid #c4c4c4;
+    border-radius: 8px;
+    margin: 10px 18px 0px 18px;
+}
+
+.Form-group-top {
     position: relative;
+    display: flex;
+    height: 48px;
 }
 
-.Form-form input {
-    border: none;
-    border-bottom: 2px solid #bbb;
-    outline: none;
-    padding: 0;
+.Form-group-middle {
+    position: relative;
+    display: flex;
+    height: 48px;
 }
 
-.Form-description {
+.Form-group-description {
+    position: relative;
+    display: flex;
+    height: 88px;
+}
+
+.Form-group-bottom {
+    position: relative;
+    display: flex;
+    height: 48px;
+}
+
+.Form-group-top > input {
+    height: 48px;
     width: 100%;
-    height: 80px;
-    padding: 0;
     border: none;
-    border-bottom: 2px solid #bbb;
+    border-bottom: 0;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.Form-group-middle > input {
+    height: 48px;
+    width: 100%;
+    border: 0;
+    border-top: 1px solid #c4c4c4;
+    padding: 8px;
+}
+
+.Form-group-middle-latlng {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    height: 48px;
+}
+
+.lat, .lng {
+    width: 50%;
+}
+
+.lat > input:valid + label {
+    position: absolute;
+    height: 48px;
+    align-items: center;
+    padding-top: 7px;
+    left: 27px;
+    color: #878787;
+    transition: 0.2s ease-in-out;
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.lng > input:valid + label {
+    position: absolute;
+    height: 48px;
+    align-items: center;
+    padding-top: 7px;
+    left: 208px;
+    color: #878787;
+    transition: 0.2s ease-in-out;
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.lat > input {
+    height: 48px;
+    width: 100%;
+    border: 0;
+    border-top: 1px solid #c4c4c4;
+    border-right: 1px solid #c4c4c4;
+    padding: 8px;
+}
+
+.lng > input {
+    height: 48px;
+    width: 100%;
+    border: 0;
+    border-top: 1px solid #c4c4c4;
+    padding: 8px;
+}
+
+.Form-group-description > textarea {
+    width: 100%;
+    height: 88px;
+    padding: 8px;
+    padding-top: 17px;
+    border: 0;
     resize: none;
     outline: none;
-    padding-top: 7px;
+    border-top: 1px solid #c4c4c4;
 }
 
-label {
+.Form-group-bottom > input {
+    height: 48px;
+    width: 100%;
+    border: 0;
+    border-top: 1px solid #c4c4c4;
+    border-radius: 8px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.address label,
+.city label,
+.state label,
+.country label,
+.name label,
+.description label,
+.price label,
+.image label {
+    position: absolute;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    color: #878787;
+    transition: 0.2s ease-in-out;
+    padding: 2px;
+    padding-left: 8px;
+    font-size: 13px;
+    transition: 0.2s ease-in-out;
+}
+
+.Form-group-top > input:focus + label,
+.Form-group-middle > input:focus + label,
+.Form-group-bottom > input:focus + label,
+.Form-group-description > textarea:focus + label {
+    color:#878787;
+    font-size: 8px;
+    top: -13px;
+}
+
+.Form-group-top > input:focus + label,
+.Form-group-middle > input:focus + label,
+.Form-group-bottom > input:focus + label,
+.lng > input:focus + label,
+.Form-group-description > textarea:focus + label,
+.Form-group-top > input:valid + label,
+.Form-group-middle > input:valid + label,
+.Form-group-bottom > input:valid + label,
+.Form-group-description > textarea:valid + label {
+    color:#878787;
+    font-size: 8px;
+    top: -13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* label {
     position: absolute;
     display: flex;
     top: 0;
@@ -93,15 +266,24 @@ input:focus,
 textarea:focus {
     border-bottom: 2px solid #ff385c;
     outline: 0;
+} */
+
+.Form-button-container {
+    margin: 20px 18px 0px 18px;
 }
 
 .Form-submit {
-    background-color: #ff385c;
-    width: 100%;
-    border: none;
-    border-radius: 5px;
     height: 48px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(230,29,77,1) 0%, rgba(215,4,102,1) 100%);
+    border-radius: 8px;
+    border: none;
     color: #ffffff;
-    font-weight: bold;
+    font-weight: 500;
+    font-size: 16px;
     padding: 0;
+}
+
+.Form-submit:hover {
+    background: radial-gradient(circle, rgba(230,29,77,1) 0%, rgba(215,4,102,1) 100%);
 }
