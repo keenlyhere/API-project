@@ -52,8 +52,8 @@ export default function CreateSpotForm() {
                 if (data && data.errors) setErrors(data.errors);
             })
 
-        // history.push(`/spots/${newSpotId.id}`);
         closeModal();
+        history.push(`/spots/${newSpotId.id}`);
 
     }
 
