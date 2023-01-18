@@ -4,32 +4,29 @@ import { useModal } from "../../../context/Modal";
 import { editReview, loadSpotReviews } from "../../../store/reviewReducer";
 import { loadSpotDetails } from "../../../store/spotReducer";
 
-import "../AddReviewForm/AddReviewForm.css";
+import "./EditReviewForm.css";
 
 export default function EditReviewModal({ host, reviewId, spotId }) {
     const dispatch = useDispatch();
-    // const history = useHistory();
     const reviews = useSelector(state => state.reviews);
 
     const [ review, setReview ] = useState(reviews.spot[reviewId].review);
     const [ stars, setStars ] = useState(reviews.spot[reviewId].stars);
 
+    const [ on, setOn ] = useState(false);
+
     const [ errors, setErrors ] = useState([]);
     const { closeModal } = useModal();
 
-    useEffect(() => {
-        const errors = [];
-
-        if (review && !review.length) {
-            errors.push("Please enter a review.");
+    const starClickHandler = (idx) => {
+        if (idx <= stars) {
+            setOn(true);
+        } else {
+            setOn(false);
         }
 
-        if (stars && (stars < 1 || stars > 5)) {
-            errors.push("Star rating should be between 1 and 5.")
-        }
-
-        setErrors(errors);
-    }, [review, stars])
+        setStars(idx)
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -51,7 +48,7 @@ export default function EditReviewModal({ host, reviewId, spotId }) {
             .then(closeModal);
         } catch(err) {
             const data = await err.json();
-            console.log("AddReviewForm - err data:", data);
+            console.log("EditReviewForm - err data:", data);
             setErrors([...Object.values(data.errors)]);
         }
 
@@ -62,21 +59,31 @@ export default function EditReviewModal({ host, reviewId, spotId }) {
 
     }
     return (
-        <div className="AddReviewForm-container">
-            <h1 className="AddReviewForm-header">Leave a public review</h1>
-            <p className="AddReviewForm-subheader">{`Write a fair and honest review about your stay at ${host}'s home so future guests know what to expect.`}</p>
+        <div className="EditReviewForm-container">
             <form
                 onSubmit={handleSubmit}
-                className="AddReviewForm-form"
+                className="EditReviewForm-form"
             >
+            <div className="EditReviewForm-top">
+                <button
+                    className="EditReviewForm-close"
+                    onClick={closeModal}
+                >
+                    <i className="fa-sharp fa-solid fa-xmark"></i>
+                </button>
+                <h2 className="EditReviewForm-create">Leave a public review</h2>
+            </div>
+
+            <div className="EditReviewForm-main-container">
+            <p className="EditReviewForm-subheader-review">{`Write a fair and honest review about your stay at ${host}'s home so future guests know what to expect.`}</p>
             <ul className="Form-errors">
                 {errors.map((error, idx) => (
                     <li key={idx}>{error}</li>
                 ))}
             </ul>
-            <div className="AddReviewForm-group">
+            <div className="EditReviewForm-group">
                 <textarea
-                className="AddReviewForm-review"
+                className="EditReviewForm-review"
                     id="review"
                     type="text"
                     value={review}
@@ -85,20 +92,28 @@ export default function EditReviewModal({ host, reviewId, spotId }) {
                     placeholder="Say a few words about your stay!"
                 />
             </div>
-            <div className="AddReviewForm-group">
-                <p className="AddReviewForm-subheader">Enter a star rating:</p>
-                <input
-                className="AddReviewForm-stars"
-                    id="stars"
-                    type="number"
-                    value={stars}
-                    onChange={(e) => setStars(e.target.value)}
-                    required
-                />
+            <div className="EditReviewForm-group">
+                <p className="EditReviewForm-subheader-star">Enter a star rating:</p>
+                <div className="EditReviewForm-stars-container">
+                    {[1, 2, 3, 4, 5].map((star, idx) => {
+                        idx++;
+                        {console.log("idx", idx)}
+                        return (
+                            <div
+                                className={idx <= stars ? "on" : "off"}
+                                onClick={() => starClickHandler(idx)}
+                                >
+                                    ★
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
             </div>
 
-            <button type="submit" className="AddReviewForm-submit">Create Review</button>
-
+                <div className="EditReviewForm-button-container">
+                    <button type="submit" className="EditReviewForm-submit">Edit Review</button>
+                </div>
             </form>
         </div>
     )
