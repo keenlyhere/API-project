@@ -41,7 +41,7 @@ export default function AllSpots() {
 
     const fixedPrice = (price) => {
         if (price) {
-            const newPrice = price.toFixed(2);
+            const newPrice = Math.round(+price);
             return newPrice;
         }
 
