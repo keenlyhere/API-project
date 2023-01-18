@@ -117,16 +117,23 @@ function SpotDetails() {
                 </div>
                 { user && spot.ownerId === user.id ? (
                     <div className="SpotDetails-subtitle-right">
-                        <OpenModalButton
-                                buttonText="Edit Spot"
+                        <div className="SpotDetails-subtitle-group">
+                            <i className="fa-regular fa-pen-to-square"></i>
+                            <OpenModalButton
+                                    buttonText="Edit Spot"
+                                    onButtonClick={closeMenu}
+                                    modalComponent={<EditSpotForm spot={spot} />}
+                            />
+                        </div>
+                        <div className="SpotDetails-subtitle-group delete">
+                            <i className="fa-solid fa-trash"></i>
+                            <OpenModalButton
+                                buttonText="Delete Spot"
                                 onButtonClick={closeMenu}
-                                modalComponent={<EditSpotForm spot={spot} />}
-                        />
-                        <OpenModalButton
-                            buttonText="Delete Spot"
-                            onButtonClick={closeMenu}
-                            modalComponent={<ConfirmDelete host={spot.Owner.firstName} spotId={spotId} user={user} />}
-                        />
+                                modalComponent={<ConfirmDelete host={spot.Owner.firstName} spotId={spotId} user={user} />
+                            }
+                            />
+                        </div>
                     </div>
                 ) : (
                     <div className="SpotDetails-subtitle-right">

@@ -36,6 +36,12 @@
     padding-right: 5px;
 }
 
+.SpotDetails-subtitle-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .SpotDetails-images {
     display: flex;
     justify-content: center;
@@ -189,6 +195,10 @@
 
 .SpotDetails-subtitle-right > .SpotDetails-subtitle-text:last-child {
     padding-left: 18px;
+}
+
+.SpotDetails-subtitle-right {
+    gap: 24px;
 }
 
 .SpotDetails-reviews-num {
