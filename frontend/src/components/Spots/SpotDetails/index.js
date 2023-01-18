@@ -168,12 +168,33 @@ function SpotDetails() {
                     </div>
 
                     <div className="SpotDetails-host-details">
-                        <p className="SpotDetails-host-details-header">Experienced host</p>
-                        <p className="SpotDetails-host-details-desc">{spot.Owner.firstName} has {spot.numReviews} reviews for other places.</p>
-                        <p className="SpotDetails-host-details-header">Highly rated Host</p>
-                        <p className="SpotDetails-host-details-desc">{spot.Owner.firstName} has received 5-star ratings from 95% of recent guests.</p>
-                        <p className="SpotDetails-host-details-header">Great communication</p>
-                        <p className="SpotDetails-host-details-desc">100% of recent guests rated {spot.Owner.firstName} 5-star in communication.</p>
+                        <div className="SpotDetails-host-details-container">
+                            <div className="SpotDetails-icon">
+                                <i class="fa-solid fa-door-closed"></i>
+                            </div>
+                            <div className="SpotDetails-host-details-main">
+                                <p className="SpotDetails-host-details-header">Self check-in</p>
+                                <p className="SpotDetails-host-details-desc">Check yourself in with the lockbox.</p>
+                            </div>
+                        </div>
+                        <div className="SpotDetails-host-details-container">
+                            <div className="SpotDetails-icon">
+                                <i class="fa-sharp fa-solid fa-medal"></i>
+                            </div>
+                            <div className="SpotDetails-host-details-main">
+                                <p className="SpotDetails-host-details-header">{spot.Owner.firstName} is a Superhost</p>
+                                <p className="SpotDetails-host-details-desc">Superhosts are experienced, highly rated hosts who are committed to providing great stays for guests.</p>
+                            </div>
+                        </div>
+                        <div className="SpotDetails-host-details-container">
+                            <div className="SpotDetails-icon">
+                                <i class="fa-regular fa-message"></i>
+                            </div>
+                            <div className="SpotDetails-host-details-main">
+                                <p className="SpotDetails-host-details-header">Great communication</p>
+                                <p className="SpotDetails-host-details-desc">100% of recent guests rated {spot.Owner.firstName} 5-star in communication.</p>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="SpotDetails-description">

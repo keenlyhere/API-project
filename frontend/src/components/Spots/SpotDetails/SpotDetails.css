@@ -149,6 +149,17 @@
     margin-bottom: 10px;
 }
 
+.SpotDetails-host-details-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.SpotDetails-icon {
+    font-size: 20px;
+}
+
 .SpotDetails-header, .SpotDetails-host-details, .SpotDetails-description, .SpotDetails-reviews-container {
     padding: 32px 0px;
 }
@@ -161,6 +172,13 @@
     font-size: 16px;
     font-weight: bold;
     padding-bottom: 8px;
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+}
+
+.SpotDetails-host-details-desc {
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
 }
 
 .SpotDetails-host-details-desc, .Reviews-date {
