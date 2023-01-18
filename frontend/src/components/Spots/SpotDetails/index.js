@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { loadSpotReviews } from "../../../store/reviewReducer";
 import { deleteSpot, loadSpotDetails } from "../../../store/spotReducer";
+import Footer from "../../Footer";
 import OpenModalButton from "../../OpenModalButton";
 import AddReviewForm from "../../Reviews/AddReviewForm";
 import AllReviews from "../../Reviews/AllReviews";
+import ConfirmDelete from "../ConfirmDelete";
 import EditSpotForm from "../EditSpot";
 
 import "./SpotDetails.css";
@@ -38,7 +40,7 @@ function SpotDetails() {
         document.addEventListener("click", closeMenu);
 
         return () => document.removeEventListener("click", closeMenu);
-    }, [showMenu])
+    }, [showMenu]);
 
     const closeMenu = () => setShowMenu(false);
 
@@ -82,7 +84,7 @@ function SpotDetails() {
         "https://images.pexels.com/photos/12776422/pexels-photo-12776422.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/4910769/pexels-photo-4910769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/10549901/pexels-photo-10549901.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        ""
+        "https://images.pexels.com/photos/4909803/pexels-photo-4909803.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         ];
 
     if (spot) {
@@ -118,12 +120,11 @@ function SpotDetails() {
                                 onButtonClick={closeMenu}
                                 modalComponent={<EditSpotForm spot={spot} />}
                         />
-                        <button
-                            onClick={handleDelete}
-                            className="SpotDetails-delete-button"
-                        >
-                            Delete Spot
-                        </button>
+                        <OpenModalButton
+                            buttonText="Delete Spot"
+                            onButtonClick={closeMenu}
+                            modalComponent={<ConfirmDelete host={spot.Owner.firstName} spotId={spotId} user={user} />}
+                        />
                     </div>
                 ) : (
                     <div className="SpotDetails-subtitle-right">
