@@ -77,7 +77,13 @@ function SpotDetails() {
 
     if (user === undefined) return null;
 
-    let altImages = ["https://images.pexels.com/photos/422218/pexels-photo-422218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/12776422/pexels-photo-12776422.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/4910769/pexels-photo-4910769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"];
+    let altImages = [
+        "https://images.pexels.com/photos/422218/pexels-photo-422218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/12776422/pexels-photo-12776422.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/4910769/pexels-photo-4910769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/10549901/pexels-photo-10549901.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        ""
+        ];
 
     if (spot) {
         if (spot.SpotImages.length === 1 && spot.SpotImages !== "No images for spot") {
@@ -112,7 +118,12 @@ function SpotDetails() {
                                 onButtonClick={closeMenu}
                                 modalComponent={<EditSpotForm spot={spot} />}
                         />
-                        <button onClick={handleDelete}>Delete Spot</button>
+                        <button
+                            onClick={handleDelete}
+                            className="SpotDetails-delete-button"
+                        >
+                            Delete Spot
+                        </button>
                     </div>
                 ) : (
                     <div className="SpotDetails-subtitle-right">
@@ -129,11 +140,9 @@ function SpotDetails() {
                     ))}
             </div> */}
                 { altImages.length === 1 ? (
-                    // <div className="SpotDetails-images">
                         <div className="SpotDetails-one-image">
                             <img className="SpotDetails-image" src={altImages[0]} />
                         </div>
-                    // </div>
                     ) : (
                         <div className="SpotDetails-images">
                             <div className="SpotDetails-main">
@@ -141,7 +150,9 @@ function SpotDetails() {
                             </div>
                             <div className="SpotDetails-small-images">
                                 {altImages.slice(1, 5).map(image => (
-                                    <img className="SpotDetails-small-image" src={image} />
+                                    <div className="SpotDetails-small-image-container">
+                                        <img className="SpotDetails-small-image" src={image} />
+                                    </div>
                                 ))}
                             </div>
                         </div>
