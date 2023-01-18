@@ -52,11 +52,11 @@
 }
 
 .SpotDetails-header, .SpotDetails-host-details {
-    border-bottom: 1px solid #717171;
+    border-bottom: 1px solid #dddddd;
 }
 
 .SpotDetails-reviews-num {
-    border-top: 1px solid #717171;
+    border-top: 1px solid #dddddd;
 }
 
 .SpotDetails-main-content-left {

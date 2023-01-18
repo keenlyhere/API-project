@@ -57,7 +57,7 @@ export default function AllSpots() {
                                 </p>
                             </div>
                             <div className="Spots-footer">
-                                <span className="Spots-price">${spot.price}</span> night
+                                <span className="Spots-price">${spot.price.toFixed(2)}</span> night
                             </div>
                         </div>
                     </div>
