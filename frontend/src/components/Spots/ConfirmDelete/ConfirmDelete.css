@@ -1,0 +1,59 @@
+.ConfirmDelete-container {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 400px;
+    gap: 10px;
+}
+
+.ConfirmDelete-top {
+    height: 48px;
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0px;
+    position: absolute;
+    top: 0px;
+}
+
+.ConfirmDelete-close {
+    position: relative;
+    top: 15px;
+    left: 20px;
+    background: none;
+    border: 0;
+}
+
+.ConfirmDelete-top-header {
+    position: absolute;
+    top: 15px;
+    left: 150px;
+    font-size: 16px;
+    font-weight: 900;
+    background: none;
+}
+
+.ConfirmDelete-message {
+    padding: 68px 18px 20px 18px;
+    font-size: 14px;
+}
+
+.ConfirmDelete-button-container {
+    margin: 0px 18px 0px 18px;
+}
+
+.ConfirmDelete-delete-button {
+    height: 48px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(230,29,77,1) 0%, rgba(215,4,102,1) 100%);
+    border-radius: 8px;
+    border: none;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0;
+}
+
+.ConfirmDelete-delete-button:hover {
+    background: radial-gradient(circle, rgba(230,29,77,1) 0%, rgba(215,4,102,1) 100%);
+}

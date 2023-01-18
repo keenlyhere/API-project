@@ -5,29 +5,26 @@
 }
 
 .Spots-container {
-    width: 100%;
+    margin: auto;
+    width: 90%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
     gap: 18px;
     padding: 20px;
 }
 
 .Spots-card {
     height: 380px;
-    /* display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 7fr 1fr 1fr 1fr;
-    gap: 5px; */
     display: flex;
     flex-direction: column;
 }
 
 .Spots-card-image {
     width: 100%;
-    height: 100%;
-    grid-column: 1 / 4;
+    /* grid-column: 1 / 4; */
     overflow: hidden;
     border-radius: 18px;
+    aspect-ratio: 1;
 }
 
 .Spots-image {
@@ -41,8 +38,7 @@
 .Spots-card-description {
     width: calc(100% - 16px);
     padding: 8px;
-    grid-column: 1 / 4;
-    grid-row: 2 / 5;
+    /* grid-column: 1 / 4; */
 }
 
 .Spots-header {

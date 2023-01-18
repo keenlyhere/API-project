@@ -195,6 +195,10 @@
     transition: 0.2s ease-in-out;
 }
 
+.image input {
+    padding-left: 8px;
+}
+
 .Form-group-top > input:focus + label,
 .Form-group-middle > input:focus + label,
 .Form-group-bottom > input:focus + label,
