@@ -51,7 +51,7 @@
     border-radius: 5px;
     resize: none;
     outline: none;
-    padding-top: 7px;
+    padding-top: 17px;
     margin: 8px 0px;
 }
 
@@ -64,9 +64,13 @@
 }
 
 .on {
-    color: black;
+    color: #e61d4d;
+    font-size: 21px;
+    padding: 3px;
 }
 
 .off {
     color:#b0b0b0;
+    font-size: 21px;
+    padding: 3px;
 }

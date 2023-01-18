@@ -29,6 +29,17 @@ export default function LoginFormModal() {
             });
     }
 
+    const handleDemo = (e) => {
+        e.preventDefault();
+        setErrors([]);
+        return dispatch(sessionActions.login({ credential: "Demo-lition", password: "password" }))
+            .then(closeModal)
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors);
+            });
+    }
+
     return (
         <div className="LoginFormModal-container">
             <div className="LoginFormModal-top">
@@ -76,6 +87,15 @@ export default function LoginFormModal() {
                         className="LoginFormModal-submit"
                     >
                         Log In
+                    </button>
+                </div>
+                <div className="LoginFormModal-button-container">
+                    <button
+                        type="submit"
+                        className="LoginFormModal-demo"
+                        onClick={handleDemo}
+                    >
+                        Demo
                     </button>
                 </div>
             </form>

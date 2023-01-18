@@ -19,12 +19,6 @@ export default function AddReviewForm({ host }) {
 
     const [ errors, setErrors ] = useState([]);
 
-    console.log("stars.........", stars)
-
-    useEffect(() => {
-        console.log("on")
-    }, [on])
-
     const starClickHandler = (idx) => {
         if (idx <= stars) {
             setOn(true);
