@@ -42,10 +42,16 @@ export default function ConfirmDelete({ host, spotId, user }) {
             </p>
             <div className="ConfirmDelete-button-container">
                 <button
+                    onClick={closeModal}
+                    className="ConfirmDelete-cancel-button"
+                >
+                    Cancel
+                </button>
+                <button
                     onClick={handleDelete}
                     className="ConfirmDelete-delete-button"
                 >
-                    Delete
+                    Delete Spot
                 </button>
             </div>
         </div>

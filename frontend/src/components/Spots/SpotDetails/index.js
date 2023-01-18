@@ -66,12 +66,15 @@ function SpotDetails() {
     const starRating = (rating) => {
         if (typeof rating === "number") {
             return (
-                <div>
-                    {rating.toFixed(2)}
+                <div className="SpotDetails-subtitle-rating">
+                    <div className="SpotDetails-subtitle-rating-star"><i className="fa-solid fa-star"></i></div>
+                    <p className="SpotDetails-subtitle-text SpotDetails-subtitle-rating-rating"> {rating.toFixed(2)}</p>
                 </div>
                 );
         } else {
-            return "";
+            return (
+                <p className="SpotDetails-subtitle-text SpotDetails-subtitle-rating-rating">No rating yet</p>
+            );
         }
     }
 
@@ -105,8 +108,7 @@ function SpotDetails() {
             <div className="SpotDetails-subtitle">
                 <div className="SpotDetails-subtitle-left">
                     <div className="SpotDetails-subtitle-rating">
-                        <div className="SpotDetails-subtitle-rating-star"><i className="fa-solid fa-star"></i></div>
-                        <p className="SpotDetails-subtitle-text SpotDetails-subtitle-rating-rating"> {starRating(spot.avgStarRating)}</p>
+                        {starRating(spot.avgStarRating)}
                     </div>
                     <p className="SpotDetails-subtitle-text">·</p>
                     <p className="SpotDetails-subtitle-text">{spot.numReviews} reviews</p>
@@ -115,16 +117,23 @@ function SpotDetails() {
                 </div>
                 { user && spot.ownerId === user.id ? (
                     <div className="SpotDetails-subtitle-right">
-                        <OpenModalButton
-                                buttonText="Edit Spot"
+                        <div className="SpotDetails-subtitle-group">
+                            <i className="fa-regular fa-pen-to-square"></i>
+                            <OpenModalButton
+                                    buttonText="Edit Spot"
+                                    onButtonClick={closeMenu}
+                                    modalComponent={<EditSpotForm spot={spot} />}
+                            />
+                        </div>
+                        <div className="SpotDetails-subtitle-group delete">
+                            <i className="fa-solid fa-trash"></i>
+                            <OpenModalButton
+                                buttonText="Delete Spot"
                                 onButtonClick={closeMenu}
-                                modalComponent={<EditSpotForm spot={spot} />}
-                        />
-                        <OpenModalButton
-                            buttonText="Delete Spot"
-                            onButtonClick={closeMenu}
-                            modalComponent={<ConfirmDelete host={spot.Owner.firstName} spotId={spotId} user={user} />}
-                        />
+                                modalComponent={<ConfirmDelete host={spot.Owner.firstName} spotId={spotId} user={user} />
+                            }
+                            />
+                        </div>
                     </div>
                 ) : (
                     <div className="SpotDetails-subtitle-right">
@@ -166,21 +175,44 @@ function SpotDetails() {
                     </div>
 
                     <div className="SpotDetails-host-details">
-                        <p className="SpotDetails-host-details-header">Experienced host</p>
-                        <p className="SpotDetails-host-details-desc">{spot.Owner.firstName} has {spot.numReviews} reviews for other places.</p>
-                        <p className="SpotDetails-host-details-header">Highly rated Host</p>
-                        <p className="SpotDetails-host-details-desc">{spot.Owner.firstName} has received 5-star ratings from 95% of recent guests.</p>
-                        <p className="SpotDetails-host-details-header">Great communication</p>
-                        <p className="SpotDetails-host-details-desc">100% of recent guests rated {spot.Owner.firstName} 5-star in communication.</p>
+                        <div className="SpotDetails-host-details-container">
+                            <div className="SpotDetails-icon">
+                                <i class="fa-solid fa-door-closed"></i>
+                            </div>
+                            <div className="SpotDetails-host-details-main">
+                                <p className="SpotDetails-host-details-header">Self check-in</p>
+                                <p className="SpotDetails-host-details-desc">Check yourself in with the lockbox.</p>
+                            </div>
+                        </div>
+                        <div className="SpotDetails-host-details-container">
+                            <div className="SpotDetails-icon">
+                                <i class="fa-sharp fa-solid fa-medal"></i>
+                            </div>
+                            <div className="SpotDetails-host-details-main">
+                                <p className="SpotDetails-host-details-header">{spot.Owner.firstName} is a Superhost</p>
+                                <p className="SpotDetails-host-details-desc">Superhosts are experienced, highly rated hosts who are committed to providing great stays for guests.</p>
+                            </div>
+                        </div>
+                        <div className="SpotDetails-host-details-container">
+                            <div className="SpotDetails-icon">
+                                <i class="fa-regular fa-message"></i>
+                            </div>
+                            <div className="SpotDetails-host-details-main">
+                                <p className="SpotDetails-host-details-header">Great communication</p>
+                                <p className="SpotDetails-host-details-desc">100% of recent guests rated {spot.Owner.firstName} 5-star in communication.</p>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="SpotDetails-description">
                         {spot.description}
                     </div>
                 </div>
-                <div className="SpotDetails-main-content-right">
-                    <AddReviewForm host={spot.Owner.firstName} />
-                </div>
+                    { user && spot.ownerId !== user.id ? (
+                        <div className="SpotDetails-main-content-right">
+                                <AddReviewForm host={spot.Owner.firstName} />
+                        </div>
+                    ) : "" }
             </div>
 
             <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>

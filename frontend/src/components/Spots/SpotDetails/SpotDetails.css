@@ -36,6 +36,12 @@
     padding-right: 5px;
 }
 
+.SpotDetails-subtitle-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .SpotDetails-images {
     display: flex;
     justify-content: center;
@@ -141,12 +147,23 @@
 }
 
 .SpotDetails-main-content-left {
-    width: 70%;
+    width: 100%;
 }
 
 .SpotDetails-main-content-right {
     width: 30%;
     margin-bottom: 10px;
+}
+
+.SpotDetails-host-details-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.SpotDetails-icon {
+    font-size: 20px;
 }
 
 .SpotDetails-header, .SpotDetails-host-details, .SpotDetails-description, .SpotDetails-reviews-container {
@@ -161,6 +178,13 @@
     font-size: 16px;
     font-weight: bold;
     padding-bottom: 8px;
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+}
+
+.SpotDetails-host-details-desc {
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
 }
 
 .SpotDetails-host-details-desc, .Reviews-date {
@@ -171,6 +195,10 @@
 
 .SpotDetails-subtitle-right > .SpotDetails-subtitle-text:last-child {
     padding-left: 18px;
+}
+
+.SpotDetails-subtitle-right {
+    gap: 24px;
 }
 
 .SpotDetails-reviews-num {
