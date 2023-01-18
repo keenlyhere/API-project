@@ -54,6 +54,7 @@ export default function EditSpotForm({ spot }) {
             })
 
         console.log("EditSpotForm - editSpotId:", editSpotId);
+        closeModal();
         history.push(`/spots/${editSpotId.id}`);
 
     }
