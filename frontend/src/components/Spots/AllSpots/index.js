@@ -37,6 +37,14 @@ export default function AllSpots() {
         history.push(`/spots/${spotId}`)
     }
 
+    if (!spots) return null;
+
+    const fixedPrice = (price) => {
+        const newPrice = price.toFixed(2);
+        return newPrice;
+    }
+
+
     return (
         <div className="Spots-container">
             { spots && (
@@ -57,7 +65,7 @@ export default function AllSpots() {
                                 </p>
                             </div>
                             <div className="Spots-footer">
-                                <span className="Spots-price">${spot.price.toFixed(2)}</span> night
+                                <span className="Spots-price">${fixedPrice(spot.price)}</span> night
                             </div>
                         </div>
                     </div>
