@@ -13,3 +13,44 @@
 .Deja-Mooyourhome {
     font-weight: bold;
 }
+
+.SignUpToday {
+    height: 48px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(230,29,77,1) 0%, rgba(215,4,102,1) 100%);
+    border-radius: 8px;
+    border: none;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0;
+}
+
+.LogInNow {
+    height: 48px;
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    border: 2px solid rgba(230,29,77,1);
+    color: rgba(230,29,77,1);
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0;
+}
+
+.SignUpToday:hover {
+    background: radial-gradient(circle, rgba(230,29,77,1) 0%, rgba(215,4,102,1) 100%);
+}
+
+.LogInNow:hover {
+    height: 48px;
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    border: 2px solid rgba(215,4,102,1);
+    color: rgba(215,4,102,1);
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0;
+    transition: 0.2s ease-in-out;
+}
