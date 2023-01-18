@@ -17,9 +17,6 @@ export default function SignupFormModal() {
     const [ errors, setErrors ] = useState([]);
     const { closeModal } = useModal();
 
-    // if (sessionUser) return (
-    //         <Redirect to="/" />
-    //     )
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -37,26 +34,26 @@ export default function SignupFormModal() {
     };
 
     return (
-        <div className="Form-container">
-            <div className="Form-top">
+        <div className="SignUpForm-container">
+            <div className="SignUpForm-top">
                 <button
-                    className="Form-close"
+                    className="SignUpForm-close"
                     onClick={closeModal}
                 >
                     <i class="fa-sharp fa-solid fa-xmark"></i>
                 </button>
-                <h2 className="Form-create">Sign up</h2>
+                <h2 className="SignUpForm-create">Sign up</h2>
             </div>
-            <h1 className="Form-title">Welcome to Deja-Moo</h1>
-            <ul className="Form-errors">
+            <h1 className="SignUpForm-title">Welcome to Deja-Moo</h1>
+            <ul className="SignUpForm-errors">
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>
             <form
                 onSubmit={handleSubmit}
-                className="Form-form"
+                className="SignUpForm-form"
             >
-            <div className="Form-main-container">
-            <div className="Form-group-top email">
+            <div className="SignUpForm-main-container">
+            <div className="SignUpForm-group-top email">
                 <input
                     id="email"
                     type="text"
@@ -68,7 +65,7 @@ export default function SignupFormModal() {
                     Email
                 </label>
             </div>
-            <div className="Form-group-middle username">
+            <div className="SignUpForm-group-middle username">
                 <input
                     id="username"
                     type="text"
@@ -80,7 +77,7 @@ export default function SignupFormModal() {
                     Username
                 </label>
             </div>
-            <div className="Form-group-middle firstName">
+            <div className="SignUpForm-group-middle firstName">
                 <input
                     id="firstName"
                     type="text"
@@ -92,7 +89,7 @@ export default function SignupFormModal() {
                     First Name
                 </label>
             </div>
-            <div className="Form-group-middle lastName">
+            <div className="SignUpForm-group-middle lastName">
                 <input
                     id="lastName"
                     type="text"
@@ -104,7 +101,7 @@ export default function SignupFormModal() {
                     Last Name
                 </label>
             </div>
-            <div className="Form-group-middle password">
+            <div className="SignUpForm-group-middle password">
                 <input
                     id="password"
                     type="password"
@@ -116,7 +113,7 @@ export default function SignupFormModal() {
                     Password
                 </label>
             </div>
-            <div className="Form-group-bottom confirmPassword">
+            <div className="SignUpForm-group-bottom confirmPassword">
                 <input
                     id="confirmPassword"
                     type="password"
@@ -129,10 +126,10 @@ export default function SignupFormModal() {
                 </label>
             </div>
             </div>
-            <div className="Form-button-container">
+            <div className="SignUpForm-button-container">
                 <button
                     type="submit"
-                    className="Form-submit"
+                    className="SignUpForm-submit"
                 >Sign Up</button>
             </div>
             </form>

@@ -61,7 +61,7 @@
     list-style-type: none;
     font-size: 12px;
     position: absolute;
-    right: 10px;
+    right: 80px;
     top: 70px;
     background-color: #ffffff;
     /* border: 1px solid #a5a5a5; */
@@ -129,7 +129,7 @@
 .profile-dropdown-divide {
     margin-top: 8px;
     padding-top: 8px;
-    border-top: 1px solid black;
+    border-top: 1px solid #bbbbbb;
     /* padding: 0px; */
 }
 
