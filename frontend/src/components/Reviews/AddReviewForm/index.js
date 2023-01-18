@@ -57,7 +57,7 @@ export default function AddReviewForm({ host }) {
 
         let sendNewReview;
 
-        console.log("newReview:", newReview);
+        // console.log("newReview:", newReview);
 
         try {
             sendNewReview = await dispatch(addReview(spotId, newReview))
@@ -121,7 +121,6 @@ export default function AddReviewForm({ host }) {
                 <div className="AddReviewForm-stars-container">
                     {[1, 2, 3, 4, 5].map((star, idx) => {
                         idx++;
-                        {console.log("idx", idx)}
                         return (
                             <div
                                 className={idx <= stars ? "on" : "off"}
