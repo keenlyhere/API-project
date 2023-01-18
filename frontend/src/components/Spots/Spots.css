@@ -6,11 +6,11 @@
 
 .Spots-container {
     margin: auto;
-    width: 90%;
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
     gap: 18px;
-    padding: 20px;
+    padding: 20px 80px;
 }
 
 .Spots-card {

@@ -66,12 +66,15 @@ function SpotDetails() {
     const starRating = (rating) => {
         if (typeof rating === "number") {
             return (
-                <div>
-                    {rating.toFixed(2)}
+                <div className="SpotDetails-subtitle-rating">
+                    <div className="SpotDetails-subtitle-rating-star"><i className="fa-solid fa-star"></i></div>
+                    <p className="SpotDetails-subtitle-text SpotDetails-subtitle-rating-rating"> {rating.toFixed(2)}</p>
                 </div>
                 );
         } else {
-            return "";
+            return (
+                <p className="SpotDetails-subtitle-text SpotDetails-subtitle-rating-rating">No rating yet</p>
+            );
         }
     }
 
@@ -105,8 +108,7 @@ function SpotDetails() {
             <div className="SpotDetails-subtitle">
                 <div className="SpotDetails-subtitle-left">
                     <div className="SpotDetails-subtitle-rating">
-                        <div className="SpotDetails-subtitle-rating-star"><i className="fa-solid fa-star"></i></div>
-                        <p className="SpotDetails-subtitle-text SpotDetails-subtitle-rating-rating"> {starRating(spot.avgStarRating)}</p>
+                        {starRating(spot.avgStarRating)}
                     </div>
                     <p className="SpotDetails-subtitle-text">·</p>
                     <p className="SpotDetails-subtitle-text">{spot.numReviews} reviews</p>
@@ -178,9 +180,11 @@ function SpotDetails() {
                         {spot.description}
                     </div>
                 </div>
-                <div className="SpotDetails-main-content-right">
-                    <AddReviewForm host={spot.Owner.firstName} />
-                </div>
+                    { user && spot.ownerId !== user.id ? (
+                        <div className="SpotDetails-main-content-right">
+                                <AddReviewForm host={spot.Owner.firstName} />
+                        </div>
+                    ) : "" }
             </div>
 
             <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>

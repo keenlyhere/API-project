@@ -121,3 +121,13 @@
     border-top: 1px solid black;
     /* padding: 0px; */
 }
+
+.Navigation-logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.Navigation-logo {
+    padding-left: 80px;
+    height: 40px;
+}
