@@ -15,7 +15,25 @@ export default function AddReviewForm({ host }) {
     const [ stars, setStars ] = useState("");
     const [ reviewImageUrl, setReviewImageUrl ] = useState("");
 
+    const [ on, setOn ] = useState(false);
+
     const [ errors, setErrors ] = useState([]);
+
+    console.log("stars.........", stars)
+
+    useEffect(() => {
+        console.log("on")
+    }, [on])
+
+    const starClickHandler = (idx) => {
+        if (idx <= stars) {
+            setOn(true);
+        } else {
+            setOn(false);
+        }
+
+        setStars(idx)
+    }
 
     useEffect(() => {
         const errors = [];
@@ -68,6 +86,7 @@ export default function AddReviewForm({ host }) {
 
 
     }
+
     return (
         <div className="AddReviewForm-container">
             <h1 className="AddReviewForm-header">Leave a public review</h1>
@@ -92,7 +111,7 @@ export default function AddReviewForm({ host }) {
                     placeholder="Say a few words about your stay!"
                 />
             </div>
-            <div className="AddReviewForm-group">
+            {/* <div className="AddReviewForm-group">
                 <p className="AddReviewForm-subheader">Enter a star rating:</p>
                 <input
                 className="AddReviewForm-stars"
@@ -102,6 +121,23 @@ export default function AddReviewForm({ host }) {
                     onChange={(e) => setStars(e.target.value)}
                     required
                 />
+            </div> */}
+            <div className="AddReviewForm-group">
+                <p className="AddReviewForm-subheader">Enter a star rating:</p>
+                <div className="AddReviewForm-stars-container">
+                    {[1, 2, 3, 4, 5].map((star, idx) => {
+                        idx++;
+                        {console.log("idx", idx)}
+                        return (
+                            <div
+                                className={idx <= stars ? "on" : "off"}
+                                onClick={() => starClickHandler(idx)}
+                                >
+                                    ★
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
             <div className="AddReviewForm-group">
                 <p className="AddReviewForm-subheader">Add a review image:</p>
@@ -111,7 +147,6 @@ export default function AddReviewForm({ host }) {
                     type="text"
                     value={reviewImageUrl}
                     onChange={(e) => setReviewImageUrl(e.target.value)}
-                    required
                 />
             </div>
 
