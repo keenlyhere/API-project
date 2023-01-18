@@ -1,22 +1,31 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 
 import './LoginForm.css';
 
-export default function LoginFormModal() {
+export default function LoginFormModal({ spotId }) {
     const dispatch = useDispatch();
+    const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
     const [ credential, setCredential ] = useState("");
     const [ password, setPassword ] = useState("");
     const [ errors, setErrors ] = useState([]);
     const { closeModal } = useModal();
 
-    if (sessionUser) return (
-        <Redirect to="/" />
-    )
+    // if (sessionUser) return (
+    //     <Redirect to="/" />
+    // )
+
+    if (sessionUser) {
+        if (spotId) {
+            history.push(`/spots/${spotId}`)
+        } else {
+            history.push("/")
+        }
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();

@@ -58,6 +58,7 @@ export default function ProfileButton({ user }) {
                         <li className="profile-dropdown-links">
                             <button onClick={logout} className="profile-dropdown-logout">Log Out</button>
                         </li>
+                        <div className="profile-dropdown-divide"></div>
                         <li className="profile-dropdown-links">
                             <OpenModalButton
                                 buttonText="Deja-Moo your home"
@@ -82,7 +83,6 @@ export default function ProfileButton({ user }) {
                                 modalComponent={<SignupFormModal />}
                             />
                         </li>
-                        <div className="profile-dropdown-divide"></div>
                     </div>
                 )}
 

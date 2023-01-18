@@ -1,4 +1,4 @@
-.Form-container {
+.SignUpForm-container {
     margin: auto;
     margin-top: 50px;
     display: flex;
@@ -8,7 +8,7 @@
     gap: 20px;
 }
 
-.Form-top {
+.SignUpForm-top {
     height: 48px;
     width: 100%;
     border-bottom: 1px solid #f0f0f0;
@@ -17,7 +17,7 @@
     top: 0px;
 }
 
-.Form-close {
+.SignUpForm-close {
     position: relative;
     top: 15px;
     left: 20px;
@@ -25,63 +25,63 @@
     border: 0;
 }
 
-.Form-create {
+.SignUpForm-create {
     position: absolute;
     top: 15px;
-    left: 150px;
+    left: 170px;
     font-size: 16px;
     font-weight: 900;
     background: none;
 }
 
-.Form-errors {
+.SignUpForm-errors {
     list-style-type: none;
     font-size: 12px;
     padding: 5px;
     color: #ff385c;
 }
 
-.Form-title {
+.SignUpForm-title {
     font-size: 22px;
     font-weight: 500;
     margin: 20px 18px 0px 18px;
 }
 
-.Form-form {
+.SignUpForm-form {
     width: 100%;
 }
 
-.Form-main-container {
+.SignUpForm-main-container {
     border: 1px solid #c4c4c4;
     border-radius: 8px;
     margin: 10px 18px 0px 18px;
 }
 
-.Form-group-top {
+.SignUpForm-group-top {
     position: relative;
     display: flex;
     height: 48px;
 }
 
-.Form-group-middle {
+.SignUpForm-group-middle {
     position: relative;
     display: flex;
     height: 48px;
 }
 
-.Form-group-description {
+.SignUpForm-group-description {
     position: relative;
     display: flex;
     height: 88px;
 }
 
-.Form-group-bottom {
+.SignUpForm-group-bottom {
     position: relative;
     display: flex;
     height: 48px;
 }
 
-.Form-group-top > input {
+.SignUpForm-group-top > input {
     height: 48px;
     width: 100%;
     border: none;
@@ -91,7 +91,7 @@
     outline: none;
 }
 
-.Form-group-middle > input {
+.SignUpForm-group-middle > input {
     height: 48px;
     width: 100%;
     border: 0;
@@ -100,7 +100,7 @@
     outline: none;
 }
 
-.Form-group-bottom > input {
+.SignUpForm-group-bottom > input {
     height: 48px;
     width: 100%;
     border: 0;
@@ -109,6 +109,7 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     outline: none;
+    padding: 8px;
 }
 
 .email label,
@@ -131,20 +132,20 @@
     transition: 0.2s ease-in-out;
 }
 
-.Form-group-top > input:focus + label,
-.Form-group-middle > input:focus + label,
-.Form-group-bottom > input:focus + label {
+.SignUpForm-group-top > input:focus + label,
+.SignUpForm-group-middle > input:focus + label,
+.SignUpForm-group-bottom > input:focus + label {
     color:#878787;
     font-size: 8px;
     top: -13px;
 }
 
-.Form-group-top > input:focus + label,
-.Form-group-middle > input:focus + label,
-.Form-group-bottom > input:focus + label,
-.Form-group-top > input:valid + label,
-.Form-group-middle > input:valid + label,
-.Form-group-bottom > input:valid + label {
+.SignUpForm-group-top > input:focus + label,
+.SignUpForm-group-middle > input:focus + label,
+.SignUpForm-group-bottom > input:focus + label,
+.SignUpForm-group-top > input:valid + label,
+.SignUpForm-group-middle > input:valid + label,
+.SignUpForm-group-bottom > input:valid + label {
     color:#878787;
     font-size: 8px;
     top: -13px;
@@ -152,18 +153,18 @@
     letter-spacing: 1px;
 }
 
-.Form-group-top > input:focus,
-.Form-group-middle > input:focus,
-.Form-group-bottom > input:focus {
+.SignUpForm-group-top > input:focus,
+.SignUpForm-group-middle > input:focus,
+.SignUpForm-group-bottom > input:focus {
     border: 2px solid black;
     border-radius: 8px;
 }
 
-.Form-button-container {
+.SignUpForm-button-container {
     margin: 20px 18px 0px 18px;
 }
 
-.Form-submit {
+.SignUpForm-submit {
     height: 48px;
     width: 100%;
     background: linear-gradient(90deg, rgba(230,29,77,1) 0%, rgba(215,4,102,1) 100%);
@@ -175,6 +176,6 @@
     padding: 0;
 }
 
-.Form-submit:hover {
+.SignUpForm-submit:hover {
     background: radial-gradient(circle, rgba(230,29,77,1) 0%, rgba(215,4,102,1) 100%);
 }

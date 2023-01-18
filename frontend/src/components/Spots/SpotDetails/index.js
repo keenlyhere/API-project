@@ -4,9 +4,11 @@ import { useHistory, useParams } from "react-router-dom";
 import { loadSpotReviews } from "../../../store/reviewReducer";
 import { deleteSpot, loadSpotDetails } from "../../../store/spotReducer";
 import Footer from "../../Footer";
+import LoginFormModal from "../../LoginFormModal";
 import OpenModalButton from "../../OpenModalButton";
 import AddReviewForm from "../../Reviews/AddReviewForm";
 import AllReviews from "../../Reviews/AllReviews";
+import SignupFormModal from "../../SignupFormModal";
 import ConfirmDelete from "../ConfirmDelete";
 import EditSpotForm from "../EditSpot";
 
@@ -97,6 +99,46 @@ function SpotDetails() {
         } else if (spot.SpotImages.length > 1 && spot.SpotImages.length < 4) {
             console.log("hit else if........")
             spot.SpotImages.forEach(image => altImages.unshift(image.url));
+        }
+    }
+
+    const checkUser = (user) => {
+        if (user) {
+            if (spot.ownerId === user.id) {
+                return (
+                    ""
+                )
+            } else {
+                return (
+                    <div className="SpotDetails-main-content-right">
+                        <AddReviewForm host={spot.Owner.firstName} />
+                    </div>
+                )
+            }
+        } else if (user === null) {
+            return (
+                <div className="SpotDetails-main-content-right">
+                    <div className="SpotDetails-login-signup">
+                        <h2 className="SpotDetails-login-signup-header">
+                            Oops, you're not logged in!
+                        </h2>
+
+                        <div className="SpotDetails-login-signup-buttons">
+                                <OpenModalButton
+                                    buttonText="Log In Now"
+                                    onButtonClick={closeMenu}
+                                    modalComponent={<LoginFormModal spotId={spotId} />}
+                                    className="LoginButton"
+                                />
+                                <OpenModalButton
+                                    buttonText="Sign Up Today"
+                                    onButtonClick={closeMenu}
+                                    modalComponent={<SignupFormModal />}
+                                />
+                        </div>
+                    </div>
+                </div>
+            )
         }
     }
 
@@ -208,11 +250,12 @@ function SpotDetails() {
                         {spot.description}
                     </div>
                 </div>
-                    { user && spot.ownerId !== user.id ? (
+                    { checkUser(user) }
+                    {/* { user && spot.ownerId !== user.id ? (
                         <div className="SpotDetails-main-content-right">
                                 <AddReviewForm host={spot.Owner.firstName} />
                         </div>
-                    ) : "" }
+                    ) : "" } */}
             </div>
 
             <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>
