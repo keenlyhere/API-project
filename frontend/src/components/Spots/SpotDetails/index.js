@@ -77,6 +77,20 @@ function SpotDetails() {
 
     if (user === undefined) return null;
 
+    let altImages = ["https://images.pexels.com/photos/422218/pexels-photo-422218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/12776422/pexels-photo-12776422.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/4910769/pexels-photo-4910769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"];
+
+    if (spot) {
+        if (spot.SpotImages.length === 1 && spot.SpotImages !== "No images for spot") {
+            altImages = [spot.SpotImages[0].url];
+            // mainImage.push(spot.SpotImages[0].url);
+        } else if (spot.SpotImages.length > 1 && spot.SpotImages.length < 4) {
+            console.log("hit else if........")
+            spot.SpotImages.forEach(image => altImages.unshift(image.url));
+        }
+    }
+
+    console.log("SpotDetails - altImages:", altImages)
+
     return spot && (
         <div className="SpotDetails-container">
             <h1 className="SpotDetails-name">{spot.name}</h1>
@@ -107,13 +121,31 @@ function SpotDetails() {
                     </div>
                 ) }
             </div>
-            <div className="SpotDetails-images">
+            {/* <div className="SpotDetails-images">
                 { spot.SpotImages && spot.SpotImages.length > 0 && spot.SpotImages !== "No images for spot" && spot.SpotImages.map(image => (
                         <div className="SpotDetails-images">
                             <img className="SpotDetails-image" src={image.url} />
                         </div>
                     ))}
-            </div>
+            </div> */}
+                { altImages.length === 1 ? (
+                    // <div className="SpotDetails-images">
+                        <div className="SpotDetails-one-image">
+                            <img className="SpotDetails-image" src={altImages[0]} />
+                        </div>
+                    // </div>
+                    ) : (
+                        <div className="SpotDetails-images">
+                            <div className="SpotDetails-main">
+                                <img className="SpotDetails-main-image" src={altImages[0]} />
+                            </div>
+                            <div className="SpotDetails-small-images">
+                                {altImages.slice(1, 5).map(image => (
+                                    <img className="SpotDetails-small-image" src={image} />
+                                ))}
+                            </div>
+                        </div>
+                    )}
             <div className="SpotDetails-main-content">
                 <div className="SpotDetails-main-content-left">
                     <div className="SpotDetails-header">
