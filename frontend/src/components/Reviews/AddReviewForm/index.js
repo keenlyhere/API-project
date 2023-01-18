@@ -143,7 +143,9 @@ export default function AddReviewForm({ host }) {
                 />
             </div>
 
-            <button type="submit" className="AddReviewForm-submit">Create Review</button>
+            <div className="AddReviewForm-button-container">
+                <button type="submit" className="AddReviewForm-submit">Create Review</button>
+            </div>
 
             </form>
         </div>

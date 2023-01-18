@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { deleteReview, loadSpotReviews } from "../../../store/reviewReducer";
+import { addReview, deleteReview, loadSpotReviews } from "../../../store/reviewReducer";
 import { loadSpotDetails } from "../../../store/spotReducer";
 import OpenModalButton from "../../OpenModalButton";
 import EditReviewModal from "../EditReviewModal";
+
+import "./AllReviews.css";
 
 export default function AllReviews({ spotId, spot, user }) {
     const dispatch = useDispatch();
@@ -61,10 +63,10 @@ export default function AllReviews({ spotId, spot, user }) {
 
     if (reviews.spot) {
         actualReviews = Object.values(reviews.spot);
-        // console.log("actual reviews:", actualReviews)
+        console.log("actual reviews:", actualReviews)
     }
 
-    return (
+    return actualReviews && (
         <div>
         {spot.numReviews === 0 ? (
                 <div className="SpotDetails-reviews-container">No reviews to display.</div>
