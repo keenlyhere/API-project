@@ -220,6 +220,10 @@
     letter-spacing: 1px;
 }
 
+.bottom-price > input {
+    padding: 8px;
+}
+
 /* label {
     position: absolute;
     display: flex;
