@@ -68,7 +68,7 @@ export default function Profile() {
                 <div className="Profile-section">
                     <h2 className="Profile-header-secondary">
                         <i className="fa-solid fa-star"></i>
-                        # reviews
+                        {reviewsArr.length} reviews
                     </h2>
                     TO DO: PUT USER REVIEWS HERE
                     <p className="Profile-small-text">Month Year</p>

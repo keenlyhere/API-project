@@ -206,8 +206,8 @@ export default function SpotDetails() {
                     </div>
                 ) : (
                     <div className="SpotDetails-subtitle-right">
-                        <p className="SpotDetails-subtitle-text">Share</p>
-                        <p className="SpotDetails-subtitle-text">Save</p>
+                        {/* <p className="SpotDetails-subtitle-text">Share</p>
+                        <p className="SpotDetails-subtitle-text">Save</p> */}
                     </div>
                 ) }
             </div>
