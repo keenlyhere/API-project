@@ -12,3 +12,7 @@
     justify-content: center;
     padding-top: 80px;
 }
+
+.clickable, button {
+    cursor: pointer;
+}

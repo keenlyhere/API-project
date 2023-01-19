@@ -17,6 +17,7 @@
     height: 380px;
     display: flex;
     flex-direction: column;
+    cursor: pointer;
 }
 
 .Spots-card-image {
