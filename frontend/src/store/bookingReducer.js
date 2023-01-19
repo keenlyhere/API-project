@@ -135,7 +135,11 @@ export default function bookingReducer(state = initialState, action) {
     switch (action.type) {
         case LOAD_USER_BOOKINGS: {
             const userBookingsState = { ...state };
-            userBookingsState.user = normalize(action.bookings.bookings);
+            if (action.bookings.Bookings) {
+                userBookingsState.user = normalize(action.bookings.Bookings);
+            } else {
+                return { ...state, user: null };
+            }
             console.log("LOAD_USER_BOOKINGS - userBookingsState:", userBookingsState);
             return userBookingsState;
         }

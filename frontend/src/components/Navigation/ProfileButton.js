@@ -13,7 +13,7 @@ export default function ProfileButton({ user }) {
     const [ showMenu, setShowMenu ] = useState(false);
     const ulRef = useRef();
 
-    console.log("ProfileButton - user:", user);
+    // console.log("ProfileButton - user:", user);
 
     const openMenu = () => {
         if (showMenu) return;
@@ -69,6 +69,14 @@ export default function ProfileButton({ user }) {
                                 className="profile-dropdown-my-spots"
                             >
                                 Manage Your Spots
+                            </NavLink>
+                        </li>
+                        <li className="profile-dropdown-links">
+                            <NavLink
+                                exact to="/my-trips"
+                                className="profile-dropdown-my-spots"
+                            >
+                                My Trips
                             </NavLink>
                         </li>
                         {/* <li className="profile-dropdown-links">{user.email}</li> */}
