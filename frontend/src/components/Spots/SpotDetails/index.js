@@ -24,6 +24,8 @@ function SpotDetails() {
     const user = useSelector(state => state.session.user);
     const [ showMenu, setShowMenu ] = useState(false);
     const ulRef = useRef();
+    const reviews = useSelector(state => state.reviews);
+    console.log("SpotDetails - reviews:", reviews)
 
     const openMenu = () => {
         if (showMenu) return;
@@ -84,6 +86,15 @@ function SpotDetails() {
 
     if (user === undefined) return null;
 
+    if (reviews === undefined) return null;
+
+    let actualReviews;
+
+    if (reviews.spot) {
+        actualReviews = Object.values(reviews.spot);
+        console.log("actual reviews:", actualReviews)
+    }
+
     let altImages = [
         "https://images.pexels.com/photos/422218/pexels-photo-422218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/12776422/pexels-photo-12776422.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -108,6 +119,23 @@ function SpotDetails() {
                 return (
                     ""
                 )
+            } else if (actualReviews && actualReviews.length > 0) {
+                for (let i = 0; i < actualReviews.length; i++) {
+                    const reviewer = actualReviews[i].userId;
+
+                    if (user.id === reviewer) {
+                        return (
+                            ""
+                        );
+                    }
+                }
+
+                return (
+                    <div className="SpotDetails-main-content-right">
+                        <AddReviewForm host={spot.Owner.firstName} />
+                    </div>
+                )
+                
             } else {
                 return (
                     <div className="SpotDetails-main-content-right">
