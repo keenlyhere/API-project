@@ -45,7 +45,7 @@ export default function AllReviews({ spotId, spot, user }) {
     const getMonthYear = (date) => {
         const newDate = new Date(date);
         // console.log("newDate:", newDate);
-        const month = newDate.toLocaleString('default', { month: 'long' });
+        const month = newDate.toLocaleString("default", { month: "long" });
         const year = newDate.getFullYear();
 
         return (
