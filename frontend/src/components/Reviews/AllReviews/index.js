@@ -36,8 +36,8 @@ export default function AllReviews({ spotId, spot, user }) {
 
     const closeMenu = () => setShowMenu(false);
 
-    const handleDelete = (reviewId) => {
-        dispatch(deleteReview(reviewId));
+    const handleDelete = async (reviewId) => {
+        const deletedReview = await dispatch(deleteReview(reviewId));
         dispatch(loadSpotDetails(+spotId));
         history.push(`/spots/${spotId}`);
     }
