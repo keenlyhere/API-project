@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux"
+import { NavLink } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import LoginFormModal from "../LoginFormModal";
 import OpenModalButton from "../OpenModalButton";
+import Profile from "../Profile";
 import SignupFormModal from "../SignupFormModal";
 import CreateSpotForm from "../Spots/CreateSpot";
 
@@ -52,9 +54,24 @@ export default function ProfileButton({ user }) {
             <ul className={ulClassName} ref={ulRef}>
                 { user ? (
                     <div>
-                        <li className="profile-dropdown-links">{user.username}</li>
-                        <li className="profile-dropdown-links">{user.firstName} {user.lastName}</li>
-                        <li className="profile-dropdown-links">{user.email}</li>
+                        {/* <li className="profile-dropdown-links">{user.username}</li> */}
+                        <li className="profile-dropdown-links">
+                            <NavLink
+                                exact to={`/user/${user.id}`}
+                                className="profile-dropdown-user-profile"
+                            >
+                                {user.firstName} {user.lastName}
+                            </NavLink>
+                        </li>
+                        <li className="profile-dropdown-links">
+                            <NavLink
+                                exact to="/my-spots"
+                                className="profile-dropdown-my-spots"
+                            >
+                                Manage Your Spots
+                            </NavLink>
+                        </li>
+                        {/* <li className="profile-dropdown-links">{user.email}</li> */}
                         <li className="profile-dropdown-links">
                             <button onClick={logout} className="profile-dropdown-logout">Log Out</button>
                         </li>
