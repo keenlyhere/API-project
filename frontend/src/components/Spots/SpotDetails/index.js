@@ -14,7 +14,7 @@ import EditSpotForm from "../EditSpot";
 
 import "./SpotDetails.css";
 
-function SpotDetails() {
+export default function SpotDetails() {
     const dispatch = useDispatch();
     const { spotId } = useParams();
     const history = useHistory();
@@ -48,7 +48,6 @@ function SpotDetails() {
 
     const closeMenu = () => setShowMenu(false);
 
-
     useEffect(() => {
         // dispatch(loadSpotReviews(+spotId));
         dispatch(loadSpotDetails(+spotId));
@@ -58,14 +57,14 @@ function SpotDetails() {
         return Math.ceil(Math.random() * 10);
     }
 
-    const handleEdits = () => {
-        history.push(`/spots/${spotId}/edit`);
-    }
+    // const handleEdits = () => {
+    //     history.push(`/spots/${spotId}/edit`);
+    // }
 
-    const handleDelete = () => {
-        dispatch(deleteSpot(+spotId))
-        history.push("/my-spots");
-    }
+    // const handleDelete = () => {
+    //     dispatch(deleteSpot(+spotId))
+    //     history.push("/my-spots");
+    // }
 
     const starRating = (rating) => {
         if (typeof rating === "number") {
@@ -135,7 +134,7 @@ function SpotDetails() {
                         <AddReviewForm host={spot.Owner.firstName} />
                     </div>
                 )
-                
+
             } else {
                 return (
                     <div className="SpotDetails-main-content-right">
@@ -200,7 +199,7 @@ function SpotDetails() {
                             <OpenModalButton
                                 buttonText="Delete Spot"
                                 onButtonClick={closeMenu}
-                                modalComponent={<ConfirmDelete host={spot.Owner.firstName} spotId={spotId} user={user} />
+                                modalComponent={<ConfirmDelete spotId={spotId} user={user} />
                             }
                             />
                         </div>
@@ -313,5 +312,3 @@ function SpotDetails() {
         </div>
     )
 }
-
-export default SpotDetails;

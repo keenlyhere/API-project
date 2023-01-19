@@ -1,8 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { loadUserSpots } from "../../../store/spotReducer";
 import previewHandler from "../../../utils/previewHandler";
+import OpenModalButton from "../../OpenModalButton";
+import ConfirmDelete from "../ConfirmDelete";
+import EditSpotForm from "../EditSpot";
 
 import "../Spots.css";
 
@@ -10,23 +13,34 @@ export default function UserSpots() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const sessionUser = useSelector(state => state.session.user);
+    const user = useSelector(state => state.session.user);
     const allSpots = useSelector(state => state.spots.spots);
-    const userSpots = Object.values(allSpots).filter(spot => spot.ownerId === sessionUser.id);
-    console.log("UserSpts - sessionUser", sessionUser);
+    const userSpots = Object.values(allSpots).filter(spot => spot.ownerId === user.id);
+    console.log("UserSpts - sessionUser", user);
     console.log("UserSpots - userSpots", userSpots);
+
+    const [ showMenu, setShowMenu ] = useState();
+    const ulRef = useRef();
+
+    useEffect(() => {
+        if (!showMenu) return;
+
+        const closeMenu = (e) => {
+            if (!ulRef.current.contains(e.target)) {
+                setShowMenu(false);
+            }
+        }
+
+        document.addEventListener("click", closeMenu);
+
+        return () => document.removeEventListener("click", closeMenu);
+    }, [showMenu]);
+
+    const closeMenu = () => setShowMenu(false);
 
     useEffect(() => {
         dispatch(loadUserSpots());
     }, [dispatch])
-
-    const starRating = (rating) => {
-        if (typeof rating === "number") {
-            return rating;
-        } else {
-            return 0;
-        }
-    }
 
     const handleClick = (spotId) => {
         history.push(`/spots/${spotId}`)
@@ -37,19 +51,29 @@ export default function UserSpots() {
             { userSpots && (
                 userSpots.map((spot) => (
                     <div key={spot.id} className="Spots-card">
-                        <div className="Spots-image">
+                        <div className="Spots-card-image">
                             <img
+                                className="Spots-image"
                                 src={previewHandler(spot.previewImage)}
                                 onClick={() => handleClick(spot.id)}
                             />
                         </div>
-                        <div className="Spots-card-description">
-                            <div className="Spots-header">
-                                <p className="Spots-location">{spot.city}, {spot.state}</p>
-                                <p className="Spots-rating">{starRating(spot.avgRating)}</p>
+                        <div className="Spots-card-button-group">
+                            <div className="SpotDetails-subtitle-group">
+                                <OpenModalButton
+                                        buttonText="Edit"
+                                        onButtonClick={closeMenu}
+                                        modalComponent={<EditSpotForm spot={spot} />}
+                                        icon={"edit"}
+                                />
                             </div>
-                            <div className="Spots-footer">
-                                <span className="Spots-price">${spot.price}</span> night
+                            <div className="SpotDetails-subtitle-group">
+                                <OpenModalButton
+                                    buttonText="Delete"
+                                    onButtonClick={closeMenu}
+                                    modalComponent={<ConfirmDelete spotId={spot.id} user={user} />}
+                                    icon={"delete"}
+                                />
                             </div>
                         </div>
                     </div>

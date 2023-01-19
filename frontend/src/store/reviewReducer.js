@@ -19,6 +19,7 @@ const normalize = (reviews) => {
 export const actionLoadUserReviews = (userId, reviews) => {
     return {
         type: LOAD_USER_REVIEWS,
+        userId,
         reviews
     }
 }
@@ -153,7 +154,7 @@ export default function reviewReducer(state = initialState, action) {
     switch (action.type) {
         case LOAD_USER_REVIEWS: {
             const userReviewsState = { ...state };
-            userReviewsState.reviews = normalize(action.reviews);
+            userReviewsState.user = normalize(action.reviews.Reviews);
             console.log("LOAD_USER_REVIEWS - userReviewsState", userReviewsState);
             return userReviewsState;
         }

@@ -2,7 +2,6 @@
     background: none;
     border: 0;
     font-size: 14px;
-    /* height: 42px; */
     margin-left: 8px;
     cursor: pointer;
 }
@@ -13,6 +12,7 @@
 
 .Deja-Mooyourhome {
     font-weight: bold;
+    margin: 0;
 }
 
 .SignUpToday {
@@ -54,4 +54,10 @@
     font-size: 16px;
     padding: 0;
     transition: 0.2s ease-in-out;
+}
+
+.Edit, .Delete {
+    display: flex;
+    gap: 8px;
+    padding: 0px 5px;
 }

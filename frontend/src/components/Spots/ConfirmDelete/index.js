@@ -6,7 +6,7 @@ import { deleteSpot } from "../../../store/spotReducer";
 
 import "./ConfirmDelete.css";
 
-export default function ConfirmDelete({ host, spotId, user }) {
+export default function ConfirmDelete({ spotId, user }) {
     const dispatch = useDispatch();
     const history = useHistory()
     const { closeModal } = useModal();
@@ -21,10 +21,7 @@ export default function ConfirmDelete({ host, spotId, user }) {
 
     if (user === undefined) return null;
 
-    if (host === undefined) return null;
-
     console.log("user", user);
-    console.log("host", host)
 
     return (
         <div className="ConfirmDelete-container">

@@ -50,3 +50,9 @@
 .Spots-price {
     font-weight: bold;
 }
+
+.Spots-card-button-group {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0px;
+}
