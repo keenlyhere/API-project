@@ -1,5 +1,7 @@
 #modal {
     position: fixed;
+    margin-top: 80px;
+    height: calc(100vh - 80px);
     top: 0;
     right: 0;
     left: 0;
@@ -22,6 +24,8 @@
     border-radius: 15px;
     position: absolute;
     background-color:white;
+    overflow-y: auto;
+    max-height: 90%;
     height: max-content;
     padding-bottom: 24px;
     display: flex;

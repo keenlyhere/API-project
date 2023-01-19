@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { NavLink, useHistory, useParams } from "react-router-dom";
 import { loadSpotReviews } from "../../../store/reviewReducer";
 import { deleteSpot, loadSpotDetails } from "../../../store/spotReducer";
 import Footer from "../../Footer";
@@ -186,6 +186,15 @@ export default function SpotDetails() {
                 </div>
                 { user && spot.ownerId === user.id ? (
                     <div className="SpotDetails-subtitle-right">
+                        <div className="SpotDetails-subtitle-group">
+                            <NavLink
+                                to={`/spot/${spotId}/bookings`}
+                                className="SpotDetails-view-all-bookings"
+                            >
+                                <i className="fa-solid fa-book"></i>
+                                View All Spot Bookings
+                            </NavLink>
+                        </div>
                         <div className="SpotDetails-subtitle-group">
                             <i className="fa-regular fa-pen-to-square"></i>
                             <OpenModalButton

@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router-dom";
 import { loadUserSpots } from "../../../store/spotReducer";
 import previewHandler from "../../../utils/previewHandler";
+import LoginFormModal from "../../LoginFormModal";
 import OpenModalButton from "../../OpenModalButton";
+import SignupFormModal from "../../SignupFormModal";
 import ConfirmDelete from "../ConfirmDelete";
 import EditSpotForm from "../EditSpot";
 
@@ -44,6 +46,32 @@ export default function UserSpots() {
 
     const handleClick = (spotId) => {
         history.push(`/spots/${spotId}`)
+    }
+
+    if (!user) {
+        return (
+                <div className="UserSpots-container">
+                    <div className="SpotDetails-login-signup">
+                        <h2 className="SpotDetails-login-signup-header">
+                            Oops, you're not logged in!
+                        </h2>
+
+                        <div className="SpotDetails-login-signup-buttons">
+                                <OpenModalButton
+                                    buttonText="Log In Now"
+                                    onButtonClick={closeMenu}
+                                    modalComponent={<LoginFormModal />}
+                                    className="LoginButton"
+                                />
+                                <OpenModalButton
+                                    buttonText="Sign Up Today"
+                                    onButtonClick={closeMenu}
+                                    modalComponent={<SignupFormModal />}
+                                />
+                        </div>
+                    </div>
+                </div>
+        )
     }
 
     return (

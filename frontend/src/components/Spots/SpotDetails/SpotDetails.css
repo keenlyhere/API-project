@@ -238,3 +238,10 @@
     flex-direction: column;
     gap: 16px;
 }
+
+.SpotDetails-view-all-bookings {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
