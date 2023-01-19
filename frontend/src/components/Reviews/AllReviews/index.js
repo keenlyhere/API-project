@@ -63,7 +63,7 @@ export default function AllReviews({ spotId, spot, user }) {
 
     if (reviews.spot) {
         actualReviews = Object.values(reviews.spot);
-        console.log("actual reviews:", actualReviews)
+        // console.log("actual reviews:", actualReviews)
     }
 
     return actualReviews && (
