@@ -69,7 +69,7 @@ export const loadUserReviews = (userId) => async (dispatch) => {
 
     if (res.ok) {
         const reviews = await res.json();
-        console.log("loadUserReviews - reviews:", reviews);
+        // console.log("loadUserReviews - reviews:", reviews);
         dispatch(actionLoadUserReviews(userId, reviews));
         return reviews;
     }
@@ -80,7 +80,7 @@ export const loadSpotReviews = (spotId) => async (dispatch) => {
 
     if (res.ok) {
         const reviews = await res.json();
-        console.log("loadSpotReviews - reviews:", reviews);
+        // console.log("loadSpotReviews - reviews:", reviews);
         dispatch(actionLoadSpotReviews(spotId, reviews));
         return reviews;
     }
@@ -155,24 +155,24 @@ export default function reviewReducer(state = initialState, action) {
         case LOAD_USER_REVIEWS: {
             const userReviewsState = { ...state };
             userReviewsState.user = normalize(action.reviews.Reviews);
-            console.log("LOAD_USER_REVIEWS - userReviewsState", userReviewsState);
+            // console.log("LOAD_USER_REVIEWS - userReviewsState", userReviewsState);
             return userReviewsState;
         }
         case LOAD_SPOT_REVIEWS: {
             const spotReviewsState = { ...state };
-            console.log("LOAD_SPOT_REVIEWS - action.reviews:", action.reviews)
+            // console.log("LOAD_SPOT_REVIEWS - action.reviews:", action.reviews)
             if (action.reviews.Reviews) {
                 spotReviewsState.spot = normalize(action.reviews.Reviews);
             } else {
-                return { ...state, spot: null }
+                return { ...state, spot: null };
             }
-            console.log("LOAD_SPOT_REVIEWS - spotReviewsState:", spotReviewsState)
+            // console.log("LOAD_SPOT_REVIEWS - spotReviewsState:", spotReviewsState)
             return spotReviewsState;
         }
         case ADD_REVIEW: {
             const addReviewState = { ...state };
             addReviewState.user = { ...state.user, [action.review.id]: action.review }
-            console.log("ADD_REVIEW - addReviewState:", addReviewState);
+            // console.log("ADD_REVIEW - addReviewState:", addReviewState);
             return addReviewState;
         }
         case DELETE_REVIEW: {
