@@ -127,8 +127,8 @@ export default function SpotDetails() {
 
                 return (
                     <div className="SpotDetails-main-content-right">
-                        {/* <AddReviewForm host={spot.Owner.firstName} /> */}
-                        <CreateBookingForm rating={starRating(spot.avgStarRating)} numReviews={spot.numReviews}/>
+                        <AddReviewForm host={spot.Owner.firstName} />
+                        {/* <CreateBookingForm rating={starRating(spot.avgStarRating)} numReviews={spot.numReviews}/> */}
                     </div>
                 )
 

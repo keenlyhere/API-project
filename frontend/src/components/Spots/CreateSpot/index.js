@@ -70,11 +70,13 @@ export default function CreateSpotForm() {
                 </button>
                 <h2 className="Form-create">Create a Spot!</h2>
             </div>
-            <ul className="Form-errors">
-                {errors.map((error, idx) => (
-                    <li key={idx}>{error}</li>
-                ))}
-            </ul>
+            <div className="Form-error-container">
+                <ul className="Form-errors">
+                    {errors.map((error, idx) => (
+                        <li key={idx}>{error}</li>
+                    ))}
+                </ul>
+            </div>
             <form
                 onSubmit={handleSubmit}
                 className="Form-form"
