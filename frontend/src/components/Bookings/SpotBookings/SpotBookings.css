@@ -3,3 +3,18 @@
     padding: 0px 80px;
     margin: 80px auto;
 }
+
+.SpotBookings-header {
+    margin-bottom: 18px;
+}
+
+.SpotBookings-main-container {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 18px;
+}
+
+.SpotBookings-booking-container {
+    width: calc(50% - 18px);
+}
