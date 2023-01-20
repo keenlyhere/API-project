@@ -14,6 +14,7 @@ import CreateSpotForm from "./components/Spots/CreateSpot";
 import EditSpotForm from "./components/Spots/EditSpot";
 import Profile from "./components/Profile";
 import UserBookings from "./components/Bookings/UserBookings";
+import SpotBookings from "./components/Bookings/SpotBookings";
 
 function App() {
     const dispatch = useDispatch();
@@ -39,6 +40,9 @@ function App() {
                     </Route>
                     <Route exact path="/spots/:spotId/edit">
                         <EditSpotForm type={"edit"} />
+                    </Route>
+                    <Route exact path="/spot/:spotId/bookings">
+                        <SpotBookings />
                     </Route>
                     <Route exact path="/spots/:spotId">
                         <SpotDetails />

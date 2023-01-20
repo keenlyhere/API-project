@@ -56,3 +56,8 @@
     justify-content: space-between;
     padding: 8px 0px;
 }
+
+.UserSpots-container {
+    margin: 80px auto;
+    width: 400px;
+}

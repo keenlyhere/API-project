@@ -45,13 +45,15 @@ export default function Navigation({ isLoaded }) {
                     </NavLink>
                 </li>
                 <div className="Navigation-list-right">
-                    <li className="Navigation-list-modal">
-                        <OpenModalButton
-                            buttonText="Deja-Moo your home"
-                            onButtonClick={closeMenu}
-                            modalComponent={<CreateSpotForm />}
-                        />
-                    </li>
+                    { sessionUser &&
+                        <li className="Navigation-list-modal">
+                            <OpenModalButton
+                                buttonText="Deja-Moo your home"
+                                onButtonClick={closeMenu}
+                                modalComponent={<CreateSpotForm />}
+                            />
+                        </li>
+                    }
                     { isLoaded && (
                         <li>
                             <ProfileButton user={sessionUser} />

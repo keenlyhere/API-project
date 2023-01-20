@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { loadSpotDetails } from "../../../store/spotReducer";
+import { getMonthName, getDaysUntilReservation, getMonthDayYear } from "../../../utils/dateFormatting";
 
 import "./BookingCard.css";
 
@@ -20,21 +21,9 @@ export default function BookingCard({ booking, spotId }) {
         dispatch(loadSpotDetails(+spotId));
     }, [dispatch]);
 
-    const getMonthYear = (date) => {
-        const [ year, month, day ] = date.split("-");
-        console.log("year/month/day", year, month, day)
-        const dateObj = {
-            year,
-            month,
-            day
-        }
-        // console.log("dateObj", dateObj);
-        return dateObj;
-    }
-
     const getReservationDates = (startDate, endDate) => {
-        const startDateObj = getMonthYear(startDate);
-        const endDateObj = getMonthYear(endDate);
+        const startDateObj = getMonthDayYear(startDate);
+        const endDateObj = getMonthDayYear(endDate);
         console.log("startobj", startDateObj);
         console.log("endobj", endDateObj)
         const startMonth = getMonthName(startDate);
@@ -103,26 +92,6 @@ export default function BookingCard({ booking, spotId }) {
         }
     }
 
-    const getMonthName = (date) => {
-        const newDate = new Date(date);
-        console.log("newDate:", newDate);
-        const month = newDate.toLocaleDateString("default", { month: "long" })
-        console.log("month:", month)
-        return month.slice(0,3);
-    }
-
-    const getDaysUntilReservation = (startDate) => {
-        const now = new Date();
-        const start = new Date(startDate);
-
-        const difference = start.getTime() - now.getTime();
-        console.log("getMonthName - difference:", difference);
-        const convertToDays = difference / ( 1000 * 60 * 60 * 24 )
-        console.log("getMonthName - convertToDays:", convertToDays);
-
-        return Math.round(convertToDays);
-    }
-
     if (!spot) return null;
 
     return (
@@ -152,7 +121,7 @@ export default function BookingCard({ booking, spotId }) {
 
             <div className="BookingCard-image-container">
                 <p className="BookingCard-image-days">
-                    In {getDaysUntilReservation(startDate, endDate)} days
+                    In {getDaysUntilReservation(startDate)} days
                 </p>
                 <div className="BookingCard-image">
                     <img src={altImages[0]} />
