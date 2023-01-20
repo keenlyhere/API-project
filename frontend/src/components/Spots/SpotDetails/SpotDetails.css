@@ -159,16 +159,18 @@
 .SpotDetails-host-details-container {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     gap: 18px;
+    width: 100%;
 }
 
 .SpotDetails-icon {
     font-size: 20px;
+    width: 15px;
 }
 
 .SpotDetails-header, .SpotDetails-host-details, .SpotDetails-description, .SpotDetails-reviews-container {
     padding: 32px 0px;
+    width: calc(100% - 15px);
 }
 
 .SpotDetails-room-details {

@@ -22,12 +22,15 @@ export default function SpotBookingsCard({ booking }) {
         return (
             <div className="SpotBookingsCard-booking-right">
                 <div className="SpotBookingsCard-booking-right-top">
-                    <div className="SpotBookingsCard-start-date">
+                    <div className="SpotBookingsCard-date">
                         <p className="SpotBookingsCard-booking-small-text">
                             start date:
                         </p>
                         <h2 className="SpotBookingsCard-booking-date-header">
-                            {startMonth} {startDay} {startYear}
+                            {startMonth} {startDay}
+                        </h2>
+                        <h2 className="SpotBookingsCard-booking-date-header">
+                            {startYear}
                         </h2>
                     </div>
                     <div className="SpotBookingsCard-dash">
@@ -35,12 +38,15 @@ export default function SpotBookingsCard({ booking }) {
                             -
                         </p>
                     </div>
-                    <div className="SpotBookingsCard-end-date">
+                    <div className="SpotBookingsCard-date">
                         <p className="SpotBookingsCard-booking-small-text">
                             end date:
                         </p>
                         <h2 className="SpotBookingsCard-booking-date-header">
-                            {endMonth} {endDay} {endYear}
+                            {endMonth} {endDay}
+                        </h2>
+                        <h2 className="SpotBookingsCard-booking-date-header">
+                            {endYear}
                         </h2>
                     </div>
                 </div>
@@ -70,17 +76,17 @@ export default function SpotBookingsCard({ booking }) {
         <div className="SpotBookingsCard-container">
             <div className="SpotBookingsCard-profile-pic">
                 <img src="https://images.pexels.com/photos/2647053/pexels-photo-2647053.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
-            </div>
-            <div className="SpotBookingsCard-renter-info">
                 <h2 className="SpotBookingsCard-name">
                     {firstName} {lastName}
                 </h2>
                 <p className="SpotBookingsCard-date-booked">
                     <span className="SpotBookingsCard-last-update">
-                        Bookng last updated on:
+                        Booking last updated on:
                     </span>
                     {convertDate(updatedAt)}
                 </p>
+            </div>
+            <div className="SpotBookingsCard-renter-info">
                 {getReservationDates(startDate, endDate)}
             </div>
         </div>

@@ -36,14 +36,16 @@ export default function SpotBookings() {
     return (
         <div className="SpotBookings-container">
             <h1 className="SpotBookings-header">Bookings</h1>
-            { spotBookings && spotBookings.length && spotBookings.map((booking) => (
-                <div
-                    key={booking.id}
-                    className="SpotBookings-booking-container"
-                >
-                    <SpotBookingsCard booking={booking} />
-                </div>
-            ))}
+            <div className="SpotBookings-main-container">
+                { spotBookings && spotBookings.length && spotBookings.map((booking) => (
+                    <div
+                        key={booking.id}
+                        className="SpotBookings-booking-container"
+                    >
+                        <SpotBookingsCard booking={booking} />
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }
