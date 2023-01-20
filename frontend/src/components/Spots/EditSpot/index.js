@@ -8,7 +8,6 @@ import { editSpot, loadSpotDetails } from "../../../store/spotReducer";
 export default function EditSpotForm({ spot }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { spotId } = useParams();
     const { closeModal } = useModal();
     // const spot = useSelector(state => state.spots.spot[spotId])
     const user = useSelector(state => state.session.user);
@@ -27,7 +26,7 @@ export default function EditSpotForm({ spot }) {
     const [ errors, setErrors ] = useState([]);
 
     useEffect(() => {
-        dispatch(loadSpotDetails(Number(spotId)))
+        dispatch(loadSpotDetails(Number(spot.id)))
     }, [dispatch])
 
     const handleSubmit = async (e) => {
@@ -47,15 +46,19 @@ export default function EditSpotForm({ spot }) {
 
         setErrors([]);
 
-        const editSpotId = await dispatch(editSpot(+spotId, editedSpot))
+        const editSpotId = await dispatch(editSpot(+spot.id, editedSpot))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
             })
 
+        console.log("spot", spot)
         console.log("EditSpotForm - editSpotId:", editSpotId);
-        closeModal();
-        history.push(`/spots/${editSpotId.id}`);
+        if (editSpotId !== undefined) {
+            closeModal();
+            dispatch(loadSpotDetails(Number(spot.id)))
+            history.push(`/spots/${editSpotId.id}`);
+        }
 
     }
 

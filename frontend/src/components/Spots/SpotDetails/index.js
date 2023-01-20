@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory, useParams } from "react-router-dom";
 import { loadSpotReviews } from "../../../store/reviewReducer";
 import { deleteSpot, loadSpotDetails } from "../../../store/spotReducer";
+import CreateBookingForm from "../../Bookings/CreateBooking";
 import Footer from "../../Footer";
 import LoginFormModal from "../../LoginFormModal";
 import OpenModalButton from "../../OpenModalButton";
@@ -26,11 +27,6 @@ export default function SpotDetails() {
     const ulRef = useRef();
     const reviews = useSelector(state => state.reviews);
     console.log("SpotDetails - reviews:", reviews)
-
-    const openMenu = () => {
-        if (showMenu) return;
-        setShowMenu(true);
-    };
 
     useEffect(() => {
         if (!showMenu) return;
@@ -131,7 +127,8 @@ export default function SpotDetails() {
 
                 return (
                     <div className="SpotDetails-main-content-right">
-                        <AddReviewForm host={spot.Owner.firstName} />
+                        {/* <AddReviewForm host={spot.Owner.firstName} /> */}
+                        <CreateBookingForm rating={starRating(spot.avgStarRating)} numReviews={spot.numReviews}/>
                     </div>
                 )
 
@@ -296,26 +293,6 @@ export default function SpotDetails() {
 
             <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>
                 <AllReviews spotId={spotId} spot={spot} user={user} />
-            {/* {spot.numReviews === 0 ? (
-                <div className="SpotDetails-reviews-container">No reviews to display.</div>
-            ) : (
-                <div className="SpotDetails-reviews-container">
-                    { actualReviews && actualReviews.map((review) => (
-                        <div key={review.id} className="SpotDetails-review-card">
-                            <p className="Reviews-name">{review.User.firstName}</p>
-                            {console.log("REVIEW", review)}
-                            {getMonthYear(review.createdAt)}
-                            <p className="Reviews-review-text">{review.review}</p>
-                            {user.id === review.User.id ? (
-                                <div className="Reviews-actions">
-                                    <button className="Reviews-buttons">Edit</button>
-                                    <button className="Reviews-buttons">Delete</button>
-                                </div>
-                            ) : ""}
-                        </div>
-                    ))}
-                </div>
-            )} */}
 
 
         </div>

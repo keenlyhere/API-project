@@ -20,6 +20,13 @@ export const convertDate = (date) => {
     return `${month} ${day} ${year}`
 }
 
+export const convertDates = (date) => {
+    const [ year, month, day ] = date.split("-");
+    const monthIndex = month - 1;
+    const dateObj = new Date(year, monthIndex, day);
+    return dateObj;
+}
+
 export const getMonthName = (date) => {
     const newDate = new Date(date);
     console.log("newDate:", newDate);
