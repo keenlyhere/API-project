@@ -15,7 +15,7 @@
     margin: 0;
 }
 
-.SignUpToday {
+.SignUpToday, .Deja-Mooyourhometoday {
     height: 48px;
     width: 100%;
     background: linear-gradient(90deg, rgba(230,29,77,1) 0%, rgba(215,4,102,1) 100%);
