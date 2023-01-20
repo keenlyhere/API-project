@@ -7,6 +7,7 @@ import LoginFormModal from "../../LoginFormModal";
 import OpenModalButton from "../../OpenModalButton";
 import SignupFormModal from "../../SignupFormModal";
 import ConfirmDelete from "../ConfirmDelete";
+import CreateSpotForm from "../CreateSpot";
 import EditSpotForm from "../EditSpot";
 
 import "../Spots.css";
@@ -76,7 +77,7 @@ export default function UserSpots() {
 
     return (
         <div className="Spots-container">
-            { userSpots && (
+            { userSpots && userSpots.length > 0 ? (
                 userSpots.map((spot) => (
                     <div key={spot.id} className="Spots-card">
                         <div className="Spots-card-image">
@@ -106,6 +107,26 @@ export default function UserSpots() {
                         </div>
                     </div>
                 ))
+            ) : (
+                <div className="UserSpots-container">
+                    <div className="SpotDetails-login-signup">
+                        <h2 className="SpotDetails-login-signup-header">
+                            Oops, you have no spots!
+                        </h2>
+
+                        <p className="SpotDetails-small-text">
+                            But we can fix that! Just click the button below to begin listing your home on Deja-Moo!
+                        </p>
+
+                        <div className="SpotDetails-login-signup-buttons">
+                                <OpenModalButton
+                                    buttonText="Deja-Moo your home today"
+                                    onButtonClick={closeMenu}
+                                    modalComponent={<CreateSpotForm />}
+                                />
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
     )
