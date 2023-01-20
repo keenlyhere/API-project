@@ -14,7 +14,7 @@ export default function EditSpotForm({ spot }) {
 
     const [ address, setAddress ] = useState(spot.address);
     const [ city, setCity ] = useState(spot.city);
-    const [ state, setState ] = useState(spot.city);
+    const [ state, setState ] = useState(spot.state);
     const [ country, setCountry ] = useState(spot.country);
     const [ lat, setLat ] = useState(spot.lat);
     const [ lng, setLng ] = useState(spot.lng);
@@ -23,6 +23,7 @@ export default function EditSpotForm({ spot }) {
     const [ price, setPrice ] = useState(spot.price);
     // const [ imageUrl, setImageUrl ] = useState("");
 
+    console.log("EDIT SPOT FORM SPOT __", spot)
     const [ errors, setErrors ] = useState([]);
 
     useEffect(() => {
