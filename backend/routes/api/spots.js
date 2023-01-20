@@ -266,7 +266,6 @@ router.get("/current", requireAuth, async (req, res, next) => {
     return res.json(spotsByUserData)
 })
 
-
 // GET /:spotId
 router.get("/:spotId", async (req, res, next) => {
     const spotId = req.params.spotId;
@@ -328,7 +327,6 @@ router.get("/:spotId", async (req, res, next) => {
 
     res.json(spotById);
 })
-
 
 // POST /api/spots
 router.post("/", requireAuth, validateNewSpot, async (req, res, next) => {
@@ -641,7 +639,7 @@ router.post("/:spotId/bookings", requireAuth, validateBookings, async (req, res,
         err.status = 400;
         err.statusCode = 400;
         err.message = "Validation error";
-        err.errors.push({ endDate: "endDate cannot be on or before startDate" });
+        err.errors.push("Check-out date cannot be on or before check-in date");
         return next(err);
     }
 
@@ -651,6 +649,7 @@ router.post("/:spotId/bookings", requireAuth, validateBookings, async (req, res,
         err.status = 403;
         err.statusCode = 403;
         err.message = "Cannot create a booking in the past";
+        err.errors.push("Cannot create a booking in the past")
         return next(err);
     }
 

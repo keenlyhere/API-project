@@ -29,22 +29,23 @@ export default function AddReviewForm({ host }) {
         setStars(idx)
     }
 
-    useEffect(() => {
-        const errors = [];
+    // useEffect(() => {
+    //     const errors = [];
 
-        if (review && !review.length) {
-            errors.push("Please enter a review.");
-        }
+    //     if (review && !review.length) {
+    //         errors.push("Please enter a review.");
+    //     }
 
-        if (stars && (stars < 1 || stars > 5)) {
-            errors.push("Star rating should be between 1 and 5.")
-        }
+    //     if (stars && (stars < 1 || stars > 5)) {
+    //         errors.push("Star rating should be between 1 and 5.")
+    //     }
 
-        setErrors(errors);
-    }, [review, stars])
+    //     setErrors(errors);
+    // }, [review, stars])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrors([]);
 
         const newReview = {
             review,
@@ -55,28 +56,46 @@ export default function AddReviewForm({ host }) {
             reviewImageUrl
         }
 
-        let sendNewReview;
+        // let sendNewReview;÷
 
         // console.log("newReview:", newReview);
 
-        try {
-            sendNewReview = await dispatch(addReview(spotId, newReview))
-            // console.log("AddReviewForm - sendNewReview:", sendNewReview);
-            dispatch(loadSpotDetails(+spotId));
-            dispatch(loadSpotReviews(+spotId));
+        const sendNewReview = await dispatch(addReview(spotId, newReview))
+            .catch(async (res) => {
+                const data = await res.json();
+                console.log("DATA", data)
+                if (data && data.errors) setErrors(data.errors);
+            })
+
+
+        if (sendNewReview) {
             if (newReviewImage.length) {
                 const newReviewImage = await dispatch(addReviewImage(sendNewReview.id, reviewImageUrl))
             }
+
+            dispatch(loadSpotDetails(+spotId));
+            dispatch(loadSpotReviews(+spotId));
             history.push(`/spots/${spotId}`);
-        } catch(err) {
-            const data = await err.json();
-            console.log("AddReviewForm - err data:", data);
-            setErrors([...Object.values(data.errors)]);
         }
+
+        // try {
+        //     sendNewReview = await dispatch(addReview(spotId, newReview))
+        //     // console.log("AddReviewForm - sendNewReview:", sendNewReview);
+        //     dispatch(loadSpotDetails(+spotId));
+        //     dispatch(loadSpotReviews(+spotId));
+        //     if (newReviewImage.length) {
+        //         const newReviewImage = await dispatch(addReviewImage(sendNewReview.id, reviewImageUrl))
+        //     }
+        //     history.push(`/spots/${spotId}`);
+        // } catch(err) {
+        //     const data = await err.json();
+        //     console.log("AddReviewForm - err data:", data);
+        //     setErrors([...Object.values(data.errors)]);
+        // }
 
         setReview("");
         setStars("");
-        setErrors([]);
+        // setErrors([]);
 
 
     }
@@ -84,16 +103,18 @@ export default function AddReviewForm({ host }) {
     return (
         <div className="AddReviewForm-container">
             <h1 className="AddReviewForm-header">Leave a public review</h1>
-            <p className="AddReviewForm-subheader">{`Write a fair and honest review about your stay at ${host}'s home so future guests know what to expect.`}</p>
+            <div className="AddReviewForm-error-container">
+                <ul className="AddReviewForm-errors">
+                    {errors.map((error, idx) => (
+                        <li key={idx}>{error}</li>
+                    ))}
+                </ul>
+            </div>
             <form
                 onSubmit={handleSubmit}
                 className="AddReviewForm-form"
             >
-            <ul className="Form-errors">
-                {errors.map((error, idx) => (
-                    <li key={idx}>{error}</li>
-                ))}
-            </ul>
+            <p className="AddReviewForm-subheader">{`Write a fair and honest review about your stay at ${host}'s home so future guests know what to expect.`}</p>
             <div className="AddReviewForm-group">
                 <textarea
                 className="AddReviewForm-review"
@@ -132,7 +153,7 @@ export default function AddReviewForm({ host }) {
                     })}
                 </div>
             </div>
-            <div className="AddReviewForm-group">
+            {/* <div className="AddReviewForm-group">
                 <p className="AddReviewForm-subheader">Add a review image:</p>
                 <input
                 className="AddReviewForm-image"
@@ -141,7 +162,7 @@ export default function AddReviewForm({ host }) {
                     value={reviewImageUrl}
                     onChange={(e) => setReviewImageUrl(e.target.value)}
                 />
-            </div>
+            </div> */}
 
             <div className="AddReviewForm-button-container">
                 <button type="submit" className="AddReviewForm-submit">Create Review</button>

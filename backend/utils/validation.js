@@ -124,6 +124,8 @@ const validateNewSpot = [
         .notEmpty()
         .withMessage("Description is required"),
     check("price")
+        .isInt({ min: 0})
+        .withMessage("Price must be greater than 0")
         .notEmpty()
         .withMessage("Price per day is required"),
     handleSpotValidationErrors

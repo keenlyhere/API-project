@@ -5,7 +5,7 @@
     flex-direction: column;
     justify-content: center;
     width: 400px;
-    gap: 20px;
+    gap: 10px;
 }
 
 .Form-top {
@@ -34,10 +34,17 @@
     background: none;
 }
 
-.Form-errors {
+.Form-error-container {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding-left: 18px;
+}
+
+ul.Form-errors > li {
     list-style-type: none;
-    font-size: 12px;
-    padding: 5px;
+    font-size: 14px;
     color: #ff385c;
 }
 
@@ -54,7 +61,7 @@
 .Form-main-container {
     border: 1px solid #c4c4c4;
     border-radius: 8px;
-    margin: 10px 18px 0px 18px;
+    margin: 0px 18px 0px 18px;
 }
 
 .Form-group-top {
