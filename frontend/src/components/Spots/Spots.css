@@ -15,6 +15,7 @@
 
 .Spots-card {
     height: 380px;
+    max-width: 380px;
     display: flex;
     flex-direction: column;
     cursor: pointer;
@@ -22,7 +23,6 @@
 
 .Spots-card-image {
     width: 100%;
-    /* grid-column: 1 / 4; */
     overflow: hidden;
     border-radius: 18px;
     aspect-ratio: 1;
