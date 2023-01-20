@@ -59,12 +59,14 @@
 .BookingCard-image-container {
     width: 50%;
     height: 100%;
-    overflow: hidden;
 }
 
 .BookingCard-image {
     width: 100%;
     height: 100%;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    overflow: hidden;
 }
 
 .BookingCard-image > img {

@@ -8,14 +8,13 @@ import { editSpot, loadSpotDetails } from "../../../store/spotReducer";
 export default function EditSpotForm({ spot }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { spotId } = useParams();
     const { closeModal } = useModal();
     // const spot = useSelector(state => state.spots.spot[spotId])
     const user = useSelector(state => state.session.user);
 
     const [ address, setAddress ] = useState(spot.address);
     const [ city, setCity ] = useState(spot.city);
-    const [ state, setState ] = useState(spot.city);
+    const [ state, setState ] = useState(spot.state);
     const [ country, setCountry ] = useState(spot.country);
     const [ lat, setLat ] = useState(spot.lat);
     const [ lng, setLng ] = useState(spot.lng);
@@ -24,10 +23,11 @@ export default function EditSpotForm({ spot }) {
     const [ price, setPrice ] = useState(spot.price);
     // const [ imageUrl, setImageUrl ] = useState("");
 
+    console.log("EDIT SPOT FORM SPOT __", spot)
     const [ errors, setErrors ] = useState([]);
 
     useEffect(() => {
-        dispatch(loadSpotDetails(Number(spotId)))
+        dispatch(loadSpotDetails(Number(spot.id)))
     }, [dispatch])
 
     const handleSubmit = async (e) => {
@@ -47,15 +47,19 @@ export default function EditSpotForm({ spot }) {
 
         setErrors([]);
 
-        const editSpotId = await dispatch(editSpot(+spotId, editedSpot))
+        const editSpotId = await dispatch(editSpot(+spot.id, editedSpot))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
             })
 
+        console.log("spot", spot)
         console.log("EditSpotForm - editSpotId:", editSpotId);
-        closeModal();
-        history.push(`/spots/${editSpotId.id}`);
+        if (editSpotId !== undefined) {
+            closeModal();
+            dispatch(loadSpotDetails(Number(spot.id)))
+            history.push(`/spots/${editSpotId.id}`);
+        }
 
     }
 
@@ -80,11 +84,13 @@ export default function EditSpotForm({ spot }) {
                 </button>
                 <h2 className="Form-create">Edit Your Spot!</h2>
             </div>
-            <ul className="Form-errors">
-                {errors.map((error, idx) => (
-                    <li key={idx}>{error}</li>
-                ))}
-            </ul>
+            <div className="Form-error-container">
+                <ul className="Form-errors">
+                    {errors.map((error, idx) => (
+                        <li key={idx}>{error}</li>
+                    ))}
+                </ul>
+            </div>
             <form
                 onSubmit={handleSubmit}
                 className="Form-form"
