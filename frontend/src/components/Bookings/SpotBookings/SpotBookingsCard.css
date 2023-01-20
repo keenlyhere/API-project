@@ -1,5 +1,105 @@
+.SpotBookingsCard-container {
+    width: 100%;
+    height: 300px;
+    top: 90px;
+    border: 1px solid #b0b0b0;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 24px;
+}
+
+.SpotBookingsCard-profile-pic {
+    width: 33%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    border-right: 1px solid #b0b0b0;
+    padding: 12px;
+}
+
 .SpotBookingsCard-profile-pic > img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
+}
+
+.SpotBookingsCard-name {
+    font-size: 18px;
+    padding-top: 8px;
+}
+
+.SpotBookingsCard-date-booked {
+    display: flex;
+    height: 30%;
+    flex-direction: column;
+    justify-content: end;
+    padding-bottom: 18px;
+    bottom: 0;
+    font-size: 14px;
+    color: #b0b0b0;
+}
+
+.SpotBookingsCard-last-update {
+    color: #b0b0b0;
+}
+
+.SpotBookingsCard-renter-info {
+    width: 68%;
+    height: 100%;
+}
+
+.SpotBookingsCard-booking-right {
+    width: 100%;
+    height: 100%;
+}
+
+.SpotBookingsCard-booking-right-top {
+    width: 100%;
+    height: 65%;
+    border-bottom: 1px solid #b0b0b0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.SpotBookingsCard-date {
+    padding: 18px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.SpotBookingsCard-booking-small-text {
+    font-size: 14px;
+    color: #b0b0b0;
+    font-weight: bold;
+}
+
+.SpotBookingsCard-booking-right-bottom {
+    width: 100%;
+    height: 35%;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.SpotBookingsCard-booking-bottom-right-bottom {
+    width: 50%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.SpotBookingsCard-booking-small-text {
+    justify-self: flex-start;
+    padding: 8px;
+}
+
+.SpotBookingsCard-booking-bottom-right-bottom:not(:last-child) {
+    border-right: 1px solid #b0b0b0;
 }
