@@ -127,7 +127,7 @@ export default function CreateBookingForm({ rating, numReviews }) {
                 <div className="CreateBookingForm-charges-container">
                     <div className="CreateBookingForm-charges-groups">
                         <div className="CreateBookingForm-charge-group">
-                            <p className="CreateBookingForm-charge-header">${spot.price.toFixed(2)} x {getDaysUntilReservation(startDate, endDate)} nights</p>
+                            <p className="CreateBookingForm-charge-header">${Number(spot.price).toFixed(2)} x {getDaysUntilReservation(startDate, endDate)} nights</p>
                             <p className="CreateBookingForm-charge-calc">${fees.nightsTotal}</p>
                         </div>
                         <div className="CreateBookingForm-charge-group">
