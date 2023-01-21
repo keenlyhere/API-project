@@ -308,3 +308,7 @@
     align-items: center;
     width: calc(50% - 16px);
 }
+
+.spot-icon {
+    color: #333333;
+}
