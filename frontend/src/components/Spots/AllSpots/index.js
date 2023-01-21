@@ -25,7 +25,7 @@ export default function AllSpots() {
             return (
                 <div>
                     <i class="fa-solid fa-star"></i>
-                    {rating.toFixed(2)}
+                    {Number(rating).toFixed(2)}
                 </div>
                 );
         } else {

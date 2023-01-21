@@ -1,6 +1,6 @@
 .CreateBookingForm-container {
     width: 100%;
-    min-width: 376px;
+    /* min-width: 376px; */
     position: sticky;
     top: 90px;
     border: 1px solid #b0b0b0;
@@ -172,4 +172,14 @@ form.CreateBookingForm-form > div.CreateBookingForm-main-container > div.CreateB
     display: flex;
     justify-content: space-between;
     padding: 16px 0px 0px;
+}
+
+.CreateBookingForm-charge-total {
+    font-weight: bold;
+}
+
+.CreateBookingForm-divider {
+    width: 100%;
+    border-bottom: 1px solid #cccccc;
+    margin-top: 16px;
 }

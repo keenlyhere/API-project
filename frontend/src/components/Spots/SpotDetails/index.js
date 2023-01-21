@@ -67,7 +67,7 @@ export default function SpotDetails() {
             return (
                 <div className="SpotDetails-subtitle-rating">
                     <div className="SpotDetails-subtitle-rating-star"><i className="fa-solid fa-star"></i></div>
-                    <p className="SpotDetails-subtitle-text SpotDetails-subtitle-rating-rating"> {rating.toFixed(2)}</p>
+                    <p className="SpotDetails-subtitle-text SpotDetails-subtitle-rating-rating"> {Number(rating).toFixed(2)}</p>
                 </div>
                 );
         } else {
@@ -188,6 +188,9 @@ export default function SpotDetails() {
                 </div>
                 { user && spot.ownerId === user.id ? (
                     <div className="SpotDetails-subtitle-right">
+                        {/* eventually add spot images here
+                            <i class="fa-regular fa-image"></i>
+                         */}
                         <div className="SpotDetails-subtitle-group">
                             <NavLink
                                 to={`/spot/${spotId}/bookings`}
