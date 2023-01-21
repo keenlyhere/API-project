@@ -298,12 +298,14 @@ export default function SpotDetails() {
             <div className="SpotDetails-reviews-header">
                 <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>
                 <div className="SpotDetails-review-button-container">
-                    <OpenModalButton
-                        buttonText="Write a Review"
-                        onButtonClick={closeMenu}
-                        modalComponent={<AddReviewForm spotId={+spotId} host={spot.Owner.firstName}/>}
-                        className="LoginButton"
-                    />
+                    {spot && user && spot.ownerId !== user.id && (
+                        <OpenModalButton
+                            buttonText="Write a Review"
+                            onButtonClick={closeMenu}
+                            modalComponent={<AddReviewForm spotId={+spotId} host={spot.Owner.firstName}/>}
+                            className="LoginButton"
+                        />
+                    )}
                 </div>
             </div>
                 <AllReviews spotId={spotId} spot={spot} user={user} />
