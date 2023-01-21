@@ -183,8 +183,6 @@ export default function SpotDetails() {
                     <p className="SpotDetails-subtitle-text">{spot.numReviews} reviews</p>
                     <p className="SpotDetails-subtitle-text">·</p>
                     <p className="SpotDetails-subtitle-text">{spot.city},{spot.state},{spot.country}</p>
-                    <p className="SpotDetails-subtitle-text">·</p>
-                    <p className="SpotDetails-subtitle-text">${spot.price} night</p>
                 </div>
                 { user && spot.ownerId === user.id ? (
                     <div className="SpotDetails-subtitle-right">

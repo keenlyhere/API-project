@@ -5,7 +5,6 @@
     flex-direction: column;
     justify-content: center;
     width: 400px;
-    gap: 20px;
 }
 
 .SignUpForm-top {
@@ -34,9 +33,16 @@
     background: none;
 }
 
-.SignUpForm-errors {
+.SignUpForm-errors-container {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.SignUpForm-errors > li {
     list-style-type: none;
-    font-size: 12px;
+    font-size: 14px;
     padding: 5px;
     color: #ff385c;
 }
