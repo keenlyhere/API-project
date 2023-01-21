@@ -221,7 +221,6 @@ router.get("/current", requireAuth, async (req, res, next) => {
         }
 
         spot.SpotImages.forEach(image => {
-            console.log("CHECK FOR PREVIEW IMAGE");
             if (image.preview === true) {
                 spot.previewImage = image.url
             } else {

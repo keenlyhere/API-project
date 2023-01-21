@@ -35,8 +35,6 @@ export default function LoginFormModal({ spotId }) {
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
-                console.log("data", data);
-                console.log("errors", data.errors);
             });
     }
 
@@ -50,8 +48,6 @@ export default function LoginFormModal({ spotId }) {
                 if (data && data.errors) setErrors(data.errors);
             });
     }
-
-    console.log("ERRORS***", errors);
 
     return (
         <div className="LoginFormModal-container">

@@ -8,9 +8,9 @@ const DELETE_BOOKING = "bookings/DELETE_BOOKING";
 
 const normalize = (bookings) => {
     const normalizedData = {};
-    console.log("normalize - bookings.Bookings:", bookings);
     bookings.forEach(booking => normalizedData[booking.id] = booking);
-    console.log("normalize - normalizedData:", normalizedData);
+    // console.log("normalize - bookings.Bookings:", bookings);
+    // console.log("normalize - normalizedData:", normalizedData);
     return normalizedData;
 }
 
@@ -60,8 +60,8 @@ export const loadUserBookings = (userId) => async (dispatch) => {
 
     if (res.ok) {
         const bookings = await res.json();
-        console.log("loadUserBookings - userId:", userId);
-        console.log("loadUserBookings - bookings:", bookings);
+        // console.log("loadUserBookings - userId:", userId);
+        // console.log("loadUserBookings - bookings:", bookings);
         dispatch(actionLoadUserBookings(userId, bookings));
         return bookings;
     }
@@ -72,8 +72,8 @@ export const loadSpotBookings = (spotId) => async (dispatch) => {
 
     if (res.ok) {
         const bookings = await res.json();
-        console.log("loadSpotBookings - spotId:", spotId);
-        console.log("loadSpotBookings - bookings:", bookings);
+        // console.log("loadSpotBookings - spotId:", spotId);
+        // console.log("loadSpotBookings - bookings:", bookings);
         dispatch(actionLoadSpotBookings(spotId, bookings));
         return bookings;
     }
@@ -88,8 +88,8 @@ export const addBooking = (spotId, booking) => async (dispatch) => {
 
     if (res.ok) {
         const newBooking = await res.json();
-        console.log("addBooking - spotId:", spotId);
-        console.log("addBooking - booking:", newBooking);
+        // console.log("addBooking - spotId:", spotId);
+        // console.log("addBooking - booking:", newBooking);
         dispatch(actionAddBooking(spotId, newBooking))
         return newBooking;
     }
@@ -104,8 +104,8 @@ export const editBooking = (bookingId, booking) => async (dispatch) => {
 
     if (res.ok) {
         const editedBooking = await res.json();
-        console.log("editBooking - bookingId:", bookingId);
-        console.log("editBooking - editedBooking:", editedBooking);
+        // console.log("editBooking - bookingId:", bookingId);
+        // console.log("editBooking - editedBooking:", editedBooking);
         dispatch(actionEditBooking(bookingId, editedBooking))
         return editedBooking;
     }
@@ -118,8 +118,8 @@ export const deleteBooking = (bookingId) => async (dispatch) => {
 
     if (res.ok) {
         const deletedBooking = await res.json();
-        console.log("deleteBooking - bookingId:", bookingId);
-        console.log("deleteBooking - deletedBooking:", deletedBooking);
+        // console.log("deleteBooking - bookingId:", bookingId);
+        // console.log("deleteBooking - deletedBooking:", deletedBooking);
         dispatch(actionDeleteBooking(bookingId));
         return deletedBooking;
     }
@@ -140,7 +140,7 @@ export default function bookingReducer(state = initialState, action) {
             } else {
                 return { ...state, user: null };
             }
-            console.log("LOAD_USER_BOOKINGS - userBookingsState:", userBookingsState);
+            // console.log("LOAD_USER_BOOKINGS - userBookingsState:", userBookingsState);
             return userBookingsState;
         }
         case LOAD_SPOT_BOOKINGS: {
@@ -150,27 +150,27 @@ export default function bookingReducer(state = initialState, action) {
             } else {
                 return { ...state, spot: null };
             }
-            console.log("LOAD_SPOT_BOOKINGS - spotBookingsState:", spotBookingsState);
+            // console.log("LOAD_SPOT_BOOKINGS - spotBookingsState:", spotBookingsState);
             return spotBookingsState;
         }
         case ADD_BOOKING: {
             const addBookingState = { ...state };
             addBookingState.spot = { ...state.spot, [action.booking.id]: action.booking};
-            console.log("ADD_BOOKING - addBookingState:", addBookingState);
+            // console.log("ADD_BOOKING - addBookingState:", addBookingState);
             return addBookingState;
         }
         case EDIT_BOOKING: {
             const editBookingState = { ...state };
             editBookingState.spot = { ...state.spot, [action.bookingId]: { ...state.spot[action.bookingId], startDate: action.booking.startDate, endDate: action.booking.endDate } };
             editBookingState.user = { ...state.user, [action.bookingId]: action.booking };
-            console.log("EDIT_BOOKING - editBookingState:", editBookingState);
+            // console.log("EDIT_BOOKING - editBookingState:", editBookingState);
             return editBookingState;
         }
         case DELETE_BOOKING: {
             const deleteBookingState = { ...state };
             delete deleteBookingState.spot[action.bookingId];
             delete deleteBookingState.user[action.bookingId];
-            console.log("DELETE_BOOKING - deleteBookingState:", deleteBookingState);
+            // console.log("DELETE_BOOKING - deleteBookingState:", deleteBookingState);
             return deleteBookingState;
         }
         default:

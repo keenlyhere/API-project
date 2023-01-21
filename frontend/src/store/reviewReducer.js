@@ -9,9 +9,9 @@ const DELETE_REVIEW = "reviews/DELETE_REVIEW";
 
 const normalize = (reviews) => {
     const normalizedData = {};
-    console.log("reviews.Reviews:", reviews)
     reviews.forEach(review => normalizedData[review.id] = review);
-    console.log("normalize - normalizedData:", normalizedData);
+    // console.log("reviews.Reviews:", reviews)
+    // console.log("normalize - normalizedData:", normalizedData);
     return normalizedData;
 }
 
@@ -95,7 +95,7 @@ export const addReview = (spotId, review) => async (dispatch) => {
 
     if (res.ok) {
         const review = await res.json();
-        console.log("addReview - review:", review);
+        // console.log("addReview - review:", review);
         dispatch(actionAddReview(spotId, review));
         return review;
     }
@@ -108,7 +108,7 @@ export const deleteReview = (reviewId) => async (dispatch) => {
 
     if (res.ok) {
         const deletedReview = await res.json();
-        console.log("deleteReview - deletedReview:", deleteReview);
+        // console.log("deleteReview - deletedReview:", deleteReview);
         dispatch(actionDeleteReview(reviewId));
         return deletedReview;
     }
@@ -123,7 +123,7 @@ export const editReview = (reviewId, review) => async (dispatch) => {
 
     if (res.ok) {
         const editedReview = await res.json();
-        console.log("editReview - editedReview:", editedReview);
+        // console.log("editReview - editedReview:", editedReview);
         dispatch(actionEditReview(reviewId, review));
         return editedReview;
     }
@@ -140,7 +140,7 @@ export const addReviewImage = (reviewId, url) => async (dispatch) => {
 
     if (res.ok) {
         const reviewImage = await res.json();
-        console.log("addReviewImage - reviewImage:", reviewImage);
+        // console.log("addReviewImage - reviewImage:", reviewImage);
         dispatch(actionAddReviewImage(+reviewId, url));
         return reviewImage;
     }

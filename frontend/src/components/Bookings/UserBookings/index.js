@@ -23,7 +23,7 @@ export default function UserBookings() {
     const getSpotOwnerName = async (spotId) => {
         const spot = await dispatch(loadSpotDetails(spotId));
         let spotOwner;
-        console.log("SPOT", spot);
+        // console.log("SPOT", spot);
 
         if (spot) {
             spotOwner = spot.Owner.firstName;
@@ -34,7 +34,7 @@ export default function UserBookings() {
     if (!user) return null;
 
     if (!bookings) {
-        console.log("hit line 20")
+        // console.log("hit line 20")
         return (
         <div className="UserBookings-container">
             <h1 className="UserBookings-header">Trips</h1>
@@ -53,7 +53,7 @@ export default function UserBookings() {
 
     if (bookings) {
         userBookings = Object.values(bookings);
-        console.log("UserBookings - userBookings:", userBookings);
+        // console.log("UserBookings - userBookings:", userBookings);
     }
 
     if (!userBookings) return null;
@@ -68,7 +68,6 @@ export default function UserBookings() {
                     key={booking.id}
                     className="UserBookings-booking-container"
                 >
-                    {console.log("booking", booking)}
                     <BookingCard booking={booking} spotId={booking.spotId}/>
                 </div>
             ))}

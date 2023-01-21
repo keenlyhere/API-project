@@ -30,7 +30,7 @@ export default function CreateBookingForm({ rating, numReviews }) {
             endDate
         }
 
-        console.log("handleSubmit - newBooking:", newBooking);
+        // console.log("handleSubmit - newBooking:", newBooking);
 
         const sendNewBooking = await dispatch(addBooking(+spotId, newBooking))
             .catch(async (res) => {
