@@ -9,8 +9,8 @@ export default function SpotBookings() {
     const dispatch = useDispatch();
     const { spotId } = useParams();
     const bookings = useSelector(state => state.bookings.spot);
-    console.log("SpotBookings - spotId:", spotId);
-    console.log("SpotBookings - spotBookings:", bookings);
+    // console.log("SpotBookings - spotId:", spotId);
+    // console.log("SpotBookings - spotBookings:", bookings);
     let spotBookings;
 
     useEffect(() => {
@@ -30,7 +30,7 @@ export default function SpotBookings() {
 
     if (bookings) {
         spotBookings = Object.values(bookings);
-        console.log("SpotBookings - spotBookings:", spotBookings);
+        // console.log("SpotBookings - spotBookings:", spotBookings);
     }
 
     return (

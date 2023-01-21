@@ -50,7 +50,6 @@ export default function AddReviewForm({ spotId, host }) {
         const sendNewReview = await dispatch(addReview(spotId, newReview))
             .catch(async (res) => {
                 const data = await res.json();
-                console.log("DATA", data)
                 if (data && data.errors) setErrors(data.errors);
             })
 

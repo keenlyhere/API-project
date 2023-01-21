@@ -21,12 +21,12 @@ export default function SpotDetails() {
     const history = useHistory();
 
     const spot = useSelector(state => state.spots.spot[spotId]);
-    console.log("SpotDetails - spotById:", spot);
     const user = useSelector(state => state.session.user);
     const [ showMenu, setShowMenu ] = useState(false);
     const ulRef = useRef();
     const reviews = useSelector(state => state.reviews);
-    console.log("SpotDetails - reviews:", reviews)
+    // console.log("SpotDetails - spotById:", spot);
+    // console.log("SpotDetails - reviews:", reviews)
 
     useEffect(() => {
         if (!showMenu) return;
@@ -67,7 +67,7 @@ export default function SpotDetails() {
             return (
                 <div className="SpotDetails-subtitle-rating">
                     <div className="SpotDetails-subtitle-rating-star"><i className="fa-solid fa-star"></i></div>
-                    <p className="SpotDetails-subtitle-text SpotDetails-subtitle-rating-rating"> {rating.toFixed(2)}</p>
+                    <p className="SpotDetails-subtitle-text SpotDetails-subtitle-rating-rating"> {Number(rating).toFixed(2)}</p>
                 </div>
                 );
         } else {
@@ -87,7 +87,7 @@ export default function SpotDetails() {
 
     if (reviews.spot) {
         actualReviews = Object.values(reviews.spot);
-        console.log("actual reviews:", actualReviews)
+        // console.log("actual reviews:", actualReviews)
     }
 
     let altImages = [
@@ -101,9 +101,7 @@ export default function SpotDetails() {
     if (spot) {
         if (spot.SpotImages.length === 1 && spot.SpotImages !== "No images for spot") {
             altImages = [spot.SpotImages[0].url];
-            // mainImage.push(spot.SpotImages[0].url);
         } else if (spot.SpotImages.length > 1 && spot.SpotImages.length < 4) {
-            console.log("hit else if........")
             spot.SpotImages.forEach(image => altImages.unshift(image.url));
         }
     }
@@ -169,7 +167,7 @@ export default function SpotDetails() {
         }
     }
 
-    console.log("SpotDetails - altImages:", altImages)
+    // console.log("SpotDetails - altImages:", altImages)
 
     return spot && (
         <div className="SpotDetails-container">
@@ -183,11 +181,12 @@ export default function SpotDetails() {
                     <p className="SpotDetails-subtitle-text">{spot.numReviews} reviews</p>
                     <p className="SpotDetails-subtitle-text">·</p>
                     <p className="SpotDetails-subtitle-text">{spot.city},{spot.state},{spot.country}</p>
-                    <p className="SpotDetails-subtitle-text">·</p>
-                    <p className="SpotDetails-subtitle-text">${spot.price} night</p>
                 </div>
                 { user && spot.ownerId === user.id ? (
                     <div className="SpotDetails-subtitle-right">
+                        {/* eventually add spot images here
+                            <i class="fa-regular fa-image"></i>
+                         */}
                         <div className="SpotDetails-subtitle-group">
                             <NavLink
                                 to={`/spot/${spotId}/bookings`}
@@ -231,7 +230,7 @@ export default function SpotDetails() {
             </div> */}
                 { altImages.length === 1 ? (
                         <div className="SpotDetails-one-image">
-                            <img className="SpotDetails-image" src={altImages[0]} />
+                            <img className="SpotDetails-image" src={altImages[0]} alt={`Spot #${spotId}'s image`} />
                         </div>
                     ) : (
                         <div className="SpotDetails-images">

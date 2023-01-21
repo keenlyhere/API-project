@@ -10,10 +10,10 @@ export default function Profile() {
     // map out review info
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
-    console.log("Profile - user:", user);
     const reviewsObj = useSelector(state => state.reviews.user);
     const reviewsArr = Object.values(reviewsObj);
-    console.log("Profile - reviews:", reviewsObj, Object.values(reviewsObj).length);
+    // console.log("Profile - user:", user);
+    // console.log("Profile - reviews:", reviewsObj, Object.values(reviewsObj).length);
 
     useEffect(() => {
         dispatch(loadUserReviews(user.id));
@@ -27,7 +27,6 @@ export default function Profile() {
 
     const getMonthYear = (date) => {
         const newDate = new Date(date);
-        // console.log("newDate:", newDate);
         const month = newDate.toLocaleString("default", { month: "long" });
         const year = newDate.getFullYear();
 
@@ -41,7 +40,7 @@ export default function Profile() {
             <div className="Profile-left">
                 <div className="Profile-section-photo">
                     <div className="Profile-photo">
-                        <img src="https://images.pexels.com/photos/2647053/pexels-photo-2647053.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+                        <img src="https://images.pexels.com/photos/2647053/pexels-photo-2647053.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Profile photo" />
                     </div>
                     <h2 className="Profile-header-secondary-verified">
                         <i class="fa-regular fa-star profile-icon"></i>

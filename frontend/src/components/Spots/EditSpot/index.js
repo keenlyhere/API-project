@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
 import "../../../Forms.css";
 import { editSpot, loadSpotDetails } from "../../../store/spotReducer";
@@ -23,7 +23,6 @@ export default function EditSpotForm({ spot }) {
     const [ price, setPrice ] = useState(spot.price);
     // const [ imageUrl, setImageUrl ] = useState("");
 
-    console.log("EDIT SPOT FORM SPOT __", spot)
     const [ errors, setErrors ] = useState([]);
 
     useEffect(() => {
@@ -53,8 +52,8 @@ export default function EditSpotForm({ spot }) {
                 if (data && data.errors) setErrors(data.errors);
             })
 
-        console.log("spot", spot)
-        console.log("EditSpotForm - editSpotId:", editSpotId);
+        // console.log("EditSpotForm - editSpotId:", editSpotId);
+        
         if (editSpotId !== undefined) {
             closeModal();
             dispatch(loadSpotDetails(Number(spot.id)))

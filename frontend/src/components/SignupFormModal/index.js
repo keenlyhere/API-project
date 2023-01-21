@@ -45,9 +45,11 @@ export default function SignupFormModal() {
                 <h2 className="SignUpForm-create">Sign up</h2>
             </div>
             <h1 className="SignUpForm-title">Welcome to Deja-Moo</h1>
-            <ul className="SignUpForm-errors">
-                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
+            <div className="SignUpForm-errors-container">
+                <ul className="SignUpForm-errors">
+                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
+            </div>
             <form
                 onSubmit={handleSubmit}
                 className="SignUpForm-form"

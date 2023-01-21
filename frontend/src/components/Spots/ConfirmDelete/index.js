@@ -21,8 +21,6 @@ export default function ConfirmDelete({ spotId, user }) {
 
     if (user === undefined) return null;
 
-    console.log("user", user);
-
     return (
         <div className="ConfirmDelete-container">
             <div className="ConfirmDelete-top">

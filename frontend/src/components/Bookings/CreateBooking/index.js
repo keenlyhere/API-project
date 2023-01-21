@@ -30,7 +30,7 @@ export default function CreateBookingForm({ rating, numReviews }) {
             endDate
         }
 
-        console.log("handleSubmit - newBooking:", newBooking);
+        // console.log("handleSubmit - newBooking:", newBooking);
 
         const sendNewBooking = await dispatch(addBooking(+spotId, newBooking))
             .catch(async (res) => {
@@ -66,7 +66,7 @@ export default function CreateBookingForm({ rating, numReviews }) {
         <div className="CreateBookingForm-container">
             <div className="CreateBookingForm-header-container">
                 <div className="CreateBookingForm-header-container-left">
-                    <h1 className="CreateBookingForm-header">${spot.price.toFixed(2)}</h1>
+                    <h1 className="CreateBookingForm-header">${Number(spot.price).toFixed(2)}</h1>
                     <span className="CreateBookingForm-header-night">night</span>
                 </div>
                 <div className="CreateBookingForm-header-container-right">
@@ -139,6 +139,7 @@ export default function CreateBookingForm({ rating, numReviews }) {
                             <p className="CreateBookingForm-charge-calc">${fees.serviceTotal}</p>
                         </div>
                     </div>
+                    <div className="CreateBookingForm-divider"></div>
                     <div className="CreateBookingForm-charge-total">
                         <p className="CreateBookingForm-total-header">Total before taxes</p>
                         <p className="CreateBookingForm-total-calc">${fees.total}</p>

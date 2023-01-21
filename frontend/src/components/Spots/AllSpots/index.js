@@ -25,7 +25,7 @@ export default function AllSpots() {
             return (
                 <div>
                     <i class="fa-solid fa-star"></i>
-                    {rating.toFixed(2)}
+                    {Number(rating).toFixed(2)}
                 </div>
                 );
         } else {
@@ -59,6 +59,7 @@ export default function AllSpots() {
                                 className="Spots-image"
                                 src={previewHandler(spot.previewImage)}
                                 onClick={() => handleClick(spot.id)}
+                                alt={`Spot #${spot.id}'s image`}
                             />
                         </div>
                         <div className="Spots-card-description">

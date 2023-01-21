@@ -10,16 +10,14 @@ export default function Details() {
     const { spotId } = useParams();
     const history = useHistory();
 
-    console.log("SpotDetails - spotId:", spotId, typeof spotId)
 
     const spot = useSelector(state => state.spots.spot);
-    console.log("SpotDetails - spot:", spot)
-
     const user = useSelector(state => state.session.user);
-    console.log("SpotDetails - user:", user);
+    // console.log("SpotDetails - spotId:", spotId, typeof spotId)
+    // console.log("SpotDetails - spot:", spot)
+    // console.log("SpotDetails - user:", user);
 
     useEffect(() => {
-        console.log("SpotDetails - useEffect running")
         dispatch(loadSpotDetails(+spotId));
     }, [dispatch, spotId])
 
@@ -64,7 +62,7 @@ export default function Details() {
                     </div>
                     { spot.SpotImages !== "No images for spot" && spot.SpotImages.map(image => (
                         <div className="SpotDetails-images">
-                            <img src={image.url} />
+                            <img src={image.url} alt={`Spot #${spotId}'s image`} />
                         </div>
                     ))}
                     <div className="SpotDetails-header">

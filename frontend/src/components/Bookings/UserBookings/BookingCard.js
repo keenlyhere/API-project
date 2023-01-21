@@ -9,8 +9,8 @@ export default function BookingCard({ booking, spotId }) {
     const dispatch = useDispatch();
 
     const spot = useSelector(state => state.spots.spot[spotId]);
-    console.log("BookingCard - spot:", spot);
-    console.log("BookingCard - booking:", booking);
+    // console.log("BookingCard - spot:", spot);
+    // console.log("BookingCard - booking:", booking);
 
     const { startDate, endDate } = booking;
     const { address, city, state, country } = booking.Spot;
@@ -124,7 +124,7 @@ export default function BookingCard({ booking, spotId }) {
                     In {getDaysUntilReservation(startDate)} days
                 </p>
                 <div className="BookingCard-image">
-                    <img src={altImages[0]} />
+                    <img src={altImages[0]} alt={`Booking card image for ${booking.Spot.name}`} />
                 </div>
             </div>
         </div>

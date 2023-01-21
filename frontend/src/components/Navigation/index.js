@@ -40,7 +40,7 @@ export default function Navigation({ isLoaded }) {
                 <li>
                     <NavLink exact to="/" className="Navigation-links">
                         <div className="Navigation-logo-container">
-                            <img src={logo} className="Navigation-logo" />
+                            <img src={logo} className="Navigation-logo" alt="Deja-Moo logo" />
                         </div>
                     </NavLink>
                 </li>

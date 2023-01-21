@@ -35,8 +35,6 @@ export default function LoginFormModal({ spotId }) {
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
-                console.log("data", data);
-                console.log("errors", data.errors);
             });
     }
 
@@ -51,8 +49,6 @@ export default function LoginFormModal({ spotId }) {
             });
     }
 
-    console.log("ERRORS***", errors);
-
     return (
         <div className="LoginFormModal-container">
             <div className="LoginFormModal-top">
@@ -65,9 +61,11 @@ export default function LoginFormModal({ spotId }) {
                 <h2 className="LoginFormModal-Login">Log in</h2>
             </div>
             <h1 className="LoginFormModal-header">Welcome to Deja-Moo</h1>
-            <ul className="LoginFormModal-errors">
-                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
+            <div className="LoginFormModal-errors-container">
+                <ul className="LoginFormModal-errors">
+                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
+            </div>
             <form
                 className="LoginFormModal-form"
                 onSubmit={handleSubmit}
