@@ -65,9 +65,11 @@ export default function LoginFormModal({ spotId }) {
                 <h2 className="LoginFormModal-Login">Log in</h2>
             </div>
             <h1 className="LoginFormModal-header">Welcome to Deja-Moo</h1>
-            <ul className="LoginFormModal-errors">
-                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
+            <div className="LoginFormModal-errors-container">
+                <ul className="LoginFormModal-errors">
+                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
+            </div>
             <form
                 className="LoginFormModal-form"
                 onSubmit={handleSubmit}
