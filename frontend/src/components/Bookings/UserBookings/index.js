@@ -10,11 +10,11 @@ export default function UserBookings() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
     const bookings = useSelector(state => state.bookings.user);
-    const spots = useSelector(state => state.spot);
+    // const spots = useSelector(state => state.spot);
     let userBookings;
-    console.log("UserBookings - user:", user);
-    console.log("UserBookings - bookings:", bookings);
-    console.log("UserBookings - spots", spots);
+    // console.log("UserBookings - user:", user);
+    // console.log("UserBookings - bookings:", bookings);
+    // console.log("UserBookings - spots", spots);
 
     useEffect(() => {
         dispatch(loadUserBookings(user.id));
@@ -60,7 +60,7 @@ export default function UserBookings() {
 
     // if (!spots) return null;
 
-    return (
+    return bookings && (
         <div className="UserBookings-container">
             <h1 className="UserBookings-header">Trips</h1>
             { userBookings && userBookings.length && userBookings.map((booking) => (
@@ -68,6 +68,7 @@ export default function UserBookings() {
                     key={booking.id}
                     className="UserBookings-booking-container"
                 >
+                    {console.log("booking", booking)}
                     <BookingCard booking={booking} spotId={booking.spotId}/>
                 </div>
             ))}

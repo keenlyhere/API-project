@@ -1,6 +1,6 @@
 export const getMonthDayYear = (date) => {
     const [ year, month, day ] = date.split("-");
-    console.log("year/month/day", year, month, day)
+    // console.log("year/month/day", year, month, day)
     const dateObj = {
         year,
         month,
@@ -15,7 +15,7 @@ export const convertDate = (date) => {
     const month = newDate.toLocaleDateString("default", { month: "long" }).slice(0, 3);
     const day = newDate.getDate();
     const year = newDate.getFullYear();
-    console.log("day", day);
+    // console.log("day", day);
 
     return `${month} ${day} ${year}`
 }
@@ -29,9 +29,9 @@ export const convertDates = (date) => {
 
 export const getMonthName = (date) => {
     const newDate = new Date(date);
-    console.log("newDate:", newDate);
+    // console.log("newDate:", newDate);
     const month = newDate.toLocaleDateString("default", { month: "long" })
-    console.log("month:", month)
+    // console.log("month:", month)
     return month.slice(0,3);
 }
 
@@ -47,9 +47,32 @@ export const getDaysUntilReservation = (startDate, endDate) => {
     }
 
     const difference = start.getTime() - now.getTime();
-    console.log("getMonthName - difference:", difference);
+    // console.log("getMonthName - difference:", difference);
     const convertToDays = difference / ( 1000 * 60 * 60 * 24 );
-    console.log("getMonthName - convertToDays:", convertToDays);
+    // console.log("getMonthName - convertToDays:", convertToDays);
 
     return Math.round(convertToDays);
+}
+
+export const defaultDates = (val) => {
+    const now = new Date();
+    now.setDate(now.getDate() + 7);
+    const defaultStart = now;
+    const defaultEnd = new Date(defaultStart);
+    defaultEnd.setDate(defaultEnd.getDate() + 5);
+
+    if (val === "start") {
+        return formatDate(defaultStart);
+    } else {
+        return formatDate(defaultEnd);
+    }
+}
+
+export const formatDate = (day) => {
+    const date = `0${day.getDate()}`.slice(-2);
+    const month = `0${day.getMonth() + 1}`.slice(-2);
+    const year = day.getFullYear();
+
+    // console.log("YYYY-MM-DD",`${year}-${month}-${date}`)
+    return `${year}-${month}-${date}`;
 }

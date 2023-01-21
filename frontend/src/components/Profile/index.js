@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { loadUserReviews } from "../../store/reviewReducer";
 
+import "./Profile.css";
+
 export default function Profile() {
     // TO-DO:
     // map out user info
@@ -11,7 +13,7 @@ export default function Profile() {
     console.log("Profile - user:", user);
     const reviewsObj = useSelector(state => state.reviews.user);
     const reviewsArr = Object.values(reviewsObj);
-    // console.log("Profile - reviews:", reviews, Object.values(reviews).length);
+    console.log("Profile - reviews:", reviewsObj, Object.values(reviewsObj).length);
 
     useEffect(() => {
         dispatch(loadUserReviews(user.id));
@@ -23,16 +25,32 @@ export default function Profile() {
 
     const confirmedText = ["Identity", "Email address"];
 
+    const getMonthYear = (date) => {
+        const newDate = new Date(date);
+        // console.log("newDate:", newDate);
+        const month = newDate.toLocaleString("default", { month: "long" });
+        const year = newDate.getFullYear();
+
+        return (
+            <p className="Profile-small-text">{month} {year}</p>
+        )
+    }
+
     return user && reviewsArr && (
         <div className="Profile-container">
             <div className="Profile-left">
-                <div className="Profile-section">
-                    <div className="Profile-photo">/photo/</div>
-                    <h2 className="Profile-header-secondary">
-                        <i class="fa-regular fa-star"></i>
+                <div className="Profile-section-photo">
+                    <div className="Profile-photo">
+                        <img src="https://images.pexels.com/photos/2647053/pexels-photo-2647053.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+                    </div>
+                    <h2 className="Profile-header-secondary-verified">
+                        <i class="fa-regular fa-star profile-icon"></i>
                         {reviewsArr.length} reviews
                     </h2>
-                    <h2 className="Profile-header-secondary">Indentity verified</h2>
+                    <h2 className="Profile-header-secondary-verified">
+                        <i class="fa-solid fa-user-shield profile-icon"></i>
+                        Identity verified
+                    </h2>
                 </div>
                 <div className="Profile-section">
                     <h2 className="Profile-header-secondary">{user.firstName} confirmed</h2>
@@ -41,13 +59,13 @@ export default function Profile() {
                             key={idx}
                             className="Profile-confirmation"
                         >
-                            <i class="fa-solid fa-check"></i>
+                            <i class="fa-solid fa-check profile-icon"></i>
                             {text}
                         </p>
                     ))}
 
                     <div className="Profile-disclaimer">
-                        Learn more about how confirming account info helps keep the Deja-Moo community secure.
+                        Confirming account info helps keep the Deja-Moo community secure.
                     </div>
                 </div>
             </div>
@@ -57,27 +75,37 @@ export default function Profile() {
                     <h1 className="Profile-header">Hi, I'm {user.firstName}!</h1>
                     <p className="Profile-sub-header">Joined in 2022</p>
                 </div>
-                <div className="Profile-section">
+                <div className="Profile-section-about">
                     <h2 className="Profile-header-secondary">About</h2>
                     <p className="Profile-content">
-                        <i class="fa-solid fa-house"></i>
+                        <i class="fa-solid fa-house profile-icon"></i>
                         Lives in Moo-resville, NC
                     </p>
                 </div>
 
                 <div className="Profile-section">
-                    <h2 className="Profile-header-secondary">
-                        <i className="fa-solid fa-star"></i>
+                    <h2 className="Profile-header-secondary-reviews">
+                        <i className="fa-solid fa-star profile-icons"></i>
                         {reviewsArr.length} reviews
                     </h2>
-                    TO DO: PUT USER REVIEWS HERE
-                    <p className="Profile-small-text">Month Year</p>
-                    <p className="Review-content">Review details</p>
-                    <p className="Review-reviewer">Name, City, Country</p>
-                    <p className="Review-small-text">Joined in YEAR</p>
-                </div>
-                <div className="Profile-section">
-                    <p className="Profile-small-text">Reviews by you</p>
+                    { reviewsArr && reviewsArr.length ? (reviewsArr.map((review) => (
+                        <div
+                            key={review.id}
+                            className="Profile-review-card"
+                        >
+                            <div className="Profile-review-card-date-review">
+                                {getMonthYear(review.createdAt)}
+                                <p className="Review-content">{review.review}</p>
+                            </div>
+                            <div className="Reviews-profile-image">
+                                <i className="fa-solid fa-circle-user user profile-icon"></i>
+                                <p className="Review-reviewer">{review.User.firstName}</p>
+                            </div>
+                        </div>
+                    ))
+                    ) : (
+                        "You have not written any reviews"
+                    )}
                 </div>
             </div>
         </div>

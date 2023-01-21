@@ -11,11 +11,9 @@ export default function BookingCard({ booking, spotId }) {
     const spot = useSelector(state => state.spots.spot[spotId]);
     console.log("BookingCard - spot:", spot);
     console.log("BookingCard - booking:", booking);
-    // const startDate = booking.startDate;
-    // const endDate = booking.endDate;
+
     const { startDate, endDate } = booking;
     const { address, city, state, country } = booking.Spot;
-    console.log("city", city)
 
     useEffect(() => {
         dispatch(loadSpotDetails(+spotId));
@@ -24,8 +22,8 @@ export default function BookingCard({ booking, spotId }) {
     const getReservationDates = (startDate, endDate) => {
         const startDateObj = getMonthDayYear(startDate);
         const endDateObj = getMonthDayYear(endDate);
-        console.log("startobj", startDateObj);
-        console.log("endobj", endDateObj)
+        // console.log("startobj", startDateObj);
+        // console.log("endobj", endDateObj)
         const startMonth = getMonthName(startDate);
         const endMonth = getMonthName(endDate);
 
@@ -93,6 +91,8 @@ export default function BookingCard({ booking, spotId }) {
     }
 
     if (!spot) return null;
+
+    if (!booking) return null;
 
     return (
         <div className="BookingCard-container">

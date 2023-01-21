@@ -672,16 +672,16 @@ router.post("/:spotId/bookings", requireAuth, validateBookings, async (req, res,
             err.errors = [];
 
             if (startDateObj.getTime() >= bookingStartDateObj.getTime() && startDateObj.getTime() <= bookingEndDateObj.getTime()) {
-                err.errors.push({ "startDate": "Start date conflicts with an existing booking" });
+                err.errors.push("Start date conflicts with an existing booking");
                 return next(err);
             } else if (endDateObj.getTime() >= bookingStartDateObj.getTime() && endDateObj.getTime() <= bookingEndDateObj.getTime()) {
-                err.errors.push({ "endDate": "End date conflicts with an existing booking" });
+                err.errors.push("End date conflicts with an existing booking");
                 return next(err)
             } else if (startDateObj.getTime() <= bookingStartDateObj.getTime()
                 && endDateObj.getTime() >= bookingStartDateObj.getTime()
                 || startDateObj.getTime() <= bookingEndDateObj.getTime()
                 && endDateObj.getTime() >= bookingEndDateObj.getTime()) {
-                    err.errors.push({ "Booking conflict": "Booking dates conflicts with an existing booking" });
+                    err.errors.push("Booking dates conflicts with an existing booking");
                     return next(err)
             }
         }
