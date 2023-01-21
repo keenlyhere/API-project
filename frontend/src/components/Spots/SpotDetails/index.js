@@ -12,6 +12,7 @@ import AllReviews from "../../Reviews/AllReviews";
 import SignupFormModal from "../../SignupFormModal";
 import ConfirmDelete from "../ConfirmDelete";
 import EditSpotForm from "../EditSpot";
+import moocover from "../../../assets/moocover.png";
 
 import "./SpotDetails.css";
 
@@ -283,8 +284,115 @@ export default function SpotDetails() {
                         </div>
                     </div>
 
+                    <div className="SpotDetails-moo-cover">
+                        <div className="SpotDetails-moo-cover-image">
+                            <img src={moocover} alt="moocover image" />
+                        </div>
+                        Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.
+                    </div>
+
                     <div className="SpotDetails-description">
                         {spot.description}
+                    </div>
+
+
+                    <div className="SpotDetails-offers-header">
+                        <h2 className="SpotDetails-offers">What this place offers</h2>
+
+
+                        <div className="SpotDetails-offers-details">
+                            <div className="SpotDetails-offer-details-container">
+                                <div className="SpotDetails-icon">
+                                    <i class="fa-solid fa-mountain-sun"></i>
+                                </div>
+                                <div className="SpotDetails-offer-details-main">
+                                    <p className="SpotDetails-offer-details-header">Mountain view</p>
+                                </div>
+                            </div>
+
+
+                            <div className="SpotDetails-offer-details-container">
+                                <div className="SpotDetails-icon">
+                                    <i class="fa-solid fa-kitchen-set"></i>
+                                </div>
+                                <div className="SpotDetails-offer-details-main">
+                                    <p className="SpotDetails-offer-details-header">Kitchen</p>
+                                </div>
+                            </div>
+
+                            <div className="SpotDetails-offer-details-container">
+                                <div className="SpotDetails-icon">
+                                    <i class="fa-solid fa-car"></i>
+                                </div>
+                                <div className="SpotDetails-offer-details-main">
+                                    <p className="SpotDetails-offer-details-header">Free parking on premises</p>
+                                </div>
+                            </div>
+
+                            <div className="SpotDetails-offer-details-container">
+                                <div className="SpotDetails-icon">
+                                    <i class="fa-solid fa-suitcase"></i>
+                                </div>
+                                <div className="SpotDetails-offer-details-main">
+                                    <p className="SpotDetails-offer-details-header">Luggage dropoff allowed</p>
+                                </div>
+                            </div>
+
+                            <div className="SpotDetails-offer-details-container">
+                                <div className="SpotDetails-icon">
+                                    <i class="fa-solid fa-paw"></i>
+                                </div>
+                                <div className="SpotDetails-offer-details-main">
+                                    <p className="SpotDetails-offer-details-header">Pets allowed</p>
+                                </div>
+                            </div>
+
+                            <div className="SpotDetails-offer-details-container">
+                                <div className="SpotDetails-icon">
+                                    <i class="fa-solid fa-wifi"></i>
+                                </div>
+                                <div className="SpotDetails-offer-details-main">
+                                    <p className="SpotDetails-offer-details-header">Wifi</p>
+                                </div>
+                            </div>
+
+                            <div className="SpotDetails-offer-details-container">
+                                <div className="SpotDetails-icon">
+                                    <i class="fa-solid fa-charging-station"></i>
+                                </div>
+                                <div className="SpotDetails-offer-details-main">
+                                    <p className="SpotDetails-offer-details-header">EV charger</p>
+                                </div>
+                            </div>
+
+                            <div className="SpotDetails-offer-details-container">
+                                <div className="SpotDetails-icon">
+                                    <i class="fa-solid fa-computer"></i>
+                                </div>
+                                <div className="SpotDetails-offer-details-main">
+                                    <p className="SpotDetails-offer-details-header">Public computer</p>
+                                </div>
+                            </div>
+
+                            <div className="SpotDetails-offer-details-container">
+                                <div className="SpotDetails-icon">
+                                    <i class="fa-regular fa-snowflake"></i>
+                                </div>
+                                <div className="SpotDetails-offer-details-main">
+                                    <p className="SpotDetails-offer-details-header">Air conditioning</p>
+                                </div>
+                            </div>
+
+                            <div className="SpotDetails-offer-details-container">
+                                <div className="SpotDetails-icon">
+                                    <i class="fa-solid fa-mattress-pillow"></i>
+                                </div>
+                                <div className="SpotDetails-offer-details-main">
+                                    <p className="SpotDetails-offer-details-header">Extra pillows and blankets</p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                     { checkUser(user) }
