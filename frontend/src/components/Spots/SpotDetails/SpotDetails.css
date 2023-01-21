@@ -8,7 +8,7 @@
     font-size: 26px;
 }
 
-.SpotDetails-host {
+.SpotDetails-host, .SpotDetails-offers {
     font-size: 22px;
 }
 
@@ -164,7 +164,12 @@
     width: 15px;
 }
 
-.SpotDetails-header, .SpotDetails-host-details, .SpotDetails-description, .SpotDetails-reviews-container {
+.SpotDetails-header,
+.SpotDetails-host-details,
+.SpotDetails-description,
+.SpotDetails-reviews-container,
+.SpotDetails-moo-cover,
+.SpotDetails-offers-header {
     padding: 32px 0px;
     width: calc(100% - 15px);
 }
@@ -261,4 +266,45 @@
 
 .SpotDetails-review-button-container {
     width: 150px;
+}
+
+.SpotDetails-moo-cover {
+    width: calc(100% - 15px);
+    border-bottom: 1px solid #dddddd;
+    display: flex;
+    flex-direction: column;
+}
+
+.SpotDetails-moo-cover-image {
+    height: 56px;
+}
+
+.SpotDetails-moo-cover-image > img {
+    height: 100%;
+    object-fit: contain;
+}
+
+
+.SpotDetails-offers-header {
+    width: calc(100% - 15px);
+    border-top: 1px solid #dddddd;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.SpotDetails-offers-details {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.SpotDetails-offer-details-container {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    align-items: center;
+    width: calc(50% - 16px);
 }
