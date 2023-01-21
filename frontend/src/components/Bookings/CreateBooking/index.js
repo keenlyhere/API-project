@@ -1,23 +1,25 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router";
-import { addBooking } from "../../../store/bookingReducer";
-import { convertDates } from "../../../utils/dateFormatting";
+import { addBooking, loadUserBookings } from "../../../store/bookingReducer";
+import { calcCleaningFee, calcPricePerNight, calcServiceFee, calcTotal } from "../../../utils/bookingCalculator";
+import { convertDates, defaultDates, getDaysUntilReservation } from "../../../utils/dateFormatting";
 import "./CreateBookingForm.css"
 
 export default function CreateBookingForm({ rating, numReviews }) {
     const { spotId } = useParams();
+    const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
     const history = useHistory();
 
     const spot = useSelector(state => state.spots.spot[spotId]);
-    console.log("CreateBookingForm - spot:", spot, "*** spotId:", spotId);
+    // console.log("CreateBookingForm - spot:", spot, "*** spotId:", spotId);
 
-    const [ startDate, setStartDate ] = useState("");
-    const [ endDate, setEndDate ] = useState("");
+    const [ startDate, setStartDate ] = useState(defaultDates("start"));
+    const [ endDate, setEndDate ] = useState(defaultDates("end"));
     const [ errors, setErrors ] = useState([]);
 
-    console.log("*** startDate:", startDate, "*** endDate:", endDate);
+    // console.log("*** startDate:", startDate, "*** endDate:", endDate);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -37,9 +39,28 @@ export default function CreateBookingForm({ rating, numReviews }) {
             })
 
         if (sendNewBooking) {
+            dispatch(loadUserBookings(user.id))
             history.push(`/my-trips`)
         }
     }
+
+    const getFees = (startDate, endDate, price) => {
+        const fees = {};
+        const numDaysStay = getDaysUntilReservation(startDate, endDate);
+
+        fees.nightsTotal = calcPricePerNight(price, numDaysStay);
+        fees.cleaningTotal = calcCleaningFee(price, numDaysStay);
+        fees.serviceTotal = calcServiceFee(price, numDaysStay);
+        // console.log("fees", fees)
+        fees.total = calcTotal(+fees.nightsTotal, +fees.cleaningTotal, +fees.serviceTotal);
+
+        return fees;
+    }
+
+    const fees = getFees(startDate, endDate, spot.price);
+    // console.log(fees)
+
+    if (!user) return null;
 
     return (
         <div className="CreateBookingForm-container">
@@ -106,21 +127,21 @@ export default function CreateBookingForm({ rating, numReviews }) {
                 <div className="CreateBookingForm-charges-container">
                     <div className="CreateBookingForm-charges-groups">
                         <div className="CreateBookingForm-charge-group">
-                            <p className="CreateBookingForm-charge-header">${spot.price.toFixed(2)} x ### nights</p>
-                            <p className="CreateBookingForm-charge-calc">$ PRICE</p>
+                            <p className="CreateBookingForm-charge-header">${spot.price.toFixed(2)} x {getDaysUntilReservation(startDate, endDate)} nights</p>
+                            <p className="CreateBookingForm-charge-calc">${fees.nightsTotal}</p>
                         </div>
                         <div className="CreateBookingForm-charge-group">
                             <p className="CreateBookingForm-charge-header">Cleaning fee</p>
-                            <p className="CreateBookingForm-charge-calc">$ PRICE</p>
+                            <p className="CreateBookingForm-charge-calc">${fees.cleaningTotal}</p>
                         </div>
                         <div className="CreateBookingForm-charge-group">
                             <p className="CreateBookingForm-charge-header">Service fee</p>
-                            <p className="CreateBookingForm-charge-calc">$ PRICE</p>
+                            <p className="CreateBookingForm-charge-calc">${fees.serviceTotal}</p>
                         </div>
                     </div>
                     <div className="CreateBookingForm-charge-total">
                         <p className="CreateBookingForm-total-header">Total before taxes</p>
-                        <p className="CreateBookingForm-total-calc">$ TOTAL</p>
+                        <p className="CreateBookingForm-total-calc">${fees.total}</p>
                     </div>
                 </div>
             </div>

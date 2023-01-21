@@ -142,10 +142,6 @@
     border-bottom: 1px solid #dddddd;
 }
 
-.SpotDetails-reviews-num {
-    border-top: 1px solid #dddddd;
-}
-
 .SpotDetails-main-content-left {
     width: 100%;
 }
@@ -252,4 +248,17 @@
     align-items: center;
     gap: 8px;
     text-decoration: none;
+}
+
+.SpotDetails-reviews-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    border-top: 1px solid #dddddd;
+    width: calc(100% - 15px);
+}
+
+.SpotDetails-review-button-container {
+    width: 150px;
 }
