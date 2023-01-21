@@ -75,7 +75,7 @@ export default function SpotBookingsCard({ booking }) {
     return (
         <div className="SpotBookingsCard-container">
             <div className="SpotBookingsCard-profile-pic">
-                <img src="https://images.pexels.com/photos/2647053/pexels-photo-2647053.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+                <img src="https://images.pexels.com/photos/2647053/pexels-photo-2647053.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Spot booking card image"/>
                 <h2 className="SpotBookingsCard-name">
                     {firstName} {lastName}
                 </h2>

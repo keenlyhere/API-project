@@ -46,8 +46,6 @@ export default function CreateSpotForm() {
                 if (data && data.errors) setErrors(data.errors);
             })
 
-        console.log("newSpotId", newSpotId, " ||||| ", newSpotId.id)
-
         const newSpotImage = await dispatch(addSpotImage(newSpotId.id, imageUrl, true))
             .catch(async (res) => {
                 const data = await res.json();

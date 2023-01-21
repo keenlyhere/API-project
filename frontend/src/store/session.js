@@ -30,7 +30,7 @@ export const login = (user) => async (dispatch) => {
 
     // if (res.ok) {
         const data = await res.json();
-        console.log("login - data:", data)
+        // console.log("login - data:", data);
         dispatch(actionSetUser(data.user));
         return data;
     // }
@@ -60,7 +60,7 @@ export const signup = (user) => async (dispatch) => {
     });
 
     const data = await res.json();
-    console.log("signup - data:", data)
+    // console.log("signup - data:", data);
     dispatch(actionSetUser(data));
     return res;
 }

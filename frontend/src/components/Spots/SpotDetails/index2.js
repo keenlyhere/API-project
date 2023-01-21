@@ -10,11 +10,11 @@ export default function Details() {
     const dispatch = useDispatch();
 
     const allSpots = useSelector(state => state.spots.spot);
-    console.log("SpotDetails - allSpots:", allSpots);
     const spot = allSpots[spotId];
-    console.log("SpotDetails - spotId", spotId, typeof +spotId)
-    console.log("SpotDetails - spot:", spot)
-    console.log("SpotDetails - spotImages:", spot.SpotImages.length)
+    // console.log("SpotDetails - allSpots:", allSpots);
+    // console.log("SpotDetails - spotId", spotId, typeof +spotId)
+    // console.log("SpotDetails - spot:", spot)
+    // console.log("SpotDetails - spotImages:", spot.SpotImages.length)
 
     // let spot = {}
     // spot = useSelector(state => state.spots.spots[spotId]);
@@ -52,7 +52,7 @@ export default function Details() {
                     </div>
                     {spot.SpotImages && spot.SpotImages.length > 0 && spot.SpotImages.map(image => (
                         <div className="SpotDetails-images">
-                            <img src={image.url} />
+                            <img src={image.url} alt={`Spot #${spotId}'s image`} />
                         </div>
                     ))}
                     <div className="SpotDetails-header">

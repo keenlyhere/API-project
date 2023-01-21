@@ -38,17 +38,15 @@ export default function EditReviewModal({ host, reviewId, spotId }) {
 
         let sendEditedReview;
 
-        console.log("newReview:", editedReview);
+        // console.log("newReview:", editedReview);
 
         try {
-            console.log("SPOT ID!!!!", spotId)
             sendEditedReview = await dispatch(editReview(+reviewId, editedReview));
             dispatch(loadSpotDetails(+spotId))
             dispatch(loadSpotReviews(+spotId))
             .then(closeModal);
         } catch(err) {
             const data = await err.json();
-            console.log("EditReviewForm - err data:", data);
             setErrors([...Object.values(data.errors)]);
         }
 
@@ -97,7 +95,6 @@ export default function EditReviewModal({ host, reviewId, spotId }) {
                 <div className="EditReviewForm-stars-container">
                     {[1, 2, 3, 4, 5].map((star, idx) => {
                         idx++;
-                        {console.log("idx", idx)}
                         return (
                             <div
                                 className={idx <= stars ? "on" : "off"}
