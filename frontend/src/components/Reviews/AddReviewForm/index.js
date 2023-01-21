@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router";
+import { useModal } from "../../../context/Modal";
 import { addReview, addReviewImage, loadSpotReviews } from "../../../store/reviewReducer";
 import { loadSpotDetails } from "../../../store/spotReducer";
 
 import "./AddReviewForm.css";
 
-export default function AddReviewForm({ host }) {
-    const { spotId } = useParams();
+export default function AddReviewForm({ spotId, host }) {
     const dispatch = useDispatch();
     const history = useHistory();
+    const { closeModal } = useModal();
 
     const [ review, setReview ] = useState("");
     const [ stars, setStars ] = useState("");
@@ -28,20 +29,6 @@ export default function AddReviewForm({ host }) {
 
         setStars(idx)
     }
-
-    // useEffect(() => {
-    //     const errors = [];
-
-    //     if (review && !review.length) {
-    //         errors.push("Please enter a review.");
-    //     }
-
-    //     if (stars && (stars < 1 || stars > 5)) {
-    //         errors.push("Star rating should be between 1 and 5.")
-    //     }
-
-    //     setErrors(errors);
-    // }, [review, stars])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -73,38 +60,31 @@ export default function AddReviewForm({ host }) {
                 const newReviewImage = await dispatch(addReviewImage(sendNewReview.id, reviewImageUrl))
             }
 
+            closeModal();
             dispatch(loadSpotDetails(+spotId));
             dispatch(loadSpotReviews(+spotId));
             history.push(`/spots/${spotId}`);
         }
 
-        // try {
-        //     sendNewReview = await dispatch(addReview(spotId, newReview))
-        //     // console.log("AddReviewForm - sendNewReview:", sendNewReview);
-        //     dispatch(loadSpotDetails(+spotId));
-        //     dispatch(loadSpotReviews(+spotId));
-        //     if (newReviewImage.length) {
-        //         const newReviewImage = await dispatch(addReviewImage(sendNewReview.id, reviewImageUrl))
-        //     }
-        //     history.push(`/spots/${spotId}`);
-        // } catch(err) {
-        //     const data = await err.json();
-        //     console.log("AddReviewForm - err data:", data);
-        //     setErrors([...Object.values(data.errors)]);
-        // }
-
         setReview("");
         setStars("");
-        // setErrors([]);
 
 
     }
 
     return (
         <div className="AddReviewForm-container">
-            <h1 className="AddReviewForm-header">Leave a public review</h1>
+            <div className="AddReviewForm-top">
+                <button
+                    className="Form-close"
+                    onClick={closeModal}
+                >
+                    <i class="fa-sharp fa-solid fa-xmark"></i>
+                </button>
+                <h2 className="AddReviewForm-create">Leave a public review!</h2>
+            </div>
             <div className="AddReviewForm-error-container">
-                <ul className="AddReviewForm-errors">
+                <ul className="Form-errors">
                     {errors.map((error, idx) => (
                         <li key={idx}>{error}</li>
                     ))}
@@ -126,17 +106,6 @@ export default function AddReviewForm({ host }) {
                     placeholder="Say a few words about your stay!"
                 />
             </div>
-            {/* <div className="AddReviewForm-group">
-                <p className="AddReviewForm-subheader">Enter a star rating:</p>
-                <input
-                className="AddReviewForm-stars"
-                    id="stars"
-                    type="number"
-                    value={stars}
-                    onChange={(e) => setStars(e.target.value)}
-                    required
-                />
-            </div> */}
             <div className="AddReviewForm-group">
                 <p className="AddReviewForm-subheader">Enter a star rating:</p>
                 <div className="AddReviewForm-stars-container">
@@ -153,10 +122,10 @@ export default function AddReviewForm({ host }) {
                     })}
                 </div>
             </div>
-            {/* <div className="AddReviewForm-group">
-                <p className="AddReviewForm-subheader">Add a review image:</p>
+            {/* <div className="Form-group">
+                <p className="Form-subheader">Add a review image:</p>
                 <input
-                className="AddReviewForm-image"
+                className="Form-image"
                     id="image"
                     type="text"
                     value={reviewImageUrl}

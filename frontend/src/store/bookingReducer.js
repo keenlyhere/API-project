@@ -155,7 +155,7 @@ export default function bookingReducer(state = initialState, action) {
         }
         case ADD_BOOKING: {
             const addBookingState = { ...state };
-            addBookingState = { ...state.user, [action.booking.id]: action.booking};
+            addBookingState.spot = { ...state.spot, [action.booking.id]: action.booking};
             console.log("ADD_BOOKING - addBookingState:", addBookingState);
             return addBookingState;
         }

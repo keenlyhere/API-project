@@ -114,28 +114,31 @@ export default function SpotDetails() {
                 return (
                     ""
                 )
-            } else if (actualReviews && actualReviews.length > 0) {
-                for (let i = 0; i < actualReviews.length; i++) {
-                    const reviewer = actualReviews[i].userId;
+            }
+            // else if (actualReviews && actualReviews.length > 0) {
+            //     for (let i = 0; i < actualReviews.length; i++) {
+            //         const reviewer = actualReviews[i].userId;
 
-                    if (user.id === reviewer) {
-                        return (
-                            ""
-                        );
-                    }
-                }
+            //         if (user.id === reviewer) {
+            //             return (
+            //                 ""
+            //             );
+            //         }
+            //     }
 
+            //     return (
+            //         <div className="SpotDetails-main-content-right">
+            //             {/* <AddReviewForm host={spot.Owner.firstName} /> */}
+            //             <CreateBookingForm rating={starRating(spot.avgStarRating)} numReviews={spot.numReviews}/>
+            //         </div>
+            //     )
+
+            // }
+            else {
                 return (
                     <div className="SpotDetails-main-content-right">
-                        <AddReviewForm host={spot.Owner.firstName} />
-                        {/* <CreateBookingForm rating={starRating(spot.avgStarRating)} numReviews={spot.numReviews}/> */}
-                    </div>
-                )
-
-            } else {
-                return (
-                    <div className="SpotDetails-main-content-right">
-                        <AddReviewForm host={spot.Owner.firstName} />
+                        {/* <AddReviewForm host={spot.Owner.firstName} /> */}
+                        <CreateBookingForm rating={starRating(spot.avgStarRating)} numReviews={spot.numReviews}/>
                     </div>
                 )
             }
@@ -180,6 +183,8 @@ export default function SpotDetails() {
                     <p className="SpotDetails-subtitle-text">{spot.numReviews} reviews</p>
                     <p className="SpotDetails-subtitle-text">·</p>
                     <p className="SpotDetails-subtitle-text">{spot.city},{spot.state},{spot.country}</p>
+                    <p className="SpotDetails-subtitle-text">·</p>
+                    <p className="SpotDetails-subtitle-text">${spot.price} night</p>
                 </div>
                 { user && spot.ownerId === user.id ? (
                     <div className="SpotDetails-subtitle-right">
@@ -291,7 +296,17 @@ export default function SpotDetails() {
                     ) : "" } */}
             </div>
 
-            <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>
+            <div className="SpotDetails-reviews-header">
+                <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>
+                <div className="SpotDetails-review-button-container">
+                    <OpenModalButton
+                        buttonText="Write a Review"
+                        onButtonClick={closeMenu}
+                        modalComponent={<AddReviewForm spotId={+spotId} host={spot.Owner.firstName}/>}
+                        className="LoginButton"
+                    />
+                </div>
+            </div>
                 <AllReviews spotId={spotId} spot={spot} user={user} />
 
 
