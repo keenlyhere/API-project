@@ -194,6 +194,15 @@ export default function SpotDetails() {
                         className="LoginButton"
                     />
                 )
+            } else {
+                return (
+                    <OpenModalButton
+                        buttonText="Write a Review"
+                        onButtonClick={closeMenu}
+                        modalComponent={<AddReviewForm spotId={+spotId} host={spot.Owner.firstName}/>}
+                        className="LoginButton"
+                    />
+                )
             }
 
         }
@@ -218,7 +227,7 @@ export default function SpotDetails() {
                 { user && spot.ownerId === user.id ? (
                     <div className="SpotDetails-subtitle-right">
                         {/* eventually add spot images here
-                            <i class="fa-regular fa-image"></i>
+                            <i className="fa-regular fa-image"></i>
                          */}
                         <div className="SpotDetails-subtitle-group">
                             <NavLink
@@ -290,7 +299,7 @@ export default function SpotDetails() {
                     <div className="SpotDetails-host-details">
                         <div className="SpotDetails-host-details-container">
                             <div className="SpotDetails-icon">
-                                <i class="fa-solid fa-door-closed spot-icon"></i>
+                                <i className="fa-solid fa-door-closed spot-icon"></i>
                             </div>
                             <div className="SpotDetails-host-details-main">
                                 <p className="SpotDetails-host-details-header">Self check-in</p>
@@ -299,7 +308,7 @@ export default function SpotDetails() {
                         </div>
                         <div className="SpotDetails-host-details-container">
                             <div className="SpotDetails-icon">
-                                <i class="fa-sharp fa-solid fa-medal spot-icon"></i>
+                                <i className="fa-sharp fa-solid fa-medal spot-icon"></i>
                             </div>
                             <div className="SpotDetails-host-details-main">
                                 <p className="SpotDetails-host-details-header">{spot.Owner.firstName} is a Superhost</p>
@@ -308,7 +317,7 @@ export default function SpotDetails() {
                         </div>
                         <div className="SpotDetails-host-details-container">
                             <div className="SpotDetails-icon">
-                                <i class="fa-regular fa-message spot-icon"></i>
+                                <i className="fa-regular fa-message spot-icon"></i>
                             </div>
                             <div className="SpotDetails-host-details-main">
                                 <p className="SpotDetails-host-details-header">Great communication</p>
@@ -336,7 +345,7 @@ export default function SpotDetails() {
                         <div className="SpotDetails-offers-details">
                             <div className="SpotDetails-offer-details-container">
                                 <div className="SpotDetails-icon">
-                                    <i class="fa-solid fa-mountain-sun spot-icon"></i>
+                                    <i className="fa-solid fa-mountain-sun spot-icon"></i>
                                 </div>
                                 <div className="SpotDetails-offer-details-main">
                                     <p className="SpotDetails-offer-details-header">Mountain view</p>
@@ -346,7 +355,7 @@ export default function SpotDetails() {
 
                             <div className="SpotDetails-offer-details-container">
                                 <div className="SpotDetails-icon">
-                                    <i class="fa-solid fa-kitchen-set spot-icon"></i>
+                                    <i className="fa-solid fa-kitchen-set spot-icon"></i>
                                 </div>
                                 <div className="SpotDetails-offer-details-main">
                                     <p className="SpotDetails-offer-details-header">Kitchen</p>
@@ -355,7 +364,7 @@ export default function SpotDetails() {
 
                             <div className="SpotDetails-offer-details-container">
                                 <div className="SpotDetails-icon">
-                                    <i class="fa-solid fa-car spot-icon"></i>
+                                    <i className="fa-solid fa-car spot-icon"></i>
                                 </div>
                                 <div className="SpotDetails-offer-details-main">
                                     <p className="SpotDetails-offer-details-header">Free parking on premises</p>
@@ -364,7 +373,7 @@ export default function SpotDetails() {
 
                             <div className="SpotDetails-offer-details-container">
                                 <div className="SpotDetails-icon">
-                                    <i class="fa-solid fa-suitcase spot-icon"></i>
+                                    <i className="fa-solid fa-suitcase spot-icon"></i>
                                 </div>
                                 <div className="SpotDetails-offer-details-main">
                                     <p className="SpotDetails-offer-details-header">Luggage dropoff allowed</p>
@@ -373,7 +382,7 @@ export default function SpotDetails() {
 
                             <div className="SpotDetails-offer-details-container">
                                 <div className="SpotDetails-icon">
-                                    <i class="fa-solid fa-paw spot-icon"></i>
+                                    <i className="fa-solid fa-paw spot-icon"></i>
                                 </div>
                                 <div className="SpotDetails-offer-details-main">
                                     <p className="SpotDetails-offer-details-header">Pets allowed</p>
@@ -382,7 +391,7 @@ export default function SpotDetails() {
 
                             <div className="SpotDetails-offer-details-container">
                                 <div className="SpotDetails-icon">
-                                    <i class="fa-solid fa-wifi spot-icon"></i>
+                                    <i className="fa-solid fa-wifi spot-icon"></i>
                                 </div>
                                 <div className="SpotDetails-offer-details-main">
                                     <p className="SpotDetails-offer-details-header">Wifi</p>
@@ -391,7 +400,7 @@ export default function SpotDetails() {
 
                             <div className="SpotDetails-offer-details-container">
                                 <div className="SpotDetails-icon">
-                                    <i class="fa-solid fa-charging-station spot-icon"></i>
+                                    <i className="fa-solid fa-charging-station spot-icon"></i>
                                 </div>
                                 <div className="SpotDetails-offer-details-main">
                                     <p className="SpotDetails-offer-details-header">EV charger</p>
@@ -400,7 +409,7 @@ export default function SpotDetails() {
 
                             <div className="SpotDetails-offer-details-container">
                                 <div className="SpotDetails-icon">
-                                    <i class="fa-solid fa-computer spot-icon"></i>
+                                    <i className="fa-solid fa-computer spot-icon"></i>
                                 </div>
                                 <div className="SpotDetails-offer-details-main">
                                     <p className="SpotDetails-offer-details-header">Public computer</p>
@@ -409,7 +418,7 @@ export default function SpotDetails() {
 
                             <div className="SpotDetails-offer-details-container">
                                 <div className="SpotDetails-icon">
-                                    <i class="fa-regular fa-snowflake spot-icon"></i>
+                                    <i className="fa-regular fa-snowflake spot-icon"></i>
                                 </div>
                                 <div className="SpotDetails-offer-details-main">
                                     <p className="SpotDetails-offer-details-header">Air conditioning</p>
@@ -418,7 +427,7 @@ export default function SpotDetails() {
 
                             <div className="SpotDetails-offer-details-container">
                                 <div className="SpotDetails-icon">
-                                    <i class="fa-solid fa-mattress-pillow spot-icon"></i>
+                                    <i className="fa-solid fa-mattress-pillow spot-icon"></i>
                                 </div>
                                 <div className="SpotDetails-offer-details-main">
                                     <p className="SpotDetails-offer-details-header">Extra pillows and blankets</p>

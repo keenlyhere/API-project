@@ -28,7 +28,7 @@ export default function ConfirmDelete({ spotId, user }) {
                     className="ConfirmDelete-close"
                     onClick={closeModal}
                 >
-                    <i class="fa-sharp fa-solid fa-xmark"></i>
+                    <i className="fa-sharp fa-solid fa-xmark"></i>
                 </button>
                 <h2 className="ConfirmDelete-top-header">Are you sure?</h2>
             </div>

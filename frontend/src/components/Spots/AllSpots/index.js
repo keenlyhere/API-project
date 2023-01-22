@@ -24,7 +24,7 @@ export default function AllSpots() {
         if (typeof rating === "number") {
             return (
                 <div>
-                    <i class="fa-solid fa-star star-icon"></i>
+                    <i className="fa-solid fa-star star-icon"></i>
                     {Number(rating).toFixed(2)}
                 </div>
                 );

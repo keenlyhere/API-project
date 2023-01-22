@@ -61,7 +61,7 @@ ul.Form-errors > li {
 .Form-main-container {
     border: 1px solid #c4c4c4;
     border-radius: 8px;
-    margin: 0px 18px 0px 18px;
+    margin: 0px 18px;
 }
 
 .Form-group-top {

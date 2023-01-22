@@ -53,7 +53,7 @@ export default function EditSpotForm({ spot }) {
             })
 
         // console.log("EditSpotForm - editSpotId:", editSpotId);
-        
+
         if (editSpotId !== undefined) {
             closeModal();
             dispatch(loadSpotDetails(Number(spot.id)))
@@ -79,7 +79,7 @@ export default function EditSpotForm({ spot }) {
                     className="Form-close"
                     onClick={closeModal}
                 >
-                    <i class="fa-sharp fa-solid fa-xmark"></i>
+                    <i className="fa-sharp fa-solid fa-xmark"></i>
                 </button>
                 <h2 className="Form-create">Edit Your Spot!</h2>
             </div>
