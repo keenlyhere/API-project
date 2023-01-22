@@ -70,7 +70,7 @@ export default function CreateBookingForm({ rating, numReviews }) {
                     <span className="CreateBookingForm-header-night">night</span>
                 </div>
                 <div className="CreateBookingForm-header-container-right">
-                    <p className="CreateBookingForm-subtitle-text-rating"> {rating}</p>
+                    <p className="CreateBookingForm-subtitle-text-rating SpotDetails-bold"> {rating}</p>
                     <p className="CreateBookingForm-subtitle-text">{numReviews} reviews</p>
                 </div>
             </div>

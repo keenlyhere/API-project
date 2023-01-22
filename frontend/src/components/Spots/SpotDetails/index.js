@@ -15,6 +15,7 @@ import EditSpotForm from "../EditSpot";
 import moocover from "../../../assets/moocover.png";
 
 import "./SpotDetails.css";
+import CreateBookingModal from "../../Bookings/CreateBooking/CreateBookingModal";
 
 export default function SpotDetails() {
     const dispatch = useDispatch();
@@ -137,7 +138,7 @@ export default function SpotDetails() {
                 return (
                     <div className="SpotDetails-main-content-right">
                         {/* <AddReviewForm host={spot.Owner.firstName} /> */}
-                        <CreateBookingForm rating={starRating(spot.avgStarRating)} numReviews={spot.numReviews}/>
+                        <CreateBookingForm rating={starRating(spot.avgStarRating)} numReviews={spot.numReviews} />
                     </div>
                 )
             }
@@ -202,6 +203,7 @@ export default function SpotDetails() {
 
     return spot && (
         <div className="SpotDetails-container">
+            <div className="SpotDetails-top-container">
             <h1 className="SpotDetails-name">{spot.name}</h1>
             <div className="SpotDetails-subtitle">
                 <div className="SpotDetails-subtitle-left">
@@ -277,6 +279,7 @@ export default function SpotDetails() {
                             </div>
                         </div>
                     )}
+            </div>
             <div className="SpotDetails-main-content">
                 <div className="SpotDetails-main-content-left">
                     <div className="SpotDetails-header">
@@ -423,9 +426,24 @@ export default function SpotDetails() {
                             </div>
                         </div>
 
+                        <div className="SpotDetails-divider"></div>
+
                     </div>
                 </div>
                     { checkUser(user) }
+                    <div className="SpotDetails-reserve-bar">
+                        <div className="SpotDetails-reserve-bar-left">
+                            <h1 className="SpotDetails-reserve-bar-header">${Number(spot.price).toFixed(2)}</h1>
+                            <span className="SpotDetails-reserve-bar-header-night">night</span>
+                        </div>
+                        <div className="SpotDetails-reserve-bar-right">
+                            <OpenModalButton
+                                buttonText="Reserve"
+                                onButtonClick={closeMenu}
+                                modalComponent={<CreateBookingModal spotId={spotId} rating={starRating(spot.avgStarRating)} numReviews={spot.numReviews} />}
+                            />
+                        </div>
+                    </div>
             </div>
 
             <div className="SpotDetails-reviews-header">

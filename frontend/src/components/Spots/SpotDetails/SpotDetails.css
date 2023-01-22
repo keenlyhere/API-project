@@ -2,6 +2,7 @@
     padding: 20px;
     width: 70vw;
     margin: auto;
+    transition: ease all .5s;
 }
 
 .SpotDetails-name {
@@ -147,7 +148,6 @@
 }
 
 .SpotDetails-main-content-right {
-    min-width: 30%;
     max-width: 35%;
     margin-bottom: 10px;
 }
@@ -205,10 +205,6 @@
     gap: 24px;
 }
 
-.SpotDetails-reviews-num {
-    padding-top: 32px;
-}
-
 .Sticky {
     height: 200px;
 }
@@ -261,6 +257,7 @@
     justify-content: space-between;
     align-items: baseline;
     border-top: 1px solid #dddddd;
+    padding-top: 28px;
     width: calc(100% - 15px);
 }
 
@@ -319,4 +316,163 @@
 
 .SpotDetails-bold {
     font-weight: bold;
+}
+
+.SpotDetails-reserve-bar {
+    display: none;
+}
+
+.SpotDetails-divider {
+    display: hidden;
+}
+
+@media (min-width: 1128px) {
+    .SpotDetails-container {
+        padding: 80px;
+        width: 100%;
+        margin: auto;
+    }
+
+    .SpotDetails-main-content-right {
+        max-width: 35%;
+    }
+}
+
+@media (max-width: 1127px) {
+    .SpotDetails-container {
+        padding: 40px;
+        width: 100%;
+        margin: auto;
+    }
+
+    .SpotDetails-main-content-right {
+        max-width: 240px;
+    }
+}
+
+@media (max-width: 743px) {
+    .App-container {
+        padding-top: 56px;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .SpotDetails-container {
+        width: 100%;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding: 0px;
+        margin-bottom: 104px;
+    }
+
+    .SpotDetails-top-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 0px;
+    }
+
+    .SpotDetails-top-container > .SpotDetails-name {
+        order: 2;
+    }
+
+    .SpotDetails-top-container > .SpotDetails-subtitle {
+        order: 3;
+    }
+
+    .SpotDetails-name {
+        padding: 0px 24px;
+    }
+
+    .SpotDetails-subtitle {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    .SpotDetails-subtitle-left, .SpotDetails-subtitle-right {
+        padding: 0px 24px;
+        margin-top: 8px;
+    }
+
+    .SpotDetails-one-image, .SpotDetails-images {
+        border-radius: 0;
+        width: 100%;
+        padding-top: 0px;
+    }
+
+    .SpotDetails-main {
+        width: 100%;
+    }
+
+    .SpotDetails-small-images {
+        display: none;
+    }
+
+    .SpotDetails-main-content > .SpotDetails-main-content-left {
+        width: 100%;
+        padding: 0px 24px;
+    }
+
+    .SpotDetails-main-content-right {
+        display: none;
+    }
+
+    .SpotDetails-reserve-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 80px;
+        padding: 24px;
+        background-color: #ffffff;
+        border-top: 1px solid #cccccc;
+    }
+
+    .SpotDetails-reserve-bar-left {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 130px;
+    }
+
+    .SpotDetails-reserve-bar-header {
+        font-size: 16px;
+    }
+
+    .SpotDetails-reserve-bar-header-night {
+        font-size: 14px;
+        padding-left: 4px;
+    }
+
+    .Navigation-logo {
+        padding-left: 16px;
+    }
+
+    .ProfileButton-dropdown-container {
+        padding-right: 18px;
+    }
+
+    .profile-dropdown {
+        right: 18px;
+    }
+
+    .SpotDetails-reviews-header {
+        width: calc(100% - 48px);
+        padding-left: 24px;
+        padding-bottom: 24px;
+        border: 0;
+    }
+    .SpotDetails-reviews-container {
+        padding: 0px 24px;
+        width: 100%;
+    }
+
+    .SpotDetails-divider {
+        width: 100%;
+        border-top: 1px solid #dddddd;
+        margin-top: 16px;
+    }
+
 }

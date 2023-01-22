@@ -79,3 +79,19 @@
 .WriteaReview:hover {
     background: radial-gradient(circle, rgba(230,29,77,1) 0%, rgba(215,4,102,1) 100%);
 }
+
+.Reserve {
+    height: 48px;
+    width: auto;
+    background: linear-gradient(45deg, rgba(230,29,77,1) 0%, rgba(215,4,102,1) 100%);
+    border-radius: 8px;
+    border: none;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 14px 24px;
+}
+
+.Reserve:hover {
+    background: radial-gradient(circle, rgba(230,29,77,1) 0%, rgba(215,4,102,1) 100%);
+}

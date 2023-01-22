@@ -7,7 +7,8 @@
 }
 
 .SpotDetails-review-card {
-    width: calc(50% - 28px);
+    min-width: calc(50% - 28px);
+    max-width: 50%;
     min-height: 100px;
     max-height: 196px;
     display: flex;
