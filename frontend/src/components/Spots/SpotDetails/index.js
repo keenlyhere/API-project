@@ -176,6 +176,7 @@ export default function SpotDetails() {
                     ""
                 )
             } else if (actualReviews && actualReviews.length > 0) {
+                console.log("actualReviews", actualReviews)
                 for (let i = 0; i < actualReviews.length; i++) {
                 const reviewer = actualReviews[i].userId;
 
