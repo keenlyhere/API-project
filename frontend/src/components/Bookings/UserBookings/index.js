@@ -68,7 +68,7 @@ export default function UserBookings() {
                     key={booking.id}
                     className="UserBookings-booking-container"
                 >
-                    <BookingCard booking={booking} spotId={booking.spotId}/>
+                    <BookingCard booking={booking} spotId={booking.spotId} userId={user.id}/>
                 </div>
             ))}
         </div>

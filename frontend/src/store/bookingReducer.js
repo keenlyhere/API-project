@@ -161,8 +161,9 @@ export default function bookingReducer(state = initialState, action) {
         }
         case EDIT_BOOKING: {
             const editBookingState = { ...state };
-            editBookingState.spot = { ...state.spot, [action.bookingId]: { ...state.spot[action.bookingId], startDate: action.booking.startDate, endDate: action.booking.endDate } };
-            editBookingState.user = { ...state.user, [action.bookingId]: action.booking };
+            editBookingState.spot = { ...state.spot, [action.bookingId]: { ...state.user[action.bookingId], startDate: action.booking.startDate, endDate: action.booking.endDate } };
+            editBookingState.spot = { ...state.user, [action.bookingId]: { ...state.user[action.bookingId], startDate: action.booking.startDate, endDate: action.booking.endDate } };
+            // editBookingState.user = { ...state.user, [action.bookingId]: action.booking };
             // console.log("EDIT_BOOKING - editBookingState:", editBookingState);
             return editBookingState;
         }

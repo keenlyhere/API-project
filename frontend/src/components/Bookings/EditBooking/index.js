@@ -2,45 +2,43 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
-import { addBooking, loadUserBookings } from "../../../store/bookingReducer";
+import { addBooking, editBooking, loadUserBookings } from "../../../store/bookingReducer";
 import { calcCleaningFee, calcPricePerNight, calcServiceFee, calcTotal } from "../../../utils/bookingCalculator";
 import { defaultDates, getDaysUntilReservation, setEndDateOnStartDateChange } from "../../../utils/dateFormatting";
-import "./CreateBookingModal.css"
 
-export default function CreateBookingModal({ spotId, rating, numReviews }) {
+export default function EditBooking({ spotId, booking }) {
     const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
     const history = useHistory();
     const { closeModal } = useModal();
 
     const spot = useSelector(state => state.spots.spot[spotId]);
+    // console.log("EditBooking - booking:", booking);
 
-    const [ startDate, setStartDate ] = useState(defaultDates("start"));
-    const [ endDate, setEndDate ] = useState(defaultDates("end"));
+
+    const [ startDate, setStartDate ] = useState(booking.startDate);
+    const [ endDate, setEndDate ] = useState(booking.endDate);
     const [ errors, setErrors ] = useState([]);
-
-    useEffect(() => {
-        setEndDate(setEndDateOnStartDateChange(startDate));
-    }, [startDate])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
 
-        const newBooking = {
+        const editedBooking = {
             startDate,
             endDate
         }
 
-        const sendNewBooking = await dispatch(addBooking(+spotId, newBooking))
+        const sendEditedBooking = await dispatch(editBooking(+booking.id, editedBooking))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
             })
 
-        if (sendNewBooking) {
-            dispatch(loadUserBookings(user.id))
-            history.push(`/my-trips`)
+        if (sendEditedBooking) {
+            dispatch(loadUserBookings(user.id));
+            // history.push(`/my-trips`)
+            closeModal();
         }
     }
 
@@ -76,10 +74,10 @@ export default function CreateBookingModal({ spotId, rating, numReviews }) {
                     <h1 className="CreateBookingFormModal-header">${Number(spot.price).toFixed(2)}</h1>
                     <span className="CreateBookingFormModal-header-night">night</span>
                 </div>
-                <div className="CreateBookingFormModal-header-container-right">
+                {/* <div className="CreateBookingFormModal-header-container-right">
                     <p className="CreateBookingFormModal-subtitle-text-rating SpotDetails-bold"> {rating}</p>
                     <p className="CreateBookingFormModal-subtitle-text">{numReviews} reviews</p>
-                </div>
+                </div> */}
             </div>
             <div className="CreateBookingFormModal-error-container">
                 <ul className="CreateBookingFormModal-errors">

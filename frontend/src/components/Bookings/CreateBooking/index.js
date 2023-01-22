@@ -22,7 +22,6 @@ export default function CreateBookingForm({ rating, numReviews }) {
     // console.log("*** startDate:", startDate, "*** endDate:", endDate);
 
     useEffect(() => {
-        console.log("HIT USEEFFECT")
         setEndDate(setEndDateOnStartDateChange(startDate));
     }, [startDate])
 

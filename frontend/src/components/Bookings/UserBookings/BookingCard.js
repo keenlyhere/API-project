@@ -1,12 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { loadSpotDetails } from "../../../store/spotReducer";
-import { getMonthName, getDaysUntilReservation, getMonthDayYear } from "../../../utils/dateFormatting";
+import { getMonthName, getDaysUntilReservation, getMonthDayYear, convertDate, convertDates } from "../../../utils/dateFormatting";
+import { useHistory } from "react-router-dom";
 
 import "./BookingCard.css";
+import { deleteBooking, loadUserBookings } from "../../../store/bookingReducer";
+import OpenModalButton from "../../OpenModalButton";
+import EditBooking from "../EditBooking";
 
-export default function BookingCard({ booking, spotId }) {
+export default function BookingCard({ booking, spotId, userId }) {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const spot = useSelector(state => state.spots.spot[spotId]);
     // console.log("BookingCard - spot:", spot);
@@ -14,6 +19,25 @@ export default function BookingCard({ booking, spotId }) {
 
     const { startDate, endDate } = booking;
     const { address, city, state, country } = booking.Spot;
+    const [ showMenu, setShowMenu ] = useState(false);
+    const ulRef = useRef();
+
+    useEffect(() => {
+        if (!showMenu) return;
+
+        const closeMenu = (e) => {
+            if (!ulRef.current.contains(e.target)) {
+                setShowMenu(false);
+            }
+        }
+
+        document.addEventListener("click", closeMenu);
+
+        return () => document.removeEventListener("click", closeMenu);
+    }, [showMenu]);
+
+    const closeMenu = () => setShowMenu(false);
+
 
     useEffect(() => {
         dispatch(loadSpotDetails(+spotId));
@@ -22,10 +46,8 @@ export default function BookingCard({ booking, spotId }) {
     const getReservationDates = (startDate, endDate) => {
         const startDateObj = getMonthDayYear(startDate);
         const endDateObj = getMonthDayYear(endDate);
-        // console.log("startobj", startDateObj);
-        // console.log("endobj", endDateObj)
-        const startMonth = getMonthName(startDate);
-        const endMonth = getMonthName(endDate);
+        const startMonth = getMonthName(convertDates(startDate));
+        const endMonth = getMonthName(convertDates(endDate));
 
         if (startDateObj.month === endDateObj.month) {
             return (
@@ -74,6 +96,16 @@ export default function BookingCard({ booking, spotId }) {
         }
     }
 
+    const handleClick = (spotId) => {
+        history.push(`/spots/${spotId}`)
+    }
+
+    const handleDelete = async (bookingId) => {
+        const deletedReview = await dispatch(deleteBooking(bookingId));
+        dispatch(loadUserBookings(userId));
+        history.push(`/my-trips`);
+    }
+
     let altImages = [
         "https://images.pexels.com/photos/422218/pexels-photo-422218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/12776422/pexels-photo-12776422.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -107,15 +139,40 @@ export default function BookingCard({ booking, spotId }) {
                 {getReservationDates(startDate, endDate)}
 
                 <div className="BookingCard-description-address">
-                    <p className="BookingCard-tertiary-header">
-                        {address}
-                    </p>
-                    <p className="BookingCard-tertiary-header">
-                        {city}, {state}
-                    </p>
-                    <p className="BookingCard-description-small-text">
-                        {country}
-                    </p>
+                    <div className="BookingCard-description-address-info">
+                        <p className="BookingCard-tertiary-header">
+                            {address}
+                        </p>
+                        <p className="BookingCard-tertiary-header">
+                            {city}, {state}
+                        </p>
+                        <p className="BookingCard-description-small-text">
+                            {country}
+                        </p>
+                    </div>
+                    <div className="BookingCard-actions">
+                        <div
+                            className="Review-action-edit clickable"
+                        >
+                            <OpenModalButton
+                                buttonText="Edit"
+                                onButtonClick={closeMenu}
+                                modalComponent={<EditBooking spotId={spotId} booking={booking} />}
+                                icon={"edit"}
+                            />
+                        </div>
+                        <div
+                            className="BookingCard-action-delete clickable"
+                            onClick={() => handleDelete(booking.id)}
+                        >
+                            <i className="fa-solid fa-trash"></i>
+                            <button
+                                className="BookingCard-buttons"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -124,7 +181,11 @@ export default function BookingCard({ booking, spotId }) {
                     In {getDaysUntilReservation(startDate)} days
                 </p>
                 <div className="BookingCard-image">
-                    <img src={altImages[0]} alt={`Booking card image for ${booking.Spot.name}`} />
+                    <img
+                        className="clickable"
+                        src={altImages[0]} alt={`Booking card image for ${booking.Spot.name}`}
+                        onClick={() => handleClick(spot.id)}
+                    />
                 </div>
             </div>
         </div>

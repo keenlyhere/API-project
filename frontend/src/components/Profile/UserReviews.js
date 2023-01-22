@@ -1,7 +1,6 @@
 export default function UserReviews() {
     // TO-DO
     // map out review info
-    // LOOK FOR LADLES && PACK THEM AWAY
     return (
         <div className="UserReviews-container">
             <div className="UserReviews-section">

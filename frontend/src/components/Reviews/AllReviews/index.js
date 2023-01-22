@@ -90,22 +90,27 @@ export default function AllReviews({ spotId, spot, user }) {
                                 <p className="Reviews-review-text">{review.review}</p>
                                 {user && user.id === review.User.id ? (
                                     <div className="Reviews-actions">
-                                        <div className="Review-action-edit clickable">
-                                            <i className="fa-regular fa-pen-to-square"></i>
+                                        <div
+                                            className="Review-action-edit clickable"
+                                        >
+                                            {/* <i className="fa-regular fa-pen-to-square"></i> */}
                                             <OpenModalButton
                                                 buttonText="Edit"
                                                 onButtonClick={closeMenu}
                                                 modalComponent={<EditReviewModal host={spot.Owner.firstName} reviewId={review.id} spotId={spotId} />}
+                                                icon={"edit"}
                                             />
                                         </div>
-                                        <div className="Review-action-delete">
-                                            <i className="fa-solid fa-trash"></i>
-                                            <button
-                                                onClick={() => handleDelete(review.id)}
+                                        <div
+                                            className="Review-action-delete clickable"
+                                            onClick={() => handleDelete(review.id)}
+                                        >
+                                            <i className="fa-solid fa-trash clickable Reviews-buttons"></i>
+                                            <p
                                                 className="Reviews-buttons"
                                             >
                                                 Delete
-                                            </button>
+                                            </p>
                                         </div>
                                     </div>
                                 ) : ""}
