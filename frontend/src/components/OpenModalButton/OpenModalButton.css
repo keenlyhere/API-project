@@ -60,6 +60,8 @@
     display: flex;
     gap: 8px;
     padding: 0px 5px;
+    align-items: center;
+    margin-left: 0;
 }
 
 .WriteaReview {

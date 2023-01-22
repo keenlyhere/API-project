@@ -29,9 +29,7 @@ export const convertDates = (date) => {
 
 export const getMonthName = (date) => {
     const newDate = new Date(date);
-    // console.log("newDate:", newDate);
-    const month = newDate.toLocaleDateString("default", { month: "long" })
-    // console.log("month:", month)
+    const month = newDate.toLocaleDateString("default", { month: "long" });
     return month.slice(0,3);
 }
 
@@ -73,7 +71,7 @@ export const formatDate = (day) => {
     const month = `0${day.getMonth() + 1}`.slice(-2);
     const year = day.getFullYear();
 
-    console.log("YYYY-MM-DD",`${year}-${month}-${date}`)
+    // console.log("YYYY-MM-DD",`${year}-${month}-${date}`);
     return `${year}-${month}-${date}`;
 }
 

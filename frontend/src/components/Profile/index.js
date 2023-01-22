@@ -92,13 +92,14 @@ export default function Profile() {
                             key={review.id}
                             className="Profile-review-card"
                         >
+                            {console.log(review)}
                             <div className="Profile-review-card-date-review">
                                 {getMonthYear(review.createdAt)}
                                 <p className="Review-content">{review.review}</p>
                             </div>
                             <div className="Reviews-profile-image">
-                                <i className="fa-solid fa-circle-user user profile-icon"></i>
-                                <p className="Review-reviewer">{review.User.firstName}</p>
+                                {/* <i className="fa-solid fa-circle-user user profile-icon"></i> */}
+                                <p className="Review-reviewer">{review.Spot.name}</p>
                             </div>
                         </div>
                     ))

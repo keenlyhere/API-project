@@ -103,6 +103,7 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
         err.status = 403;
         err.statusCode = 403;
         err.message = "Past bookings can't be modified";
+        err.errors.push("Past bookings can't be modified")
         return next(err);
     }
 
@@ -113,7 +114,7 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
         err.status = 400;
         err.statusCode = 400;
         err.message = "Validation error";
-        err.errors.push({endDate: "endDate cannot be on or before startDate"})
+        err.errors.push("Checkout date cannot be on or before check-in date")
         return next(err);
     }
 
@@ -138,16 +139,16 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
                 err.errors = [];
 
                 if (startDateObj.getTime() >= spotBookingStartDateObj.getTime() && startDateObj.getTime() <= spotBookingEndDateObj.getTime()) {
-                    err.errors.push({ "startDate": "Start date conflicts with an existing booking" });
+                    err.errors.push("Start date conflicts with an existing booking");
                     next(err);
                 } else if (endDateObj.getTime() >= spotBookingStartDateObj.getTime() && endDateObj.getTime() <= spotBookingEndDateObj.getTime()) {
-                    err.errors.push({ "endDate": "End date conflicts with an existing booking" })
+                    err.errors.push("End date conflicts with an existing booking")
                     next(err);
                 } else if (startDateObj.getTime() <= spotBookingStartDateObj.getTime()
                     && endDateObj.getTime() >= spotBookingStartDateObj.getTime()
                     || startDateObj.getTime() <= spotBookingEndDateObj.getTime()
                     && endDateObj.getTime() >= spotBookingEndDateObj.getTime()) {
-                    err.errors.push({ "Booking conflict": "Booking dates conflicts with an existing booking" })
+                    err.errors.push("Booking dates conflicts with an existing booking")
                     return next(err);
                 }
             }

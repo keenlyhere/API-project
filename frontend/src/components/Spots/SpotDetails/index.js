@@ -176,7 +176,6 @@ export default function SpotDetails() {
                     ""
                 )
             } else if (actualReviews && actualReviews.length > 0) {
-                console.log("actualReviews", actualReviews)
                 for (let i = 0; i < actualReviews.length; i++) {
                 const reviewer = actualReviews[i].userId;
 
@@ -265,8 +264,8 @@ export default function SpotDetails() {
                 ) }
             </div>
             {/* <div className="SpotDetails-images">
-                { spot.SpotImages && spot.SpotImages.length > 0 && spot.SpotImages !== "No images for spot" && spot.SpotImages.map(image => (
-                        <div className="SpotDetails-images">
+                { spot.SpotImages && spot.SpotImages.length > 0 && spot.SpotImages !== "No images for spot" && spot.SpotImages.map((image, idx) => (
+                        <div key={idx} className="SpotDetails-images">
                             <img className="SpotDetails-image" src={image.url} />
                         </div>
                     ))}
@@ -281,8 +280,8 @@ export default function SpotDetails() {
                                 <img className="SpotDetails-main-image" src={altImages[0]} />
                             </div>
                             <div className="SpotDetails-small-images">
-                                {altImages.slice(1, 5).map(image => (
-                                    <div className="SpotDetails-small-image-container">
+                                {altImages.slice(1, 5).map((image, idx) => (
+                                    <div key={idx} className="SpotDetails-small-image-container">
                                         <img className="SpotDetails-small-image" src={image} />
                                     </div>
                                 ))}
