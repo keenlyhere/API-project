@@ -43,11 +43,11 @@ export default function Profile() {
                         <img src="https://images.pexels.com/photos/2647053/pexels-photo-2647053.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Profile photo" />
                     </div>
                     <h2 className="Profile-header-secondary-verified">
-                        <i class="fa-regular fa-star profile-icon"></i>
+                        <i className="fa-regular fa-star profile-icon"></i>
                         {reviewsArr.length} reviews
                     </h2>
                     <h2 className="Profile-header-secondary-verified">
-                        <i class="fa-solid fa-user-shield profile-icon"></i>
+                        <i className="fa-solid fa-user-shield profile-icon"></i>
                         Identity verified
                     </h2>
                 </div>
@@ -58,7 +58,7 @@ export default function Profile() {
                             key={idx}
                             className="Profile-confirmation"
                         >
-                            <i class="fa-solid fa-check profile-icon"></i>
+                            <i className="fa-solid fa-check profile-icon"></i>
                             {text}
                         </p>
                     ))}
@@ -77,7 +77,7 @@ export default function Profile() {
                 <div className="Profile-section-about">
                     <h2 className="Profile-header-secondary">About</h2>
                     <p className="Profile-content">
-                        <i class="fa-solid fa-house profile-icon"></i>
+                        <i className="fa-solid fa-house profile-icon"></i>
                         Lives in Moo-resville, NC
                     </p>
                 </div>

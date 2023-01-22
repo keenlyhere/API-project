@@ -64,7 +64,7 @@ export default function CreateSpotForm() {
                     className="Form-close"
                     onClick={closeModal}
                 >
-                    <i class="fa-sharp fa-solid fa-xmark"></i>
+                    <i className="fa-sharp fa-solid fa-xmark"></i>
                 </button>
                 <h2 className="Form-create">Create a Spot!</h2>
             </div>

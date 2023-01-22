@@ -56,7 +56,7 @@ export default function LoginFormModal({ spotId }) {
                     className="LoginFormModal-close"
                     onClick={closeModal}
                 >
-                    <i class="fa-sharp fa-solid fa-xmark"></i>
+                    <i className="fa-sharp fa-solid fa-xmark"></i>
                 </button>
                 <h2 className="LoginFormModal-Login">Log in</h2>
             </div>

@@ -78,7 +78,7 @@ export default function AddReviewForm({ spotId, host }) {
                     className="Form-close"
                     onClick={closeModal}
                 >
-                    <i class="fa-sharp fa-solid fa-xmark"></i>
+                    <i className="fa-sharp fa-solid fa-xmark"></i>
                 </button>
                 <h2 className="AddReviewForm-create">Leave a public review!</h2>
             </div>

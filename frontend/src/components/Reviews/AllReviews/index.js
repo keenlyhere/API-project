@@ -63,12 +63,19 @@ export default function AllReviews({ spotId, spot, user }) {
 
     if (reviews.spot) {
         actualReviews = Object.values(reviews.spot);
-        // console.log("actual reviews:", actualReviews)
+    }
+
+    if (!reviews.spot) {
+        return (
+            <div className="AllReviews-container">
+                <div className="SpotDetails-reviews-container">No reviews to display.</div>
+            </div>
+        )
     }
 
     return actualReviews && (
-        <div>
-        {spot.numReviews === 0 ? (
+        <div className="AllReviews-container">
+        {spot.numReviews == 0 ? (
                 <div className="SpotDetails-reviews-container">No reviews to display.</div>
             ) : (
                 <div className="SpotDetails-reviews-container">

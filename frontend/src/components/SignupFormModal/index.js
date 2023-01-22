@@ -40,7 +40,7 @@ export default function SignupFormModal() {
                     className="SignUpForm-close"
                     onClick={closeModal}
                 >
-                    <i class="fa-sharp fa-solid fa-xmark"></i>
+                    <i className="fa-sharp fa-solid fa-xmark"></i>
                 </button>
                 <h2 className="SignUpForm-create">Sign up</h2>
             </div>

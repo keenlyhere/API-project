@@ -326,6 +326,34 @@
     display: hidden;
 }
 
+@media (min-width: 1440px) {
+    .SpotDetails-container {
+        padding: 80px;
+        width: 100%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .SpotDetails-top-container {
+        width: 100%;
+        max-width: 1120px;
+        display: flex;
+        flex-direction: column;
+        padding: 0px;
+    }
+
+    .SpotDetails-main-content, .SpotDetails-reviews-header, .AllReviews-container {
+        width: 100%;
+        max-width: 1120px;
+    }
+
+    .SpotDetails-one-image > img {
+        width: 100%;
+    }
+}
+
 @media (min-width: 1128px) {
     .SpotDetails-container {
         padding: 80px;
