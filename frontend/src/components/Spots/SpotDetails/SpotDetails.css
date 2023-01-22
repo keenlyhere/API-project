@@ -334,7 +334,8 @@
     }
 
     .SpotDetails-main-content-right {
-        max-width: 35%;
+        max-width: 380px;
+        width: 100%;
     }
 }
 

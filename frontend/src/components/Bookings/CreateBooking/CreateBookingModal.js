@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
 import { addBooking, loadUserBookings } from "../../../store/bookingReducer";
 import { calcCleaningFee, calcPricePerNight, calcServiceFee, calcTotal } from "../../../utils/bookingCalculator";
-import { defaultDates, getDaysUntilReservation } from "../../../utils/dateFormatting";
+import { defaultDates, getDaysUntilReservation, setEndDateOnStartDateChange } from "../../../utils/dateFormatting";
 import "./CreateBookingModal.css"
 
 export default function CreateBookingModal({ spotId, rating, numReviews }) {
@@ -18,6 +18,11 @@ export default function CreateBookingModal({ spotId, rating, numReviews }) {
     const [ startDate, setStartDate ] = useState(defaultDates("start"));
     const [ endDate, setEndDate ] = useState(defaultDates("end"));
     const [ errors, setErrors ] = useState([]);
+
+    useEffect(() => {
+        console.log("HIT USEEFFECT")
+        setEndDate(setEndDateOnStartDateChange(startDate));
+    }, [startDate])
 
     const handleSubmit = async (e) => {
         e.preventDefault();

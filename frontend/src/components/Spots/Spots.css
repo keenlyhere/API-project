@@ -9,7 +9,7 @@
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    gap: 18px;
+    gap: 24px;
     padding: 20px 80px;
 }
 
@@ -37,9 +37,8 @@
 }
 
 .Spots-card-description {
-    width: calc(100% - 16px);
-    padding: 8px;
-    /* grid-column: 1 / 4; */
+    width: 100%;
+    padding: 8px 0px;
 }
 
 .Spots-header {
@@ -60,4 +59,8 @@
 .UserSpots-container {
     margin: 80px auto;
     width: 400px;
+}
+
+.star-icon {
+    padding-right: 8px;
 }
