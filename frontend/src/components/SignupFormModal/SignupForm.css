@@ -38,13 +38,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0px 18px;
 }
 
 .SignUpForm-errors > li {
     list-style-type: none;
     font-size: 14px;
-    padding: 5px;
     color: #ff385c;
+    padding-top: 5px;
+    text-align: center;
 }
 
 .SignUpForm-title {

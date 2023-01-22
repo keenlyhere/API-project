@@ -63,7 +63,7 @@ export default function SignupFormModal() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                 />
-                <label for="email">
+                <label htmlFor="email">
                     Email
                 </label>
             </div>
@@ -75,7 +75,7 @@ export default function SignupFormModal() {
                     onChange={(e) => setUsername(e.target.value)}
                     required
                 />
-                <label for="username">
+                <label htmlFor="username">
                     Username
                 </label>
             </div>
@@ -87,7 +87,7 @@ export default function SignupFormModal() {
                     onChange={(e) => setFirstName(e.target.value)}
                     required
                 />
-                <label for="firstName">
+                <label htmlFor="firstName">
                     First Name
                 </label>
             </div>
@@ -99,7 +99,7 @@ export default function SignupFormModal() {
                     onChange={(e) => setLastName(e.target.value)}
                     required
                 />
-                <label for="lastName">
+                <label htmlFor="lastName">
                     Last Name
                 </label>
             </div>
@@ -111,7 +111,7 @@ export default function SignupFormModal() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <label for="password">
+                <label htmlFor="password">
                     Password
                 </label>
             </div>
@@ -123,7 +123,7 @@ export default function SignupFormModal() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                 />
-                <label for="confirmPassword">
+                <label htmlFor="confirmPassword">
                     Confirm Password
                 </label>
             </div>
