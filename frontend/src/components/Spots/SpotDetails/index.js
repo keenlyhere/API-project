@@ -168,6 +168,36 @@ export default function SpotDetails() {
         }
     }
 
+    const checkReviewer = (user) => {
+        if (user) {
+            if (spot.ownerId === user.id) {
+                return (
+                    ""
+                )
+            } else if (actualReviews && actualReviews.length > 0) {
+                for (let i = 0; i < actualReviews.length; i++) {
+                const reviewer = actualReviews[i].userId;
+
+                    if (user.id === reviewer) {
+                        return (
+                            ""
+                        );
+                    }
+                }
+
+                return (
+                    <OpenModalButton
+                        buttonText="Write a Review"
+                        onButtonClick={closeMenu}
+                        modalComponent={<AddReviewForm spotId={+spotId} host={spot.Owner.firstName}/>}
+                        className="LoginButton"
+                    />
+                )
+            }
+
+        }
+    }
+
     // console.log("SpotDetails - altImages:", altImages)
 
     return spot && (
@@ -175,13 +205,13 @@ export default function SpotDetails() {
             <h1 className="SpotDetails-name">{spot.name}</h1>
             <div className="SpotDetails-subtitle">
                 <div className="SpotDetails-subtitle-left">
-                    <div className="SpotDetails-subtitle-rating">
+                    <div className="SpotDetails-subtitle-rating SpotDetails-bold">
                         {starRating(spot.avgStarRating)}
                     </div>
                     <p className="SpotDetails-subtitle-text">·</p>
-                    <p className="SpotDetails-subtitle-text">{spot.numReviews} reviews</p>
+                    <p className="SpotDetails-subtitle-text SpotDetails-underline SpotDetails-bold">{spot.numReviews} reviews</p>
                     <p className="SpotDetails-subtitle-text">·</p>
-                    <p className="SpotDetails-subtitle-text">{spot.city},{spot.state},{spot.country}</p>
+                    <p className="SpotDetails-subtitle-text SpotDetails-underline SpotDetails-bold">{spot.city}, {spot.state}, {spot.country}</p>
                 </div>
                 { user && spot.ownerId === user.id ? (
                     <div className="SpotDetails-subtitle-right">
@@ -396,24 +426,20 @@ export default function SpotDetails() {
                     </div>
                 </div>
                     { checkUser(user) }
-                    {/* { user && spot.ownerId !== user.id ? (
-                        <div className="SpotDetails-main-content-right">
-                                <AddReviewForm host={spot.Owner.firstName} />
-                        </div>
-                    ) : "" } */}
             </div>
 
             <div className="SpotDetails-reviews-header">
                 <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>
                 <div className="SpotDetails-review-button-container">
-                    {spot && user && spot.ownerId !== user.id && (
+                    {/* {spot && user && spot.ownerId !== user.id  && (
                         <OpenModalButton
                             buttonText="Write a Review"
                             onButtonClick={closeMenu}
                             modalComponent={<AddReviewForm spotId={+spotId} host={spot.Owner.firstName}/>}
                             className="LoginButton"
                         />
-                    )}
+                    )} */}
+                    { checkReviewer(user) }
                 </div>
             </div>
                 <AllReviews spotId={spotId} spot={spot} user={user} />

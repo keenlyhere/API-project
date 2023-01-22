@@ -312,3 +312,11 @@
 .spot-icon {
     color: #333333;
 }
+
+.SpotDetails-underline {
+    text-decoration: underline;
+}
+
+.SpotDetails-bold {
+    font-weight: bold;
+}
