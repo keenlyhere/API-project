@@ -15,6 +15,7 @@ import EditSpotForm from "../EditSpot";
 import moocover from "../../../assets/moocover.png";
 
 import "./SpotDetails.css";
+import CreateBookingModal from "../../Bookings/CreateBooking/CreateBookingModal";
 
 export default function SpotDetails() {
     const dispatch = useDispatch();
@@ -137,7 +138,7 @@ export default function SpotDetails() {
                 return (
                     <div className="SpotDetails-main-content-right">
                         {/* <AddReviewForm host={spot.Owner.firstName} /> */}
-                        <CreateBookingForm rating={starRating(spot.avgStarRating)} numReviews={spot.numReviews}/>
+                        <CreateBookingForm rating={starRating(spot.avgStarRating)} numReviews={spot.numReviews} />
                     </div>
                 )
             }
@@ -168,20 +169,51 @@ export default function SpotDetails() {
         }
     }
 
+    const checkReviewer = (user) => {
+        if (user) {
+            if (spot.ownerId === user.id) {
+                return (
+                    ""
+                )
+            } else if (actualReviews && actualReviews.length > 0) {
+                for (let i = 0; i < actualReviews.length; i++) {
+                const reviewer = actualReviews[i].userId;
+
+                    if (user.id === reviewer) {
+                        return (
+                            ""
+                        );
+                    }
+                }
+
+                return (
+                    <OpenModalButton
+                        buttonText="Write a Review"
+                        onButtonClick={closeMenu}
+                        modalComponent={<AddReviewForm spotId={+spotId} host={spot.Owner.firstName}/>}
+                        className="LoginButton"
+                    />
+                )
+            }
+
+        }
+    }
+
     // console.log("SpotDetails - altImages:", altImages)
 
     return spot && (
         <div className="SpotDetails-container">
+            <div className="SpotDetails-top-container">
             <h1 className="SpotDetails-name">{spot.name}</h1>
             <div className="SpotDetails-subtitle">
                 <div className="SpotDetails-subtitle-left">
-                    <div className="SpotDetails-subtitle-rating">
+                    <div className="SpotDetails-subtitle-rating SpotDetails-bold">
                         {starRating(spot.avgStarRating)}
                     </div>
                     <p className="SpotDetails-subtitle-text">·</p>
-                    <p className="SpotDetails-subtitle-text">{spot.numReviews} reviews</p>
+                    <p className="SpotDetails-subtitle-text SpotDetails-underline SpotDetails-bold">{spot.numReviews} reviews</p>
                     <p className="SpotDetails-subtitle-text">·</p>
-                    <p className="SpotDetails-subtitle-text">{spot.city},{spot.state},{spot.country}</p>
+                    <p className="SpotDetails-subtitle-text SpotDetails-underline SpotDetails-bold">{spot.city}, {spot.state}, {spot.country}</p>
                 </div>
                 { user && spot.ownerId === user.id ? (
                     <div className="SpotDetails-subtitle-right">
@@ -247,6 +279,7 @@ export default function SpotDetails() {
                             </div>
                         </div>
                     )}
+            </div>
             <div className="SpotDetails-main-content">
                 <div className="SpotDetails-main-content-left">
                     <div className="SpotDetails-header">
@@ -393,27 +426,38 @@ export default function SpotDetails() {
                             </div>
                         </div>
 
+                        <div className="SpotDetails-divider"></div>
+
                     </div>
                 </div>
                     { checkUser(user) }
-                    {/* { user && spot.ownerId !== user.id ? (
-                        <div className="SpotDetails-main-content-right">
-                                <AddReviewForm host={spot.Owner.firstName} />
+                    <div className="SpotDetails-reserve-bar">
+                        <div className="SpotDetails-reserve-bar-left">
+                            <h1 className="SpotDetails-reserve-bar-header">${Number(spot.price).toFixed(2)}</h1>
+                            <span className="SpotDetails-reserve-bar-header-night">night</span>
                         </div>
-                    ) : "" } */}
+                        <div className="SpotDetails-reserve-bar-right">
+                            <OpenModalButton
+                                buttonText="Reserve"
+                                onButtonClick={closeMenu}
+                                modalComponent={<CreateBookingModal spotId={spotId} rating={starRating(spot.avgStarRating)} numReviews={spot.numReviews} />}
+                            />
+                        </div>
+                    </div>
             </div>
 
             <div className="SpotDetails-reviews-header">
                 <h2 className="SpotDetails-reviews-num">{spot.numReviews} reviews</h2>
                 <div className="SpotDetails-review-button-container">
-                    {spot && user && spot.ownerId !== user.id && (
+                    {/* {spot && user && spot.ownerId !== user.id  && (
                         <OpenModalButton
                             buttonText="Write a Review"
                             onButtonClick={closeMenu}
                             modalComponent={<AddReviewForm spotId={+spotId} host={spot.Owner.firstName}/>}
                             className="LoginButton"
                         />
-                    )}
+                    )} */}
+                    { checkReviewer(user) }
                 </div>
             </div>
                 <AllReviews spotId={spotId} spot={spot} user={user} />

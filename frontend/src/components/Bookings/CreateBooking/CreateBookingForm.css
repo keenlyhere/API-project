@@ -184,3 +184,16 @@ form.CreateBookingForm-form > div.CreateBookingForm-main-container > div.CreateB
     border-bottom: 1px solid #cccccc;
     margin-top: 16px;
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+    background: transparent;
+    cursor: pointer;
+    z-index: 1;
+}

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router";
 import { addBooking, loadUserBookings } from "../../../store/bookingReducer";
 import { calcCleaningFee, calcPricePerNight, calcServiceFee, calcTotal } from "../../../utils/bookingCalculator";
-import { convertDates, defaultDates, getDaysUntilReservation } from "../../../utils/dateFormatting";
+import { convertDates, defaultDates, getDaysUntilReservation, setEndDateOnStartDateChange } from "../../../utils/dateFormatting";
 import "./CreateBookingForm.css"
 
 export default function CreateBookingForm({ rating, numReviews }) {
@@ -20,6 +20,11 @@ export default function CreateBookingForm({ rating, numReviews }) {
     const [ errors, setErrors ] = useState([]);
 
     // console.log("*** startDate:", startDate, "*** endDate:", endDate);
+
+    useEffect(() => {
+        console.log("HIT USEEFFECT")
+        setEndDate(setEndDateOnStartDateChange(startDate));
+    }, [startDate])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -70,7 +75,7 @@ export default function CreateBookingForm({ rating, numReviews }) {
                     <span className="CreateBookingForm-header-night">night</span>
                 </div>
                 <div className="CreateBookingForm-header-container-right">
-                    <p className="CreateBookingForm-subtitle-text-rating"> {rating}</p>
+                    <p className="CreateBookingForm-subtitle-text-rating SpotDetails-bold"> {rating}</p>
                     <p className="CreateBookingForm-subtitle-text">{numReviews} reviews</p>
                 </div>
             </div>

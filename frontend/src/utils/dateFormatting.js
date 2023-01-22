@@ -73,6 +73,14 @@ export const formatDate = (day) => {
     const month = `0${day.getMonth() + 1}`.slice(-2);
     const year = day.getFullYear();
 
-    // console.log("YYYY-MM-DD",`${year}-${month}-${date}`)
+    console.log("YYYY-MM-DD",`${year}-${month}-${date}`)
     return `${year}-${month}-${date}`;
+}
+
+export const setEndDateOnStartDateChange = (start) => {
+    const startDate = new Date(start);
+    startDate.setDate(startDate.getDate() + 5);
+    const endDate = startDate;
+
+    return formatDate(endDate);
 }
