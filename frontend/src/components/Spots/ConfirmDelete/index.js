@@ -16,6 +16,7 @@ export default function ConfirmDelete({ spotId, user, type, bookingId }) {
     const handleDelete = async () => {
 
         if (type === "spot") {
+            console.log("DELETE SPOT")
             dispatch(deleteSpot(+spotId))
             closeModal();
             history.push("/");
