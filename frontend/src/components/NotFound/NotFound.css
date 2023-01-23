@@ -1,0 +1,38 @@
+.NotFound-container {
+    padding: 20px;
+    padding-top: 80px;
+    width: 70vw;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.NotFound-header {
+    font-size: 26px;
+    padding-bottom: 24px;
+}
+
+.NotFound-message {
+    font-size: 16px;
+    padding-bottom: 16px;
+}
+
+.NotFound-button-container {
+    width: 150px;
+}
+
+.NotFound-button {
+    height: 48px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(230,29,77,1) 0%, rgba(215,4,102,1) 100%);
+    border-radius: 8px;
+    border: none;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    transition: 0.2s ease-in-out;
+}
