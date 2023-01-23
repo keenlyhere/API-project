@@ -20,9 +20,9 @@ export default function UserSpots() {
     const user = useSelector(state => state.session.user);
     const allSpots = useSelector(state => state.spots.spots);
     const userSpots = Object.values(allSpots).filter(spot => spot.ownerId === user.id);
-    console.log("UserSpots - allSpots", allSpots)
-    console.log("UserSpts - sessionUser", user);
-    console.log("UserSpots - userSpots", userSpots);
+    // console.log("UserSpots - allSpots", allSpots);
+    // console.log("UserSpts - sessionUser", user);
+    // console.log("UserSpots - userSpots", userSpots);
 
     const [ showMenu, setShowMenu ] = useState();
     const ulRef = useRef();

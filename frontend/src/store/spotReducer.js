@@ -164,7 +164,7 @@ export const addSpotImage = (spotId, url, preview) => async (dispatch) => {
 
     if (res.ok) {
         const spotImage = await res.json();
-        console.log("addSpotImage - spotImage:", spotImage);
+        // console.log("addSpotImage - spotImage:", spotImage);
         dispatch(actionAddSpotImage(+spotId, url, preview));
         return spotImage;
     }
@@ -186,7 +186,7 @@ export default function spotReducer(state = initialState, action) {
         case LOAD_ALL_USER_SPOTS: {
             const userSpotsState = { ...state };
             userSpotsState.spots = normalize(action.spots);
-            console.log("LOAD_ALL_USER_SPOTS", userSpotsState)
+            // console.log("LOAD_ALL_USER_SPOTS", userSpotsState);
             return userSpotsState;
         }
         case LOAD_SPOT_DETAILS: {
@@ -221,7 +221,7 @@ export default function spotReducer(state = initialState, action) {
             addSpotImageState.spots = { ...state.spots };
             addSpotImageState.spots[action.spotId] = { ...state.spots[action.spotId] };
             addSpotImageState.spots[action.spotId].previewImage = action.url;
-            console.log("addSpotImageState:", addSpotImageState)
+            // console.log("addSpotImageState:", addSpotImageState);
             return addSpotImageState;
         }
         default:
