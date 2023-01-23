@@ -81,11 +81,7 @@ export default function SpotDetails() {
         }
     }
 
-    if (spot === undefined) return (
-        <div className="SpotDetails-container">
-            <h1 className="SpotDetails-name">Spot Not Found</h1>
-        </div>
-    );
+    if (spot === undefined) return null;
 
     if (user === undefined) return null;
 
