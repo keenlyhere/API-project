@@ -7,12 +7,18 @@
 }
 
 .SpotDetails-review-card {
+    width: calc(50% - 28px);
     min-width: calc(50% - 28px);
-    /* max-width: 50%; */
     min-height: 100px;
     max-height: 196px;
     display: flex;
     gap: 18px;
+    overflow-wrap: break-word;
+}
+
+.Reviews-card-right {
+    width: calc(100% - 56px);
+    overflow-wrap: break-word;
 }
 
 .Reviews-profile-image {
@@ -20,13 +26,16 @@
 }
 
 .Reviews-name {
+    width: calc(100% - 35px);
     font-size: 16px;
     font-weight: bold;
 }
 
 .Reviews-review-text {
+    width: calc(100% - 35px);
     font-size: 16px;
     padding: 0;
+    overflow-wrap: break-word;
 }
 
 .Reviews-actions {

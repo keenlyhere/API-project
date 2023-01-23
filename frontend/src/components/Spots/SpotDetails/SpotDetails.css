@@ -365,6 +365,10 @@
         max-width: 380px;
         width: 100%;
     }
+
+    .SpotDetails-review-card {
+        max-width: 50%;
+    }
 }
 
 @media (max-width: 1127px) {
