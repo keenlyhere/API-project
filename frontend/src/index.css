@@ -17,3 +17,7 @@
 .clickable, button {
     cursor: pointer;
 }
+
+.icon {
+    padding-right: 8px;
+}

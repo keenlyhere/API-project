@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux"
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import LoginFormModal from "../LoginFormModal";
 import OpenModalButton from "../OpenModalButton";
@@ -10,6 +10,7 @@ import CreateSpotForm from "../Spots/CreateSpot";
 
 export default function ProfileButton({ user }) {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [ showMenu, setShowMenu ] = useState(false);
     const ulRef = useRef();
 
@@ -40,6 +41,7 @@ export default function ProfileButton({ user }) {
         e.preventDefault();
 
         dispatch(sessionActions.logout());
+        history.push("/");
         closeMenu();
     }
 

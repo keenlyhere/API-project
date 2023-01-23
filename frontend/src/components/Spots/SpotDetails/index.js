@@ -106,8 +106,7 @@ export default function SpotDetails() {
         if (spot.SpotImages.length === 1 && spot.SpotImages !== "No images for spot") {
             altImages = [spot.SpotImages[0].url];
         } else if (spot.SpotImages.length > 1) {
-            console.log("HIT ELSE IF")
-            console.log("spot.SpotImages", spot.SpotImages);
+            // console.log("spot.SpotImages", spot.SpotImages);
 
             let reversedArray = [];
             if (spot.SpotImages !== "No images for spot") {
@@ -116,13 +115,12 @@ export default function SpotDetails() {
                 }
             }
 
-            console.log("REVERSED", reversedArray);
             for (let i = 0; i < reversedArray.length; i++) {
                 let image = reversedArray[i];
                 altImages[i] = image.url;
             }
 
-            console.log("ALT IMAGES", altImages)
+            // console.log("ALT IMAGES", altImages)
         }
     }
 
@@ -277,7 +275,7 @@ export default function SpotDetails() {
                             <OpenModalButton
                                 buttonText="Delete Spot"
                                 onButtonClick={closeMenu}
-                                modalComponent={<ConfirmDelete spotId={spotId} user={user} />
+                                modalComponent={<ConfirmDelete spotId={spotId} user={user} type="spot" />
                             }
                             />
                         </div>

@@ -14,7 +14,7 @@ export default function AddSpotImage({spotId}) {
     const [ imageUrl, setImageUrl ] = useState("");
     const [ errors, setErrors ] = useState([]);
     const spot = useSelector(state => state.spots.spot[spotId]);
-    console.log("AddSpotImage - spot:", spot);
+    // console.log("AddSpotImage - spot:", spot);
 
     const handleSubmit = async (e) => {
 
@@ -24,7 +24,7 @@ export default function AddSpotImage({spotId}) {
                 if (data && data.errors) setErrors(data.errors);
             })
 
-        console.log("spotId", spotId)
+        // console.log("spotId", spotId);
         dispatch(loadSpotDetails(+spotId))
         closeModal();
     }

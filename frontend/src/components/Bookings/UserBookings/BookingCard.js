@@ -8,12 +8,14 @@ import "./BookingCard.css";
 import { deleteBooking, loadUserBookings } from "../../../store/bookingReducer";
 import OpenModalButton from "../../OpenModalButton";
 import EditBooking from "../EditBooking";
+import ConfirmDelete from "../../Spots/ConfirmDelete";
 
 export default function BookingCard({ booking, spotId, userId }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
     const spot = useSelector(state => state.spots.spot[spotId]);
+    const user = useSelector(state => state.session.user)
     // console.log("BookingCard - spot:", spot);
     // console.log("BookingCard - booking:", booking);
 
@@ -126,6 +128,8 @@ export default function BookingCard({ booking, spotId, userId }) {
 
     if (!booking) return null;
 
+    if (user === undefined) return null;
+
     return (
         <div className="BookingCard-container">
             <div className="BookingCard-description">
@@ -163,14 +167,20 @@ export default function BookingCard({ booking, spotId, userId }) {
                         </div>
                         <div
                             className="BookingCard-action-delete clickable"
-                            onClick={() => handleDelete(booking.id)}
                         >
-                            <i className="fa-solid fa-trash"></i>
+                            {/* <i className="fa-solid fa-trash"></i>
                             <button
                                 className="BookingCard-buttons"
                             >
                                 Delete
-                            </button>
+                            </button> */}
+                            {console.log("booking", booking.id)}
+                            <OpenModalButton
+                                buttonText="Delete Booking"
+                                onButtonClick={closeMenu}
+                                modalComponent={<ConfirmDelete spotId={spotId} user={user} type="booking" bookingId={+booking.id} />
+                            }   icon="delete"
+                            />
                         </div>
                     </div>
                 </div>
