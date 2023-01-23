@@ -11,6 +11,7 @@ import CreateSpotForm from "../CreateSpot";
 import EditSpotForm from "../EditSpot";
 
 import "../Spots.css";
+import "./UserSpots.css";
 
 export default function UserSpots() {
     const dispatch = useDispatch();
@@ -92,14 +93,14 @@ export default function UserSpots() {
     }
 
     return (
-        <div className="Spots-container">
+        <div className="UserSpots-container">
             { userSpots && userSpots.length > 0 ? (
                 userSpots.map((spot) => (
-                    <div key={spot.id} className="Spots-card">
-                        <div className="Spots-card-image">
+                    <div key={spot.id} className="UserSpots-card">
+                        <div className="UserSpots-card-image">
 
                             <img
-                                className="Spots-image"
+                                className="UserSpots-image"
                                 src={previewHandler(spot.previewImage)}
                                 onClick={() => handleClick(spot.id)}
                                 alt={`Spot #${spot.id}'s image`}
@@ -126,7 +127,7 @@ export default function UserSpots() {
                     </div>
                 ))
             ) : (
-                <div className="UserSpots-container">
+                <div className="UserSpots-container-oops">
                     <div className="SpotDetails-login-signup">
                         <h2 className="SpotDetails-login-signup-header">
                             Oops, you have no spots!
