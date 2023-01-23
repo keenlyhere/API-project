@@ -1,7 +1,7 @@
 # Deja-Moo AirBnB Clone Project
 
 Link to live site on Render:
-https://airbnb-clone-3h5b.onrender.com/spots/19
+https://deja-moo.onrender.com/
 
 ## About Deja-Moo
 Deja-Moo is a full-stack clone of AirBnB. It currently allows for users to view, create, edit, and delete both spots and reviews.
