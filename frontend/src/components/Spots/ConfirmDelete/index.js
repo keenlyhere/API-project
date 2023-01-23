@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { useModal } from "../../../context/Modal";
 import { deleteBooking, loadUserBookings } from "../../../store/bookingReducer";
-import { deleteSpot } from "../../../store/spotReducer";
+import { deleteSpot, loadSpots } from "../../../store/spotReducer";
 
 import "./ConfirmDelete.css";
 
@@ -18,6 +18,7 @@ export default function ConfirmDelete({ spotId, user, type, bookingId }) {
         if (type === "spot") {
             console.log("DELETE SPOT")
             dispatch(deleteSpot(+spotId))
+            dispatch(loadSpots());
             closeModal();
             history.push("/");
         } else if (type === "booking") {
