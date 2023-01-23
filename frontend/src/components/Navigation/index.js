@@ -5,7 +5,7 @@ import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 import CreateSpotForm from "../Spots/CreateSpot";
 
-import logo from "../../assets/dejamoo_logo_full.svg";
+import logo from "../../assets/dejamoo_logo_full.png";
 import OpenModalButton from "../OpenModalButton";
 
 export default function Navigation({ isLoaded }) {
