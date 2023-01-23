@@ -30,7 +30,7 @@ function App() {
             {isLoaded && (
                 <Switch>
                     <Route exact path="/">
-                        <AllSpots />
+                        <AllSpots isLoaded={isLoaded} />
                     </Route>
                     <Route path="/my-spots">
                         <UserSpots />

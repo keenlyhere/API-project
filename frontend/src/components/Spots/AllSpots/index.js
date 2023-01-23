@@ -5,8 +5,10 @@ import { loadSpots } from "../../../store/spotReducer";
 import previewHandler from "../../../utils/previewHandler";
 
 import "../Spots.css";
+import AllSpotsSkeleton from "./AllSpotsSkeleton";
+// import "./AllSpots-skeleton.css";
 
-export default function AllSpots() {
+export default function AllSpots({ isLoaded }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -38,6 +40,12 @@ export default function AllSpots() {
     }
 
     if (!spots) return null;
+
+    if (isLoaded === false) {
+        [1,2,3,4,5,6,7,8,9,10].map(num => (
+            <AllSpotsSkeleton key={num} />
+        ))
+    }
 
     const fixedPrice = (price) => {
         if (price) {

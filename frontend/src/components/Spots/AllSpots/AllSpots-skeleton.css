@@ -1,0 +1,33 @@
+.skeleton {
+    animation: loading 1s linear infinite alternate;
+}
+
+@keyframes loading {
+    0% {
+        background-color: #cccccc;
+    }
+
+    100% {
+        background-color: #bbbbbb;
+    }
+}
+
+.skeleton-text {
+  height: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+}
+
+.skeleton-text-body {
+    width: 40%;
+    height: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+}
+
+/* .skeleton-all-spots-image
+.skeleton-all-spots-description
+.skeleton-all-spots-header
+.skeleton-all-spots-location
+.skeleton-all-spots-rating
+.skeleton-all-spots-footer */
