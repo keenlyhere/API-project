@@ -126,6 +126,8 @@ const validateNewSpot = [
     check("price")
         .isInt({ min: 0})
         .withMessage("Price must be greater than 0")
+        .isInt({ max: 10000 })
+        .withMessage("Price cannot be greater than $10,000")
         .notEmpty()
         .withMessage("Price per day is required"),
     handleSpotValidationErrors

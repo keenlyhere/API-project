@@ -4,11 +4,11 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 56px;
+    overflow-wrap: break-word;
 }
 
 .SpotDetails-review-card {
     min-width: calc(50% - 28px);
-    /* max-width: 50%; */
     min-height: 100px;
     max-height: 196px;
     display: flex;
