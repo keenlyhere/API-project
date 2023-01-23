@@ -15,6 +15,7 @@ import EditSpotForm from "./components/Spots/EditSpot";
 import Profile from "./components/Profile";
 import UserBookings from "./components/Bookings/UserBookings";
 import SpotBookings from "./components/Bookings/SpotBookings";
+import NotFound from "./components/NotFound/NotFound";
 
 function App() {
     const dispatch = useDispatch();
@@ -55,6 +56,9 @@ function App() {
                     </Route>
                     <Route path="/create-spot">
                         <CreateSpotForm type={"create"} />
+                    </Route>
+                    <Route>
+                        <NotFound />
                     </Route>
                 </Switch>
             )}

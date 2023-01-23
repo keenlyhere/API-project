@@ -58,7 +58,7 @@ export default function AllSpots({ isLoaded }) {
 
 
     return (
-        <div className="Spots-container">
+        isLoaded ? <div className="Spots-container">
             { spots && (
                 spots.map((spot) => (
                     <div key={spot.id} className="Spots-card">
@@ -84,6 +84,10 @@ export default function AllSpots({ isLoaded }) {
                     </div>
                 ))
             )}
-        </div>
+        </div> : (
+            [1,2,3,4,5,6,7,8,9,10].map(num => (
+                <AllSpotsSkeleton key={num} />
+            ))
+        )
     )
 }
