@@ -41,11 +41,11 @@ export default function AllSpots({ isLoaded }) {
 
     if (!spots) return null;
 
-    if (isLoaded === false) {
-        [1,2,3,4,5,6,7,8,9,10].map(num => (
-            <AllSpotsSkeleton key={num} />
-        ))
-    }
+    // if (isLoaded === false) {
+    //     [1,2,3,4,5,6,7,8,9,10].map(num => (
+    //         <AllSpotsSkeleton key={num} />
+    //     ))
+    // }
 
     const fixedPrice = (price) => {
         if (price) {

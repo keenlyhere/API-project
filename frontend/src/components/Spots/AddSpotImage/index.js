@@ -24,6 +24,7 @@ export default function AddSpotImage({spotId}) {
                 if (data && data.errors) setErrors(data.errors);
             })
 
+        console.log("spotId", spotId)
         dispatch(loadSpotDetails(+spotId))
         closeModal();
     }
