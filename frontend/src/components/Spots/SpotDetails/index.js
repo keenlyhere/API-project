@@ -17,6 +17,7 @@ import moocover from "../../../assets/moocover.png";
 import "./SpotDetails.css";
 import CreateBookingModal from "../../Bookings/CreateBooking/CreateBookingModal";
 import AddSpotImage from "../AddSpotImage";
+import SpotDetailsSkeleton from "./SpotDetailsSkeleton";
 
 export default function SpotDetails() {
     const dispatch = useDispatch();
@@ -109,8 +110,10 @@ export default function SpotDetails() {
             console.log("spot.SpotImages", spot.SpotImages);
 
             let reversedArray = [];
-            for (let i = spot.SpotImages.length - 1; i >= 0; i--) {
-                reversedArray.push(spot.SpotImages[i]);
+            if (spot.SpotImages !== "No images for spot") {
+                for (let i = spot.SpotImages.length - 1; i >= 0; i--) {
+                    reversedArray.push(spot.SpotImages[i]);
+                }
             }
 
             console.log("REVERSED", reversedArray);
@@ -353,7 +356,9 @@ export default function SpotDetails() {
                         <div className="SpotDetails-moo-cover-image">
                             <img src={moocover} alt="moocover image" />
                         </div>
-                        Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.
+                        <p>
+                            Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.
+                        </p>
                     </div>
 
                     <div className="SpotDetails-description">

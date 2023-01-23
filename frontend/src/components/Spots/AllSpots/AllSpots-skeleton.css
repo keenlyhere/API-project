@@ -12,6 +12,10 @@
     }
 }
 
+.skeleton-icon {
+    border-radius: 50%;
+}
+
 .skeleton-text {
   height: 1rem;
   margin-bottom: 0.5rem;
