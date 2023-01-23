@@ -11,6 +11,7 @@ import CreateSpotForm from "../CreateSpot";
 import EditSpotForm from "../EditSpot";
 
 import "../Spots.css";
+import "./UserSpots.css";
 
 export default function UserSpots() {
     const dispatch = useDispatch();
@@ -19,8 +20,9 @@ export default function UserSpots() {
     const user = useSelector(state => state.session.user);
     const allSpots = useSelector(state => state.spots.spots);
     const userSpots = Object.values(allSpots).filter(spot => spot.ownerId === user.id);
-    // console.log("UserSpts - sessionUser", user);
-    // console.log("UserSpots - userSpots", userSpots);
+    console.log("UserSpots - allSpots", allSpots)
+    console.log("UserSpts - sessionUser", user);
+    console.log("UserSpots - userSpots", userSpots);
 
     const [ showMenu, setShowMenu ] = useState();
     const ulRef = useRef();
@@ -47,6 +49,21 @@ export default function UserSpots() {
 
     const handleClick = (spotId) => {
         history.push(`/spots/${spotId}`)
+    }
+
+    const spotImage = (spot) => {
+        if (spot.previewImage) {
+            return (
+                <img
+                    className="Spots-image"
+                    src={previewHandler(spot.previewImage)}
+                    onClick={() => handleClick(spot.id)}
+                    alt={`Spot #${spot.id}'s image`}
+                />
+            )
+        } else {
+            return
+        }
     }
 
     if (!user) {
@@ -76,13 +93,14 @@ export default function UserSpots() {
     }
 
     return (
-        <div className="Spots-container">
+        <div className="UserSpots-container">
             { userSpots && userSpots.length > 0 ? (
                 userSpots.map((spot) => (
-                    <div key={spot.id} className="Spots-card">
-                        <div className="Spots-card-image">
+                    <div key={spot.id} className="UserSpots-card">
+                        <div className="UserSpots-card-image">
+
                             <img
-                                className="Spots-image"
+                                className="UserSpots-image"
                                 src={previewHandler(spot.previewImage)}
                                 onClick={() => handleClick(spot.id)}
                                 alt={`Spot #${spot.id}'s image`}
@@ -101,7 +119,7 @@ export default function UserSpots() {
                                 <OpenModalButton
                                     buttonText="Delete"
                                     onButtonClick={closeMenu}
-                                    modalComponent={<ConfirmDelete spotId={spot.id} user={user} />}
+                                    modalComponent={<ConfirmDelete spotId={spot.id} user={user} type="spot" />}
                                     icon={"delete"}
                                 />
                             </div>
@@ -109,7 +127,7 @@ export default function UserSpots() {
                     </div>
                 ))
             ) : (
-                <div className="UserSpots-container">
+                <div className="UserSpots-container-oops">
                     <div className="SpotDetails-login-signup">
                         <h2 className="SpotDetails-login-signup-header">
                             Oops, you have no spots!

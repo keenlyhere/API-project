@@ -92,7 +92,7 @@ export default function Profile() {
                             key={review.id}
                             className="Profile-review-card"
                         >
-                            {console.log(review)}
+                            {/* {console.log(review)} */}
                             <div className="Profile-review-card-date-review">
                                 {getMonthYear(review.createdAt)}
                                 <p className="Review-content">{review.review}</p>
