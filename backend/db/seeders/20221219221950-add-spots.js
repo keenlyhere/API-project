@@ -31,7 +31,7 @@ module.exports = {
         lng: '150.6014049',
         name: 'P Sherman',
         description: 'The very same location from Finding Nemo',
-        price: 127.20
+        price: 127
       },
       {
         ownerId: 2,
@@ -43,7 +43,7 @@ module.exports = {
         lng: '-0.1607444',
         name: 'Sherlock Homes',
         description: 'Come live like Sherlock Holmes in this fabulous holme!',
-        price: 157.99
+        price: 157
       },
       {
         ownerId: 2,
@@ -55,7 +55,7 @@ module.exports = {
         lng: '-71.426054',
         name: 'Family Guy',
         description: 'Are you a Family Guy? Then you have to stay here!',
-        price: 127.20
+        price: 127
       },
       {
         ownerId: 1,
@@ -67,7 +67,7 @@ module.exports = {
         lng: '-0.1863820',
         name: 'Dursley Family',
         description: 'Ever wanted to live under the stairs like Harry Potter? Now you can!',
-        price: 279.50
+        price: 279
       },
       {
         ownerId: 2,
@@ -79,7 +79,31 @@ module.exports = {
         lng: '-75.2312003',
         name: 'Simpson Family Home',
         description: 'Stay in the home of your favorite TV show',
-        price: 82.30
+        price: 82
+      },
+      {
+        ownerId: 3,
+        address: '1312 Snowy Way',
+        city: 'Juneau',
+        state: 'Alaska',
+        country: 'United States',
+        lat: '21.7721747',
+        lng: '-75.2312003',
+        name: 'Coldstone Creamery',
+        description: 'Eat some udderly delicious ice cream as you relax!',
+        price: 223
+      },
+      {
+        ownerId: 3,
+        address: '1705 S Highland Ave',
+        city: 'Jackson',
+        state: 'Tennessee',
+        country: 'United States',
+        lat: '21.7721747',
+        lng: '-75.2312003',
+        name: 'You the only ten I see punny home',
+        description: 'If you enjoy puns, then you should definitely stay here and have the most pun-tastic time.',
+        price: 180
       },
     ], {});
 

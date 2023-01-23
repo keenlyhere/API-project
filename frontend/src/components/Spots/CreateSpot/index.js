@@ -203,7 +203,7 @@ export default function CreateSpotForm() {
                 <div className="Form-group-bottom image">
                     <input
                         id="image"
-                        type="text"
+                        type="url"
                         value={imageUrl}
                         onChange={(e) => setImageUrl(e.target.value)}
                         required
