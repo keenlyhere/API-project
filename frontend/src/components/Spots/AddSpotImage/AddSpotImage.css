@@ -1,0 +1,109 @@
+.AddSpotImageForm-container {
+    margin-top: 50px;
+    width: 400px;
+    max-width: 90vw;
+}
+
+.AddSpotImageForm-top {
+    height: 48px;
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0px;
+    position: absolute;
+    top: 0px;
+}
+
+.AddSpotImageForm-error-container {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 18px;
+}
+
+ul.AddSpotImageForm-errors > li {
+    list-style-type: none;
+    font-size: 14px;
+    color: #ff385c;
+}
+
+.AddSpotImageForm-Form {
+    width: 100%;
+    padding: 0px 18px 0px;
+}
+
+.AddSpotImageForm-group {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    height: 48px;
+}
+
+.AddSpotImageForm-input {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.AddSpotImageForm-input label {
+    position: absolute;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    color: #878787;
+    transition: 0.2s ease-in-out;
+    padding: 2px;
+    padding-left: 8px;
+    font-size: 13px;
+}
+
+.AddSpotImageForm-input > input {
+    height: 48px;
+    width: 100%;
+    border: 1px solid #c4c4c4;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.AddSpotImageForm-input > input:focus + label,
+.AddSpotImageForm-input > input:valid + label {
+    color:#878787;
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-top: 8px;
+    padding-left: 10px;
+    height: 48px;
+    top: -15px;
+}
+
+.AddSpotImageForm-input > input:focus{
+    border: 2px solid black;
+    border-radius: 8px;
+    outline: 0;
+}
+
+.AddSpotImageForm-button-container {
+    width: 100%;
+    margin: 20px 0px 0px 0px;
+}
+
+.AddSpotImageForm-submit {
+    height: 48px;
+    width: 100%;
+    background: linear-gradient(45deg, rgba(230,29,77,1) 0%, rgba(215,4,102,1) 100%);
+    border-radius: 8px;
+    border: none;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0;
+}
+
+.AddSpotImageForm-submit:hover {
+    background: radial-gradient(circle, rgba(230,29,77,1) 0%, rgba(215,4,102,1) 100%);
+}

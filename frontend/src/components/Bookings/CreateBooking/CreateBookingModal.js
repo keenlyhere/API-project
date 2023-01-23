@@ -96,7 +96,6 @@ export default function CreateBookingModal({ spotId, rating, numReviews }) {
                 <div className="CreateBookingFormModal-group">
                     <div className="startDate">
                         <input
-                        className="CreateBookingFormModal-lat"
                             id="startDate"
                             type="date"
                             value={startDate}
@@ -108,7 +107,6 @@ export default function CreateBookingModal({ spotId, rating, numReviews }) {
                     </div>
                     <div className="endDate">
                         <input
-                        className="CreateBookingFormModal-lat"
                             id="endDate"
                             type="date"
                             value={endDate}

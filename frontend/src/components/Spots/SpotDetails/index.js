@@ -16,6 +16,7 @@ import moocover from "../../../assets/moocover.png";
 
 import "./SpotDetails.css";
 import CreateBookingModal from "../../Bookings/CreateBooking/CreateBookingModal";
+import AddSpotImage from "../AddSpotImage";
 
 export default function SpotDetails() {
     const dispatch = useDispatch();
@@ -103,8 +104,22 @@ export default function SpotDetails() {
     if (spot) {
         if (spot.SpotImages.length === 1 && spot.SpotImages !== "No images for spot") {
             altImages = [spot.SpotImages[0].url];
-        } else if (spot.SpotImages.length > 1 && spot.SpotImages.length < 4) {
-            spot.SpotImages.forEach(image => altImages.unshift(image.url));
+        } else if (spot.SpotImages.length > 1) {
+            console.log("HIT ELSE IF")
+            console.log("spot.SpotImages", spot.SpotImages);
+
+            let reversedArray = [];
+            for (let i = spot.SpotImages.length - 1; i >= 0; i--) {
+                reversedArray.push(spot.SpotImages[i]);
+            }
+
+            console.log("REVERSED", reversedArray);
+            for (let i = 0; i < reversedArray.length; i++) {
+                let image = reversedArray[i];
+                altImages[i] = image.url;
+            }
+
+            console.log("ALT IMAGES", altImages)
         }
     }
 
@@ -230,12 +245,20 @@ export default function SpotDetails() {
                             <i className="fa-regular fa-image"></i>
                          */}
                         <div className="SpotDetails-subtitle-group">
+                            <i className="fa-solid fa-image"></i>
+                            <OpenModalButton
+                                    buttonText="Add Spot Image"
+                                    onButtonClick={closeMenu}
+                                    modalComponent={<AddSpotImage spotId={spotId} />}
+                            />
+                        </div>
+                        <div className="SpotDetails-subtitle-group">
                             <NavLink
                                 to={`/spot/${spotId}/bookings`}
                                 className="SpotDetails-view-all-bookings"
                             >
                                 <i className="fa-solid fa-book"></i>
-                                View All Spot Bookings
+                                View Spot Bookings
                             </NavLink>
                         </div>
                         <div className="SpotDetails-subtitle-group">

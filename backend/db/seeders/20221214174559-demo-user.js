@@ -43,7 +43,14 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('myCYP350'),
         firstName: "James",
         lastName: "Duh"
-      }
+      },
+      {
+        email: 'demo@user.io',
+        username: 'Demo-lition',
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: "Demo",
+        lastName: "Lition"
+      },
     ], {});
 
   },
