@@ -16,6 +16,8 @@ import Profile from "./components/Profile";
 import UserBookings from "./components/Bookings/UserBookings";
 import SpotBookings from "./components/Bookings/SpotBookings";
 import NotFound from "./components/NotFound/NotFound";
+import SearchBar from "./components/Search";
+import QueriedSpots from "./components/Spots/QueriedSpots";
 
 function App() {
     const dispatch = useDispatch();
@@ -32,6 +34,9 @@ function App() {
                 <Switch>
                     <Route exact path="/">
                         <AllSpots isLoaded={isLoaded} />
+                    </Route>
+                    <Route path="/search?location=">
+                        <QueriedSpots isLoaded={isLoaded} />
                     </Route>
                     <Route path="/my-spots">
                         <UserSpots />
@@ -56,6 +61,9 @@ function App() {
                     </Route>
                     <Route path="/create-spot">
                         <CreateSpotForm type={"create"} />
+                    </Route>
+                    <Route path="/test-search">
+                        <SearchBar isLoaded={isLoaded} />
                     </Route>
                     <Route>
                         <NotFound />

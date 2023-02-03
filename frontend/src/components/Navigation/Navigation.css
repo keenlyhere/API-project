@@ -146,3 +146,80 @@
 .profile-dropdown-my-spots {
     text-decoration: none;
 }
+
+.Navigation-search-bar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 350px;
+    height: 48px;
+    border: 1px solid #bbbbbb;
+    padding: 7px;
+    border-radius: 40px;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%);
+}
+
+.Navigation-search-bar-input {
+    border: 0px;
+    width: 100%;
+    border-radius: 40px;
+    padding: 0px 9px;
+    outline: none;
+}
+
+.Navigation-search-button {
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Navigation-search-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    width: 32px;
+    height: 32px;
+    background-color: #ff385c;
+    border-radius: 50%;
+}
+
+.Navigation-search-bar-dropdown {
+    position: absolute;
+    width: 350px;
+    display: flex;
+    margin-top: 8px;
+    /* padding: 8px; */
+    border-radius: 8px;
+    flex-direction: column;
+    background-color: #ffffff;
+    border: 1px solid #bbbbbb;
+}
+
+.Navigation-search-bar-suggestions {
+    padding: 5px;
+    /* height: 18px; */
+}
+
+.Navigation-search-bar-suggestions:first-child:hover {
+    background-color: #f7f7f7;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.Navigation-search-bar-suggestions:last-child:hover {
+    background-color: #f7f7f7;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.Navigation-search-bar-suggestions:not(:first-child):hover,
+.Navigation-search-bar-suggestions:not(:last-child):hover {
+    background-color: #f7f7f7;
+}
+
+.Navigation-search-bar-dropdown:empty {
+    border: none;
+}
