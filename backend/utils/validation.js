@@ -124,7 +124,7 @@ const validateNewSpot = [
         .notEmpty()
         .withMessage("Description is required"),
     check("price")
-        .isInt({ min: 0})
+        .isInt({ min: 1})
         .withMessage("Price must be greater than 0")
         .isInt({ max: 10000 })
         .withMessage("Price cannot be greater than $10,000")

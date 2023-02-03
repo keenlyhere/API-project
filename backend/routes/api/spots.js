@@ -42,6 +42,25 @@ router.get("/", validateQuery, async (req, res, next) => {
     query.limit = size;
     query.offset = size * (page - 1);
 
+    console.log("query", req.query.location)
+
+    if (req.query.location) {
+        query.where = {
+        [Op.or]: {
+                city: {
+                    [Op.like]: `%${req.query.location}%`
+                },
+                state: {
+                    [Op.like]: `%${req.query.location}%`
+                },
+                country: {
+                    [Op.like]: `%${req.query.location}%`
+                },
+            }
+
+        }
+    }
+
     if (req.query.maxLat && !req.query.minLat) {
         query.where.lat = {
             [Op.lte]: req.query.maxLat
@@ -104,6 +123,8 @@ router.get("/", validateQuery, async (req, res, next) => {
             }
         }
     }
+
+    console.log("QUERY__", query.where)
 
     const allSpots = await Spot.findAll(query)
 
@@ -175,6 +196,37 @@ router.get("/", validateQuery, async (req, res, next) => {
 
 
     return res.json(allSpotsData)
+})
+
+// GET /api/suggestions
+// TO-DO: in react
+router.get("/suggestions", validateQuery, async (req, res, next) => {
+    const query = {
+        where: {},
+        attributes: [ "city", "state", "country" ]
+    }
+
+    if (req.query.location) {
+        query.where = {
+        [Op.or]: {
+                city: {
+                    [Op.like]: `%${req.query.location}%`
+                },
+                state: {
+                    [Op.like]: `%${req.query.location}%`
+                },
+                country: {
+                    [Op.like]: `%${req.query.location}%`
+                },
+            }
+
+        }
+    }
+
+    const searchSuggestions = await Spot.findAll(query).then(suggestions => {
+        console.log("search suggestions", searchSuggestions)
+        res.json(suggestions)
+    })
 })
 
 // GET /api/spots/current

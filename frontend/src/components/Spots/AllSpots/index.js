@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { actionDeleteSearch } from "../../../store/searchReducer";
 import { loadSpots } from "../../../store/spotReducer";
 import previewHandler from "../../../utils/previewHandler";
 
@@ -12,10 +13,12 @@ export default function AllSpots({ isLoaded }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const allSpots = useSelector(state => state.spots.spots);
+    const queriedSpots = useSelector(state => state.searches.search);
+    console.log("AllSpots - queriedSpots", queriedSpots);
+    let allSpots = useSelector(state => state.spots.spots);
     // console.log("AllSpots - allSpots:", allSpots);
-    const spots = [];
-    Object.values(allSpots).forEach(spot => spots.push(spot));
+    // const spots = [];
+    // Object.values(allSpots).forEach(spot => spots.push(spot));
     // console.log("AllSpots - spots:", spots);
 
     useEffect(() => {
@@ -36,10 +39,10 @@ export default function AllSpots({ isLoaded }) {
     }
 
     const handleClick = (spotId) => {
+        dispatch(actionDeleteSearch())
         history.push(`/spots/${spotId}`)
     }
 
-    if (!spots) return null;
 
     // if (isLoaded === false) {
     //     [1,2,3,4,5,6,7,8,9,10].map(num => (
@@ -56,6 +59,14 @@ export default function AllSpots({ isLoaded }) {
         return null;
     }
 
+    if (isLoaded && queriedSpots) {
+        allSpots = queriedSpots;
+    }
+
+    const spots = [];
+    Object.values(allSpots).forEach(spot => spots.push(spot));
+
+    if (!spots) return null;
 
     return (
         isLoaded ? <div className="Spots-container">
