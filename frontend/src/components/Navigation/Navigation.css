@@ -196,6 +196,7 @@
     flex-direction: column;
     background-color: #ffffff;
     border: 1px solid #bbbbbb;
+    box-shadow: 3px 3px 12px 0 #c4c4c4;
 }
 
 .Navigation-search-bar-suggestions {
@@ -220,6 +221,6 @@
     background-color: #f7f7f7;
 }
 
-.Navigation-search-bar-dropdown:empty {
-    border: none;
+.hide {
+    display: none;
 }
