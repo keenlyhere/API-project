@@ -103,7 +103,7 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
         err.status = 403;
         err.statusCode = 403;
         err.message = "Past bookings can't be modified";
-        err.errors.push("Past bookings can't be modified")
+        err.errors.push("Past bookings can't be modified");
         return next(err);
     }
 
