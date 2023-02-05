@@ -5,6 +5,7 @@ const { User } = require("../../db/models");
 
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
+const { singlePublicFileUpload, singleMulterUpload } = require("../../awsS3");
 
 const router = express.Router();
 
@@ -38,8 +39,9 @@ const validateSignup = [
 ];
 
 // POST /api/users to sign up
-router.post("/", validateSignup, async (req, res, next) => {
+router.post("/", singleMulterUpload, validateSignup, async (req, res, next) => {
     const { email, password, username, firstName, lastName } = req.body;
+    const profileImageUrl = await singlePublicFileUpload(req.file);
 
     const existingEmail = await User.findOne({
         where: {
@@ -57,6 +59,7 @@ router.post("/", validateSignup, async (req, res, next) => {
     err.status = 403;
     err.statusCode = 403;
     err.message = "User already exists"
+    err.errors = [];
 
     // if (existingEmail && existingUsername) {
     //      err.errors = [{
@@ -68,18 +71,25 @@ router.post("/", validateSignup, async (req, res, next) => {
     // }
 
     if (existingEmail) {
-        err.errors = ["User with that email already exists"]
+        err.errors.push("User with that email already exists");
 
         return next(err);
     }
 
     if (existingUsername) {
-        err.errors = ["User with that username already exists"]
+        err.errors.push("User with that username already exists");
 
         return next(err);
     }
 
-    const user = await User.signup({ email, username, password, firstName, lastName });
+    const user = await User.signup({
+        email,
+        username,
+        password,
+        firstName,
+        lastName,
+        profileImageUrl
+    });
 
     await setTokenCookie(res, user);
 

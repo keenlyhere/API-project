@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/keenlyhere/API-project/issues"
   },
-  "homepage": "https://github.com/keenlyhere/API-project#readme"
+  "homepage": "https://github.com/keenlyhere/API-project#readme",
+  "dependencies": {
+    "@mui/icons-material": "^5.11.0"
+  }
 }

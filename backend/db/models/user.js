@@ -46,7 +46,8 @@ module.exports = (sequelize, DataTypes) => {
         email,
         hashedPassword,
         firstName,
-        lastName
+        lastName,
+        profileImageUrl
       });
       return await User.scope('currentUser').findByPk(user.id);
     }
@@ -90,6 +91,14 @@ module.exports = (sequelize, DataTypes) => {
     lastName: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    profileImageUrl: {
+      type: DataTypes.STRING,
+      get() {
+        if (!this.getDataValue("url"))
+          return "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+        return this.getDataValue("url")
+      }
     },
     email: {
       type: DataTypes.STRING,

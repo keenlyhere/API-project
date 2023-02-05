@@ -128,10 +128,20 @@ router.get("/", validateQuery, async (req, res, next) => {
 
     const allSpots = await Spot.findAll(query)
 
+    console.log("ALL SPOTS", allSpots);
+
+    const err = {};
+    err.errors = [];
+
     if (!allSpots.length) {
-        return res.json({
-            message: "No spots to display"
-        })
+        err.message = "No spots to display";
+        err.statusCode = 404;
+        err.status = 404;
+        err.title = "Not found";
+        return next(err);
+        // return res.json({
+        //     message: "No spots to display"
+        // })
     }
 
     const spotsArray = [];
