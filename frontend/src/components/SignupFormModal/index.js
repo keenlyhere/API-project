@@ -14,24 +14,52 @@ export default function SignupFormModal() {
     const [ lastName, setLastName ] = useState("");
     const [ password, setPassword ] = useState("");
     const [ confirmPassword, setConfirmPassword ] = useState("");
+    const [ image, setImage ] = useState(null);
     const [ errors, setErrors ] = useState([]);
     const { closeModal } = useModal();
 
+
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     if (password === confirmPassword) {
+    //         setErrors([]);
+    //         return dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
+    //             .then(closeModal)
+                // .catch(async (res) => {
+                // const data = await res.json();
+                // if (data && data.errors) setErrors(data.errors);
+                // });
+    //     }
+
+    //     return setErrors(['Confirm Password field must be the same as the Password field']);
+    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (password === confirmPassword) {
             setErrors([]);
-            return dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
+            return dispatch(sessionActions.signup({ email, username, firstName, lastName, password, image }))
+                .then(() => {
+                    setEmail("");
+                    setUsername("");
+                    setFirstName("");
+                    setLastName("");
+                    setPassword("");
+                    setConfirmPassword("");
+                    setImage(null);
+                })
                 .then(closeModal)
                 .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) setErrors(data.errors);
+                    const data = await res.json();
+                    if (data && data.errors) setErrors(data.errors);
                 });
         }
+    }
 
-        return setErrors(['Confirm Password field must be the same as the Password field']);
-    };
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setImage(file);
+    }
 
     return (
         <div className="SignUpForm-container">
@@ -54,79 +82,90 @@ export default function SignupFormModal() {
                 onSubmit={handleSubmit}
                 className="SignUpForm-form"
             >
+                <div className="SignUpForm-group-profile-pic">
+                    <img
+                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                        alt="default-profile-image"
+                        className="SignUpForm-default-profile-image"
+                    />
+                    <label htmlFor="profile-pic-upload" class="SignUpForm-profile-pic-upload clickable">
+                        Add a photo of yourself!
+                    </label>
+                    <input id="profile-pic-upload" type="file" onChange={updateFile} />
+                </div>
             <div className="SignUpForm-main-container">
-            <div className="SignUpForm-group-top email">
-                <input
-                    id="email"
-                    type="text"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <label htmlFor="email">
-                    Email
-                </label>
-            </div>
-            <div className="SignUpForm-group-middle username">
-                <input
-                    id="username"
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-                <label htmlFor="username">
-                    Username
-                </label>
-            </div>
-            <div className="SignUpForm-group-middle firstName">
-                <input
-                    id="firstName"
-                    type="text"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                />
-                <label htmlFor="firstName">
-                    First Name
-                </label>
-            </div>
-            <div className="SignUpForm-group-middle lastName">
-                <input
-                    id="lastName"
-                    type="text"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                />
-                <label htmlFor="lastName">
-                    Last Name
-                </label>
-            </div>
-            <div className="SignUpForm-group-middle password">
-                <input
-                    id="password"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <label htmlFor="password">
-                    Password
-                </label>
-            </div>
-            <div className="SignUpForm-group-bottom confirmPassword">
-                <input
-                    id="confirmPassword"
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                />
-                <label htmlFor="confirmPassword">
-                    Confirm Password
-                </label>
-            </div>
+                <div className="SignUpForm-group-top email">
+                    <input
+                        id="email"
+                        type="text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    <label htmlFor="email">
+                        Email
+                    </label>
+                </div>
+                <div className="SignUpForm-group-middle username">
+                    <input
+                        id="username"
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                    />
+                    <label htmlFor="username">
+                        Username
+                    </label>
+                </div>
+                <div className="SignUpForm-group-middle firstName">
+                    <input
+                        id="firstName"
+                        type="text"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        required
+                    />
+                    <label htmlFor="firstName">
+                        First Name
+                    </label>
+                </div>
+                <div className="SignUpForm-group-middle lastName">
+                    <input
+                        id="lastName"
+                        type="text"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        required
+                    />
+                    <label htmlFor="lastName">
+                        Last Name
+                    </label>
+                </div>
+                <div className="SignUpForm-group-middle password">
+                    <input
+                        id="password"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    <label htmlFor="password">
+                        Password
+                    </label>
+                </div>
+                <div className="SignUpForm-group-bottom confirmPassword">
+                    <input
+                        id="confirmPassword"
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                    />
+                    <label htmlFor="confirmPassword">
+                        Confirm Password
+                    </label>
+                </div>
             </div>
             <div className="SignUpForm-button-container">
                 <button

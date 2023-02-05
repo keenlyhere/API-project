@@ -59,6 +59,33 @@
     width: 100%;
 }
 
+.SignUpForm-group-profile-pic {
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.SignUpForm-profile-pic-upload {
+    margin-top: 8px;
+    padding: 8px;
+    border: 1px solid #c4c4c4;
+    border-radius: 8px;
+    color: #c4c4c4;
+    font-size: 13px;
+}
+
+.SignUpForm-group-profile-pic > input[type="file"] {
+    display: none;
+}
+
+.SignUpForm-default-profile-image {
+    border-radius: 50%;
+    width: 100px;
+    aspect-ratio: 1;
+}
+
 .SignUpForm-main-container {
     border: 1px solid #c4c4c4;
     border-radius: 8px;

@@ -224,3 +224,7 @@
 .hide {
     display: none;
 }
+
+li {
+    list-style-type: none;
+}
