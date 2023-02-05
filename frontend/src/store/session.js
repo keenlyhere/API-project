@@ -46,18 +46,37 @@ export const restoreUser = () => async (dispatch) => {
 
 // thunk action to signup
 export const signup = (user) => async (dispatch) => {
-    const { username, firstName, lastName, email, password } = user;
+    const { username, firstName, lastName, email, password, image } = user;
+
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("email", email);
+    formData.append("password", password);
+
+    if (image) {
+        formData.append("image", image);
+    }
+
+    // const res = await csrfFetch(`/api/users`, {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //         username,
+    //         firstName,
+    //         lastName,
+    //         email,
+    //         password
+    //     })
+    // });
 
     const res = await csrfFetch(`/api/users`, {
         method: "POST",
-        body: JSON.stringify({
-            username,
-            firstName,
-            lastName,
-            email,
-            password
-        })
-    });
+        headers: {
+            "Content-Type": "multipart/form-data"
+        },
+        body: formData
+    })
 
     const data = await res.json();
     // console.log("signup - data:", data);
@@ -81,14 +100,14 @@ const initialState = { user: null }
 export default function sessionReducer(state = initialState, action) {
     switch (action.type) {
         case SET_USER: {
-            const newState = { ...state, };
-            newState.user = action.user;
-            return newState;
+            const setUserState = { ...state };
+            setUserState.user = action.user;
+            return setUserState;
         };
         case REMOVE_USER: {
-            const newState = { ...state };
-            newState.user = null;
-            return newState;
+            const removeUserState = { ...state };
+            removeUserState.user = null;
+            return removeUserState;
         };
         default:
             return state;

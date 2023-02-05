@@ -18,6 +18,7 @@ import SpotBookings from "./components/Bookings/SpotBookings";
 import NotFound from "./components/NotFound/NotFound";
 import SearchBar from "./components/Search";
 import QueriedSpots from "./components/Spots/QueriedSpots";
+import NoSpots from "./components/Search/NoSpots";
 
 function App() {
     const dispatch = useDispatch();
@@ -37,6 +38,9 @@ function App() {
                     </Route>
                     <Route path="/search?location=">
                         <QueriedSpots isLoaded={isLoaded} />
+                    </Route>
+                    <Route path="/no-spots">
+                        <NoSpots isLoaded={isLoaded} />
                     </Route>
                     <Route path="/my-spots">
                         <UserSpots />

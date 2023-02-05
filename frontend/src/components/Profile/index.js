@@ -40,7 +40,7 @@ export default function Profile() {
             <div className="Profile-left">
                 <div className="Profile-section-photo">
                     <div className="Profile-photo">
-                        <img src="https://images.pexels.com/photos/2647053/pexels-photo-2647053.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Profile photo" />
+                        <img src={user.profileImageUrl} alt="Profile photo" />
                     </div>
                     <h2 className="Profile-header-secondary-verified">
                         <i className="fa-regular fa-star profile-icon"></i>
