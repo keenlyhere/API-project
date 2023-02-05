@@ -42,8 +42,6 @@ router.get("/", validateQuery, async (req, res, next) => {
     query.limit = size;
     query.offset = size * (page - 1);
 
-    console.log("query", req.query.location)
-
     if (req.query.location) {
         query.where = {
         [Op.or]: {
@@ -124,11 +122,7 @@ router.get("/", validateQuery, async (req, res, next) => {
         }
     }
 
-    console.log("QUERY__", query.where)
-
     const allSpots = await Spot.findAll(query)
-
-    console.log("ALL SPOTS", allSpots);
 
     const err = {};
     err.errors = [];

@@ -138,14 +138,14 @@ export default function SearchBar({ isLoaded }) {
     // }, [query]);
 
     // console.log("selected", selectedSuggestion)
-    console.log("count", count);
-    console.log("allFiltered", allFiltered);
+    // console.log("count", count);
+    // console.log("allFiltered", allFiltered);
 
     const handleQueryInput = (e) => {
-        console.log("handle query input", e.target.value);
+        // console.log("handle query input", e.target.value);
         setQuery(e.target.value);
         setCount(-1);
-        console.log("query after handleQueryInput", query);
+        // console.log("query after handleQueryInput", query);
         setShowMenu(true);
         // dispatch thunk action
         // const query = e.target.value
@@ -161,7 +161,7 @@ export default function SearchBar({ isLoaded }) {
     const handleKeyDown = (e) => {
         // console.log("handle key down", count);
         // console.log(e.key)
-        console.log("e.keycode", e.keyCode);
+        // console.log("e.keycode", e.keyCode);
 
         // if (e.KeyCode !== 38 || e.KeyCode !== 40 || e.KeyCode !== 13) {
         //     handleQueryInput(e);
@@ -184,7 +184,7 @@ export default function SearchBar({ isLoaded }) {
 
                 setCount(count - 1);
                 // console.log("up arrow - set count:", count)
-                console.log("up arrow - all filtered:", allFiltered);
+                // console.log("up arrow - all filtered:", allFiltered);
                 // console.log("up arrow - suggestion:", selectedSuggestion)
                 // setSelectedSuggestion(allFiltered[count])
 
@@ -192,9 +192,9 @@ export default function SearchBar({ isLoaded }) {
             // ArrowDown
             case 40:
                 e.preventDefault();
-                console.log("KEYDOWN");
-                console.log("allfiltered in count", count);
-                console.log("allfiltered in keydown", allFiltered);
+                // console.log("KEYDOWN");
+                // console.log("allfiltered in count", count);
+                // console.log("allfiltered in keydown", allFiltered);
                 // console.log("count", count)
                 if (count < allFiltered.length - 1) {
                     // console.log("should go here")
@@ -210,7 +210,7 @@ export default function SearchBar({ isLoaded }) {
                 console.log("HIT 13");
                 if (count > -1) {
                     setQuery(allFiltered[count]);
-                    console.log("query");
+                    // console.log("query");
                 }
                 if (!showMenu) {
                     handleQuerySubmit(query);
@@ -249,14 +249,14 @@ export default function SearchBar({ isLoaded }) {
     };
 
     const handleQuerySubmit = (finalQuery) => {
-        console.log("handleQuerySubmit", finalQuery);
+        // console.log("handleQuerySubmit", finalQuery);
         const searchResults = dispatch(loadSearch(finalQuery))
             .then(setQuery(""))
             .then(history.push("/"))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {
-                    console.log("ERRORS :C");
+                    // console.log("ERRORS :C");
                     history.push("/no-spots");
                 }
             });

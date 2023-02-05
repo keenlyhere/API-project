@@ -14,7 +14,8 @@ export default function SignupFormModal() {
     const [ lastName, setLastName ] = useState("");
     const [ password, setPassword ] = useState("");
     const [ confirmPassword, setConfirmPassword ] = useState("");
-    const [ image, setImage ] = useState(null);
+    const [ profileImageUrl, setProfileImageUrl ] = useState(null);
+    const [ imageUrl, setImageUrl] = useState(null);
     const [ errors, setErrors ] = useState([]);
     const { closeModal } = useModal();
 
@@ -38,19 +39,13 @@ export default function SignupFormModal() {
         e.preventDefault();
         if (password === confirmPassword) {
             setErrors([]);
-            return dispatch(sessionActions.signup({ email, username, firstName, lastName, password, image }))
-                .then(() => {
-                    setEmail("");
-                    setUsername("");
-                    setFirstName("");
-                    setLastName("");
-                    setPassword("");
-                    setConfirmPassword("");
-                    setImage(null);
-                })
+            return dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
+                .then(console.log("req went through"))
                 .then(closeModal)
                 .catch(async (res) => {
+                    console.log("hit error")
                     const data = await res.json();
+                    console.log("data, errors:", data, data.errors)
                     if (data && data.errors) setErrors(data.errors);
                 });
         }
@@ -58,7 +53,11 @@ export default function SignupFormModal() {
 
     const updateFile = (e) => {
         const file = e.target.files[0];
-        if (file) setImage(file);
+        if (file) {
+            setProfileImageUrl(file);
+            const url = URL.createObjectURL(file);
+            setImageUrl(url);
+        }
     }
 
     return (
@@ -84,11 +83,11 @@ export default function SignupFormModal() {
             >
                 <div className="SignUpForm-group-profile-pic">
                     <img
-                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                        src={ imageUrl ? imageUrl : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"}
                         alt="default-profile-image"
                         className="SignUpForm-default-profile-image"
                     />
-                    <label htmlFor="profile-pic-upload" class="SignUpForm-profile-pic-upload clickable">
+                    <label htmlFor="profile-pic-upload" className="SignUpForm-profile-pic-upload clickable">
                         Add a photo of yourself!
                     </label>
                     <input id="profile-pic-upload" type="file" onChange={updateFile} />
