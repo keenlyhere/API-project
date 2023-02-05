@@ -53,6 +53,13 @@
     font-weight: bold;
 }
 
+.ProfileButton-dropdown-profile-pic {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-right: 3px;
+}
+
 .profile-dropdown {
     width: 180px;
     display: flex;

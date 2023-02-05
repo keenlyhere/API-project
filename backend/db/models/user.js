@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     toSafeObject() {
-      const { id, firstName, lastName, username, email } = this;
-      return { id, firstName, lastName, username, email };
+      const { id, firstName, lastName, username, email, profileImageUrl } = this;
+      return { id, firstName, lastName, username, email, profileImageUrl };
     }
 
     validatePassword(password) {
@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       });
       if (user && user.validatePassword(password)) {
+        console.log("User model - login:", user)
         return await User.scope('currentUser').findByPk(user.id);
       }
     }
@@ -95,9 +96,9 @@ module.exports = (sequelize, DataTypes) => {
     profileImageUrl: {
       type: DataTypes.STRING,
       get() {
-        if (!this.getDataValue("url"))
+        if (!this.getDataValue("profileImageUrl"))
           return "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
-        return this.getDataValue("url")
+        return this.getDataValue("profileImageUrl")
       }
     },
     email: {

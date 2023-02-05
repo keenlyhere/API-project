@@ -12,7 +12,7 @@ export default function Profile() {
     const user = useSelector(state => state.session.user);
     const reviewsObj = useSelector(state => state.reviews.user);
     const reviewsArr = Object.values(reviewsObj);
-    // console.log("Profile - user:", user);
+    console.log("Profile - user:", user);
     // console.log("Profile - reviews:", reviewsObj, Object.values(reviewsObj).length);
 
     useEffect(() => {
@@ -20,6 +20,8 @@ export default function Profile() {
     }, [dispatch]);
 
     if (!user) return null;
+
+    console.log("Profile - profile pic:", user.profileImageUrl)
 
     if (!reviewsObj) return null;
 
