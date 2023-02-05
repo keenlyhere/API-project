@@ -312,9 +312,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
     if (!spotsArray.length > 0) {
         return res.json({
-            Spots: [{
-                "message": "User has no Spots"
-            }]
+            Spots: []
         })
     }
 

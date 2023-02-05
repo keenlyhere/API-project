@@ -186,7 +186,7 @@ export default function spotReducer(state = initialState, action) {
         case LOAD_ALL_USER_SPOTS: {
             const userSpotsState = { ...state };
             userSpotsState.spots = normalize(action.spots);
-            // console.log("LOAD_ALL_USER_SPOTS", userSpotsState);
+            console.log("LOAD_ALL_USER_SPOTS", userSpotsState);
             return userSpotsState;
         }
         case LOAD_SPOT_DETAILS: {
