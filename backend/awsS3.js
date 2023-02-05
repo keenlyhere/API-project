@@ -1,6 +1,6 @@
 const AWS = require("aws-sdk");
 // name of your bucket here
-const dejamoobucket = "deja-moo";
+const dejamoobucket = "dejamoobucket";
 
 const multer = require("multer");
 
@@ -83,7 +83,7 @@ const storage = multer.memoryStorage({
   },
 });
 
-const singleMulterUpload = (nameOfKey) => 
+const singleMulterUpload = (nameOfKey) =>
   multer({ storage: storage }).single(nameOfKey);
 
 const multipleMulterUpload = (nameOfKey) =>

@@ -39,7 +39,8 @@ export default function SignupFormModal() {
         e.preventDefault();
         if (password === confirmPassword) {
             setErrors([]);
-            return dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
+            console.log("profileImagEUrl", profileImageUrl)
+            return dispatch(sessionActions.signup({ email, username, firstName, lastName, password, profileImageUrl }))
                 .then(console.log("req went through"))
                 .then(closeModal)
                 .catch(async (res) => {

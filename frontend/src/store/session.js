@@ -59,7 +59,7 @@ export const signup = (user) => async (dispatch) => {
     console.log("formData", formData);
 
     if (profileImageUrl) {
-        formData.append("profileImageurl", profileImageUrl);
+        formData.append("image", profileImageUrl);
     }
 
     console.log("user:", user)
