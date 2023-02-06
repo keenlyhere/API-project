@@ -99,4 +99,39 @@ router.post("/", singleMulterUpload("image"), validateSignup, async (req, res, n
     return res.json(user);
 });
 
+// PUT /api/users to edit profile picture
+router.put("/", singleMulterUpload("image"), async (req, res, next) => {
+    const { user } = req;
+    const { userId } = req.body;
+    const profileImageUrl = await singlePublicFileUpload(req.file);
+
+    const updateUser = await User.findByPk(userId);
+
+    console.log("updateUser:", updateUser);
+    console.log("userId:", userId);
+
+    if (!updateUser) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found"
+        err.message = "User couldn't be found";
+        return next(err);
+    }
+
+    if (user.id !== updateUser.id) {
+        err.title = "Forbidden";
+        err.status = 403;
+        err.statusCode = 403;
+        err.message = "Forbidden: cannot edit a Spot that is not yours";
+        return next(err);
+    }
+
+    updateUser.profileImageUrl = profileImageUrl;
+
+    await updateUser.save();
+    console.log("updateUser - updated:", updateUser);
+
+    res.json(updateUser);
+})
+
 module.exports = router;

@@ -1,7 +1,8 @@
 import { csrfFetch } from "./csrf";
 
-const SET_USER = "session/setUser";
-const REMOVE_USER = "session/removeUser";
+const SET_USER = "session/SET_USER";
+const REMOVE_USER = "session/REMOVE_USER";
+const EDIT_USER = "session/EDIT_USER";
 
 export const actionSetUser = (user) => {
     return {
@@ -13,6 +14,13 @@ export const actionSetUser = (user) => {
 export const actionRemoveUser = () => {
     return {
         type: REMOVE_USER
+    }
+}
+
+export const actionEditUser = (user) => {
+    return {
+        type: EDIT_USER,
+        user
     }
 }
 
@@ -101,6 +109,32 @@ export const logout = () => async (dispatch) => {
     return res;
 }
 
+// thunk action to change user profile image
+export const editUser = (user) => async(dispatch) => {
+    const { userId, profileImageUrl } = user;
+    const formData = new FormData();
+
+    formData.append("userId", userId);
+
+    if (profileImageUrl) {
+        formData.append("image", profileImageUrl)
+    }
+
+    const res = await csrfFetch(`/api/users`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "multipart/form-data"
+        },
+        body: formData
+    })
+
+    if (res.ok) {
+        const editedUser = await res.json();
+        console.log("editUser - editedUser:", editedUser);
+        dispatch(actionEditUser(editedUser))
+    }
+}
+
 const initialState = { user: null }
 
 export default function sessionReducer(state = initialState, action) {
@@ -116,6 +150,12 @@ export default function sessionReducer(state = initialState, action) {
             removeUserState.user = null;
             return removeUserState;
         };
+        case EDIT_USER: {
+            const editUserState = { ...state }
+            editUserState.user = action.user;
+            console.log("sessionReducer - editUserState:", editUserState);
+            return editUserState;
+        }
         default:
             return state;
     }

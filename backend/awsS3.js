@@ -1,3 +1,4 @@
+require('dotenv').config();
 const AWS = require("aws-sdk");
 // name of your bucket here
 const dejamoobucket = "dejamoobucket";
@@ -84,8 +85,10 @@ const storage = multer.memoryStorage({
   },
 });
 
-const singleMulterUpload = (nameOfKey) =>
-  multer({ storage: storage }).single(nameOfKey);
+const singleMulterUpload = (nameOfKey) => {
+  console.log("ENV VAR:", process.env.AWS_ACCESS_KEY_ID, process.env.AWS_SECRET_ACCESS_KEY)
+  return multer({ storage: storage }).single(nameOfKey);
+}
 
 const multipleMulterUpload = (nameOfKey) =>
   multer({ storage: storage }).array(nameOfKey);
