@@ -1,6 +1,6 @@
 const AWS = require("aws-sdk");
 // name of your bucket here
-const dejamoobucket = "deja-moo";
+const dejamoobucket = "dejamoobucket";
 
 const multer = require("multer");
 
@@ -31,6 +31,7 @@ const singlePublicFileUpload = async (file) => {
 };
 
 const multiplePublicFileUpload = async (files) => {
+    console.log("got to multiple public file upload")
   return await Promise.all(
     files.map((file) => {
       return singlePublicFileUpload(file);
@@ -85,6 +86,7 @@ const storage = multer.memoryStorage({
 
 const singleMulterUpload = (nameOfKey) =>
   multer({ storage: storage }).single(nameOfKey);
+
 const multipleMulterUpload = (nameOfKey) =>
   multer({ storage: storage }).array(nameOfKey);
 

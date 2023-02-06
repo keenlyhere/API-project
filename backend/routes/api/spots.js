@@ -6,6 +6,7 @@ const { Spot, Review, SpotImage, User, ReviewImage, Booking, sequelize } = requi
 const { validateQuery, validateNewSpot, validateReviews, convertDates, validateBookings } = require("../../utils/validation");
 
 const { Op } = require("sequelize");
+const { multiplePublicFileUpload, multipleMulterUpload } = require("../../awsS3");
 
 const router = express.Router();
 
@@ -41,8 +42,6 @@ router.get("/", validateQuery, async (req, res, next) => {
 
     query.limit = size;
     query.offset = size * (page - 1);
-
-    console.log("query", req.query.location)
 
     if (req.query.location) {
         query.where = {
@@ -124,11 +123,7 @@ router.get("/", validateQuery, async (req, res, next) => {
         }
     }
 
-    console.log("QUERY__", query.where)
-
     const allSpots = await Spot.findAll(query)
-
-    console.log("ALL SPOTS", allSpots);
 
     const err = {};
     err.errors = [];
@@ -318,9 +313,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
     if (!spotsArray.length > 0) {
         return res.json({
-            Spots: [{
-                "message": "User has no Spots"
-            }]
+            Spots: []
         })
     }
 
@@ -404,11 +397,17 @@ router.post("/", requireAuth, validateNewSpot, async (req, res, next) => {
 })
 
 // POST /api/spots/:spotId/images
-router.post("/:spotId/images", requireAuth, async (req, res, next) => {
+router.post("/:spotId/images", multipleMulterUpload("images"), requireAuth, async (req, res, next) => {
     const { user } = req;
     const spotId = req.params.spotId;
 
-    const { url, preview } = req.body;
+    console.log("hit backend api - post")
+
+    // const { url, preview } = req.body;
+    const { preview } = req.body;
+    const newSpotImages = await multiplePublicFileUpload(req.files);
+    // for each file, create a new spot image?
+    console.log("new spot images:", newSpotImages);
 
     let spot = await Spot.findByPk(spotId);
 
@@ -429,9 +428,24 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    let newSpotImage = await SpotImage.newSpotImage({ spotId, url, preview })
+    for (let i = 0 ; i < newSpotImages.length; i++) {
+        const newSpotImage = await SpotImage.newSpotImage({
+            spotId,
+            url: newSpotImages[i],
+            preview
+        });
 
-    res.json(newSpotImage);
+        res.json(newSpotImage)
+    }
+
+    // let newSpotImage = await SpotImage.newSpotImage({ spotId, url, preview })
+    // const newSpotImage = await SpotImage.newSpotImage({
+    //     spotId,
+    //     url: newSpotImageUrl,
+    //     preview
+    // });
+
+    // res.json(newSpotImage);
 })
 
 // PUT /api/spots/:spotId
@@ -529,7 +543,7 @@ router.get("/:spotId/reviews", async (req, res, next) => {
         include: [
             {
                 model: User,
-                attributes: ['id', 'firstName', 'lastName']
+                attributes: ['id', 'firstName', 'lastName', 'profileImageUrl']
             },
             {
                 model: ReviewImage,

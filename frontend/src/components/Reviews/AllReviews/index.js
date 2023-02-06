@@ -82,7 +82,11 @@ export default function AllReviews({ spotId, spot, user }) {
                     { actualReviews && actualReviews.map((review) => (
                         <div key={review.id} className="SpotDetails-review-card">
                             <div className="Reviews-profile-image">
-                                <i className="fa-solid fa-circle-user user"></i>
+                                <img
+                                    src={review.User.profileImageUrl}
+                                    className="Reviews-profile-image-image"
+                                />
+                                {/* <i className="fa-solid fa-circle-user user"></i> */}
                             </div>
                             <div className="Reviews-card-right">
                                 <p className="Reviews-name">{review.User.firstName}</p>

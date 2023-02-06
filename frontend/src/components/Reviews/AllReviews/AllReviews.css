@@ -63,3 +63,8 @@
 .Review-action-edit > .Edit {
     padding-left: 0;
 }
+
+.Reviews-profile-image-image {
+    border-radius: 50%;
+    width: 24px;
+}

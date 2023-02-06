@@ -40,13 +40,14 @@ export const login = (user) => async (dispatch) => {
 export const restoreUser = () => async (dispatch) => {
     const res = await csrfFetch(`/api/session`);
     const data = await res.json();
+    console.log("restoreUser - data:", data)
     dispatch(actionSetUser(data.user));
     return res;
 }
 
 // thunk action to signup
 export const signup = (user) => async (dispatch) => {
-    const { username, firstName, lastName, email, password, image } = user;
+    const { username, firstName, lastName, email, password, profileImageUrl } = user;
 
     const formData = new FormData();
     formData.append("username", username);
@@ -54,10 +55,15 @@ export const signup = (user) => async (dispatch) => {
     formData.append("lastName", lastName);
     formData.append("email", email);
     formData.append("password", password);
+    // console.log("formData, append:", username, formData.append("username", username), formData.get(username));
 
-    if (image) {
-        formData.append("image", image);
+    console.log("formData", formData);
+
+    if (profileImageUrl) {
+        formData.append("image", profileImageUrl);
     }
+
+    console.log("user:", user)
 
     // const res = await csrfFetch(`/api/users`, {
     //     method: "POST",
@@ -79,7 +85,7 @@ export const signup = (user) => async (dispatch) => {
     })
 
     const data = await res.json();
-    // console.log("signup - data:", data);
+    console.log("signup - data:", data);
     dispatch(actionSetUser(data));
     return res;
 }
@@ -102,6 +108,7 @@ export default function sessionReducer(state = initialState, action) {
         case SET_USER: {
             const setUserState = { ...state };
             setUserState.user = action.user;
+            console.log("session.login", setUserState)
             return setUserState;
         };
         case REMOVE_USER: {

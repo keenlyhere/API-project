@@ -4,7 +4,9 @@ const { noExtendLeft } = require("sequelize/lib/operators");
 // middleware for formatting errors from express-validator middleware
 // can be customized (see express-validator's documentation)
 const handleValidationErrors = (req, _res, next) => {
+    console.log("hit handleValidationErrors")
     const validationErrors = validationResult(req);
+        console.log("backend - err.errors", validationErrors);
 
     // if there are errors
     if (!validationErrors.isEmpty()) {
@@ -19,6 +21,7 @@ const handleValidationErrors = (req, _res, next) => {
         err.title = "Bad request.";
         err.message = "Validation error";
         err.statusCode = 400;
+
         next(err);
     }
 
