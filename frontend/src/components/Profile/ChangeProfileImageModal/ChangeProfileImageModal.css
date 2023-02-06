@@ -25,6 +25,22 @@
     background: none;
 }
 
+.EditProfileImageFormModal-errors-container {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 18px;
+}
+
+.EditProfileImageFormModal-errors > li {
+    list-style-type: none;
+    font-size: 14px;
+    color: #ff385c;
+    padding-top: 5px;
+    text-align: center;
+}
+
 .EditProfileImageFormModal-group-profile-pic {
     width: 100%;
     display: flex;

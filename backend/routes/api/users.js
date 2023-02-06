@@ -41,7 +41,11 @@ const validateSignup = [
 // POST /api/users to sign up
 router.post("/", singleMulterUpload("image"), validateSignup, async (req, res, next) => {
     const { email, password, username, firstName, lastName } = req.body;
-    const profileImageUrl = await singlePublicFileUpload(req.file);
+    let profileImageUrl;
+
+    if (req.file) {
+        profileImageUrl = await singlePublicFileUpload(req.file);
+    }
 
     console.log("backend - body:", req.body);
     console.log("backend - profilepic:", profileImageUrl);
