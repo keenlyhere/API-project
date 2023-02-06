@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as sessionActions from "../../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
@@ -17,6 +17,13 @@ export default function ChangeProfileImageModal({ userId }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
+
+        if (profileImageUrl === null) {
+            const error = ["Please upload a photo of yourself"]
+            setErrors(error);
+            return;
+        }
+
         return dispatch(sessionActions.editUser({ userId, profileImageUrl }))
             .then(console.log("passed dispatch"))
             .then(history.push(`/user/${+userId}`))
@@ -35,6 +42,8 @@ export default function ChangeProfileImageModal({ userId }) {
             setImageUrl(url);
         }
     }
+
+    if (!user) return null;
 
     return (
         <div className="EditProfileImageFormModal-container">
