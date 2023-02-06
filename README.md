@@ -4,7 +4,7 @@ Link to live site on Render:
 https://deja-moo.onrender.com/
 
 ## About Deja-Moo
-Deja-Moo is a full-stack clone of AirBnB. It currently allows for users to view, create, edit, and delete both spots and reviews.
+Deja-Moo is a full-stack clone of AirBnB. It currently allows for users to view, create, edit, and delete spots, reviews, and bookings. The user can also search for spots by location using the search bar.
 
 ## Technologies Used
 - JavaScript
@@ -64,5 +64,5 @@ You can edit and delete reviews that you have made for a spot.
 <img width="1493" alt="image" src="https://user-images.githubusercontent.com/112213882/213592044-88ce9853-7ce1-4c90-b3f0-f18be86ac5e9.png">
 
 ## Roadmap
-- View, create, edit, and delete bookings feature
-- Enable search functionality to filter spots
+- Add a favorites feature
+- Integrate Google Maps API to display interactive maps
