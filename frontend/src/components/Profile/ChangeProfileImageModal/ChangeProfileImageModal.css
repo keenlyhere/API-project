@@ -1,0 +1,78 @@
+.EditProfileImageFormModal-container {
+    margin: auto;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 400px;
+}
+
+.EditProfileImageFormModal-top {
+    height: 48px;
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0px;
+    position: absolute;
+    top: 0px;
+}
+
+.EditProfileImageFormModal-edit {
+    position: absolute;
+    top: 15px;
+    left: 110px;
+    font-size: 16px;
+    font-weight: 900;
+    background: none;
+}
+
+.EditProfileImageFormModal-group-profile-pic {
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.EditProfileImageFormModal-profile-pic-upload {
+    margin-top: 8px;
+    padding: 8px;
+    border: 1px solid #c4c4c4;
+    border-radius: 8px;
+    color: #c4c4c4;
+    font-size: 13px;
+}
+
+.EditProfileImageFormModal-group-profile-pic > input[type="file"] {
+    display: none;
+}
+
+.EditProfileImageFormModal-group-profile-pic > img {
+    object-fit: cover;
+}
+
+.EditProfileImageFormModal-default-profile-image {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+.EditProfileImageFormModal-button-container {
+    margin: 20px 18px 0px 18px;
+}
+
+.EditProfileImageFormModal-submit {
+    height: 48px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(230,29,77,1) 0%, rgba(215,4,102,1) 100%);
+    border-radius: 8px;
+    border: none;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0;
+}
+
+.EditProfileImageFormModal-submit:hover {
+    background: radial-gradient(circle, rgba(230,29,77,1) 0%, rgba(215,4,102,1) 100%);
+}

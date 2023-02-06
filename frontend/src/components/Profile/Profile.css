@@ -118,3 +118,10 @@
     color:#717171;
     margin-bottom: 16px;
 }
+
+.Profile-review-card-date-review {
+    width: calc(100% - 35px);
+    font-size: 16px;
+    padding: 0;
+    overflow-wrap: break-word;
+}

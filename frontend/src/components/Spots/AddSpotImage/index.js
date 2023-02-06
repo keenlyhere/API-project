@@ -15,6 +15,7 @@ export default function AddSpotImage({spotId}) {
     const [ images, setImages ] = useState([]);
     const [ errors, setErrors ] = useState([]);
     const spot = useSelector(state => state.spots.spot[spotId]);
+    const [ numFiles, setNumFiles ] = useState(0)
     // console.log("AddSpotImage - spot:", spot);
 
     const handleSubmit = async (e) => {
@@ -40,8 +41,7 @@ export default function AddSpotImage({spotId}) {
         const files = e.target.files;
         console.log(files);
         setImages(Array.from(files));
-        console.log("arrayfrom", Array.from(files))
-        console.log("setImages", images)
+        setNumFiles(Array.from(files).length);
     }
 
     if (!spot) return null;
@@ -91,6 +91,18 @@ export default function AddSpotImage({spotId}) {
                             </label>
                             <input id="spot-image-upload" type="file" onChange={updateFiles} multiple />
                         </div>
+                    </div>
+
+                    <div className="AddSpotImageForm-num-files">
+                        { images.length === 1 && (
+                            `${images.length} file added`
+                        )}
+                        { images.length > 1 && (
+                            `${images.length} files added`
+                        )}
+                        {/* { images.length  ? (
+                            `${images.length} file(s) added`
+                        ) : ""} */}
                     </div>
                 </div>
 

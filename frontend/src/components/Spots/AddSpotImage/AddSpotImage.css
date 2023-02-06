@@ -129,6 +129,12 @@ ul.AddSpotImageForm-errors > li {
     outline: 0;
 } */
 
+.AddSpotImageForm-num-files {
+    padding-top: 8px;
+    height: 18px;
+    font-size: 14px;
+}
+
 .AddSpotImageForm-button-container {
     width: 100%;
     margin: 20px 0px 0px 0px;
