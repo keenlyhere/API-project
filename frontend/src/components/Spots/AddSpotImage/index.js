@@ -12,13 +12,20 @@ export default function AddSpotImage({spotId}) {
     const { closeModal } = useModal();
 
     const [ imageUrl, setImageUrl ] = useState("");
+    const [ images, setImages ] = useState([]);
     const [ errors, setErrors ] = useState([]);
     const spot = useSelector(state => state.spots.spot[spotId]);
     // console.log("AddSpotImage - spot:", spot);
 
     const handleSubmit = async (e) => {
-
-        const newSpotImage = await dispatch(addSpotImage(+spotId, imageUrl, true))
+        // previously (removed true for preview)
+        // const newSpotImage = await dispatch(addSpotImage(+spotId, imageUrl, true))
+        console.log("IMAGES", images)
+        const parsedSpotId = +spotId
+        console.log("handle submit");
+        const newSpotImage = await dispatch(addSpotImage({ parsedSpotId, images, preview: true }))
+            .then(dispatch(loadSpotDetails(parsedSpotId)))
+            .then(closeModal())
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
@@ -27,6 +34,14 @@ export default function AddSpotImage({spotId}) {
         // console.log("spotId", spotId);
         dispatch(loadSpotDetails(+spotId))
         closeModal();
+    }
+
+    const updateFiles = (e) => {
+        const files = e.target.files;
+        console.log(files);
+        setImages(Array.from(files));
+        console.log("arrayfrom", Array.from(files))
+        console.log("setImages", images)
     }
 
     if (!spot) return null;
@@ -40,7 +55,10 @@ export default function AddSpotImage({spotId}) {
                 >
                     <i className="fa-sharp fa-solid fa-xmark"></i>
                 </button>
-                <h2 className="Form-create">Add Spot Image</h2>
+                <h2 className="AddSpotImageForm-create">Liven up your listing with photos</h2>
+            </div>
+            <div className="AddSpotImageForm-description">
+                Take photos using a phone or camera. Upload at least one photo to publish your listing. You can always add or edit your photos later.
             </div>
             <div className="AddSpotImageForm-error-container">
                 <ul className="AddSpotImageForm-errors">
@@ -49,6 +67,7 @@ export default function AddSpotImage({spotId}) {
                     ))}
                 </ul>
             </div>
+            {/* {} */}
             <form
                 onSubmit={handleSubmit}
                 className="AddSpotImageForm-Form"
@@ -56,21 +75,27 @@ export default function AddSpotImage({spotId}) {
                 <div className="AddSpotImageForm-main-container">
                     <div className="AddSpotImageForm-group">
                         <div className="AddSpotImageForm-input">
-                            <input
+                            {/* <input
                                 id="image"
                                 type="url"
                                 value={imageUrl}
-                                onChange={(e) => setImageUrl(e.target.value)}
+                                // onChange={(e) => setImageUrl(e.target.value)}
+                                onChange={(e) => setImages(e.target.value)}
                                 required
                             />
                             <label htmlFor="image">
                                 Image
+                            </label> */}
+                            <label htmlFor="spot-image-upload" className="AddSpotImageForm-upload clickable">
+                                <i className="fa-solid fa-cloud-arrow-up"></i> Upload Photos
                             </label>
+                            <input id="spot-image-upload" type="file" onChange={updateFiles} multiple />
                         </div>
                     </div>
                 </div>
 
                 <div className="AddSpotImageForm-button-container">
+                    <button onClick={closeModal} className="AddSpotImageForm-skip clickable">Skip for now</button>
                     <button type="submit" className="AddSpotImageForm-submit">Add Spot Image</button>
                 </div>
             </form>

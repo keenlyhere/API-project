@@ -152,20 +152,46 @@ export const deleteSpot = (spotId) => async (dispatch) => {
     }
 }
 
-export const addSpotImage = (spotId, url, preview) => async (dispatch) => {
-    const res = await csrfFetch(`/api/spots/${spotId}/images`, {
+export const addSpotImage = (newImage) => async (dispatch) => {
+    const { parsedSpotId, images, preview } = newImage;
+    const formData = new FormData();
+    formData.append("spotId", parsedSpotId);
+    formData.append("preview", true);
+
+    console.log("got to addSpotImage thunk")
+    console.log("images", images, typeof images)
+
+    if (images && images.length !== 0) {
+        for (var i = 0; i < images.length; i++) {
+            console.log("got into forLoop")
+            formData.append("images", images[i]);
+        }
+        console.log("got out of for loop")
+    }
+
+    console.log("appended all formData");
+    // const res = await csrfFetch(`/api/spots/${spotId}/images`, {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({
+    //         url,
+    //         preview
+    //     })
+    // })
+
+    const res = await csrfFetch(`/api/spots/${parsedSpotId}/images`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            url,
-            preview
-        })
+        // headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "multipart/form-data" },
+        body: formData
     })
+
+    console.log("just before res.ok")
 
     if (res.ok) {
         const spotImage = await res.json();
-        // console.log("addSpotImage - spotImage:", spotImage);
-        dispatch(actionAddSpotImage(+spotId, url, preview));
+        console.log("addSpotImage - spotImage:", spotImage);
+        dispatch(actionAddSpotImage(parsedSpotId, images, preview));
         return spotImage;
     }
 }
