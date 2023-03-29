@@ -48,6 +48,17 @@ export default function SignupFormModal() {
         }
     }
 
+    const handleDemo = (e) => {
+        e.preventDefault();
+        setErrors([]);
+        return dispatch(sessionActions.login({ credential: "Demoo-lition", password: "password" }))
+            .then(closeModal)
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors);
+            });
+    }
+
     const updateFile = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -167,7 +178,18 @@ export default function SignupFormModal() {
                 <button
                     type="submit"
                     className="SignUpForm-submit"
-                >Sign Up</button>
+                >
+                    Sign Up
+                </button>
+            </div>
+            <div className="LoginFormModal-button-container">
+                <button
+                    type="submit"
+                    className="LoginFormModal-demo"
+                    onClick={handleDemo}
+                >
+                    Demo
+                </button>
             </div>
             </form>
         </div>
