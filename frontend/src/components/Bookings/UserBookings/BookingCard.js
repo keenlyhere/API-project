@@ -174,7 +174,6 @@ export default function BookingCard({ booking, spotId, userId }) {
                             >
                                 Delete
                             </button> */}
-                            {console.log("booking", booking.id)}
                             <OpenModalButton
                                 buttonText="Delete Booking"
                                 onButtonClick={closeMenu}

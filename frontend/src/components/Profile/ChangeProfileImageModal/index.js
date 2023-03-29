@@ -25,7 +25,6 @@ export default function ChangeProfileImageModal({ userId }) {
         }
 
         return dispatch(sessionActions.editUser({ userId, profileImageUrl }))
-            .then(console.log("passed dispatch"))
             .then(history.push(`/user/${+userId}`))
             .then(closeModal)
             .catch(async (res) => {

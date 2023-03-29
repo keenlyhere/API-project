@@ -19,9 +19,9 @@ export default function Profile() {
 
     const reviewsObj = useSelector(state => state.reviews.user);
     const reviewsArr = Object.values(reviewsObj);
-    console.log("Profile - user:", user);
-    console.log("Profile - userId:", +userId);
-    console.log("user.id === userId:", user.id === +userId)
+    // console.log("Profile - user:", user);
+    // console.log("Profile - userId:", +userId);
+    // console.log("user.id === userId:", user.id === +userId)
     // console.log("Profile - reviews:", reviewsObj, Object.values(reviewsObj).length);
 
     const openMenu = () => {
@@ -51,7 +51,7 @@ export default function Profile() {
 
     if (!user) return null;
 
-    console.log("Profile - profile pic:", user.profileImageUrl)
+    // console.log("Profile - profile pic:", user.profileImageUrl)
 
     if (!reviewsObj) return null;
 
@@ -67,7 +67,7 @@ export default function Profile() {
         )
     }
 
-    console.log("Profile - userId:", userId)
+    // console.log("Profile - userId:", userId)
     if (user.id === +userId && reviewsArr) {
         return (
             <div className="Profile-container">

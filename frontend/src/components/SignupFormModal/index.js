@@ -39,14 +39,10 @@ export default function SignupFormModal() {
         e.preventDefault();
         if (password === confirmPassword) {
             setErrors([]);
-            console.log("profileImagEUrl", profileImageUrl)
             return dispatch(sessionActions.signup({ email, username, firstName, lastName, password, profileImageUrl }))
-                .then(console.log("req went through"))
                 .then(closeModal)
                 .catch(async (res) => {
-                    console.log("hit error")
                     const data = await res.json();
-                    console.log("data, errors:", data, data.errors)
                     if (data && data.errors) setErrors(data.errors);
                 });
         }

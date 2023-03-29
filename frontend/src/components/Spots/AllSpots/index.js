@@ -14,7 +14,6 @@ export default function AllSpots({ isLoaded }) {
     const history = useHistory();
 
     const queriedSpots = useSelector(state => state.searches.search);
-    console.log("AllSpots - queriedSpots", queriedSpots);
     let allSpots = useSelector(state => state.spots.spots);
     // console.log("AllSpots - allSpots:", allSpots);
     // const spots = [];
@@ -84,9 +83,9 @@ export default function AllSpots({ isLoaded }) {
                         <div className="Spots-card-description">
                             <div className="Spots-header">
                                 <p className="Spots-location">{spot.city}, {spot.state}</p>
-                                <p className="Spots-rating">
+                                <div className="Spots-rating">
                                     {starRating(spot.avgRating)}
-                                </p>
+                                </div>
                             </div>
                             <div className="Spots-footer">
                                 <span className="Spots-price">${fixedPrice(spot.price)}</span> night

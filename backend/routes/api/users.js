@@ -47,8 +47,8 @@ router.post("/", singleMulterUpload("image"), validateSignup, async (req, res, n
         profileImageUrl = await singlePublicFileUpload(req.file);
     }
 
-    console.log("backend - body:", req.body);
-    console.log("backend - profilepic:", profileImageUrl);
+    // console.log("backend - body:", req.body);
+    // console.log("backend - profilepic:", profileImageUrl);
 
     const existingEmail = await User.findOne({
         where: {
@@ -111,8 +111,8 @@ router.put("/", singleMulterUpload("image"), async (req, res, next) => {
 
     const updateUser = await User.findByPk(userId);
 
-    console.log("updateUser:", updateUser);
-    console.log("userId:", userId);
+    // console.log("updateUser:", updateUser);
+    // console.log("userId:", userId);
 
     if (!updateUser) {
         err.status = 404;
@@ -133,7 +133,7 @@ router.put("/", singleMulterUpload("image"), async (req, res, next) => {
     updateUser.profileImageUrl = profileImageUrl;
 
     await updateUser.save();
-    console.log("updateUser - updated:", updateUser);
+    // console.log("updateUser - updated:", updateUser);
 
     res.json(updateUser);
 })

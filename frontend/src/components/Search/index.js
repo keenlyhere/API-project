@@ -28,22 +28,24 @@ export default function SearchBar({ isLoaded }) {
                 spot.state.toLowerCase().startsWith(query.toLowerCase()) ||
                 spot.country.toLowerCase().startsWith(query.toLowerCase())
         );
-        // const filteredSpotsState = Object.values(allSpots).filter(spot => spot.state.toLowerCase().startsWith(query.toLowerCase()));
-        // const filteredSpotsCountry = Object.values(allSpots).filter(spot => spot.country.toLowerCase().startsWith(query.toLowerCase()));
+
+        const filteredSpotsCity = Object.values(allSpots).filter(spot => spot.city.toLowerCase().startsWith(query.toLowerCase()));
+        const filteredSpotsState = Object.values(allSpots).filter(spot => spot.state.toLowerCase().startsWith(query.toLowerCase()));
+        const filteredSpotsCountry = Object.values(allSpots).filter(spot => spot.country.toLowerCase().startsWith(query.toLowerCase()));
 
         const uniqueFilters = new Set();
 
-        for (let spot of filteredSpots) {
+        for (let spot of filteredSpotsCity) {
             uniqueFilters.add(spot.city);
         }
 
-        // for (let spot of filteredSpotsState) {
-        //     uniqueFilters.add(spot.state);
-        // }
+        for (let spot of filteredSpotsState) {
+            uniqueFilters.add(spot.state);
+        }
 
-        // for (let spot of filteredSpotsCountry) {
-        //     uniqueFilters.add(spot.country);
-        // }
+        for (let spot of filteredSpotsCountry) {
+            uniqueFilters.add(spot.country);
+        }
 
         // console.log("FIRST", Array.from(uniqueFilters)[0])
         // console.log("FIRST", Array.from(uniqueFilters).length)
@@ -207,7 +209,6 @@ export default function SearchBar({ isLoaded }) {
                 break;
             // Enter
             case 13:
-                console.log("HIT 13");
                 if (count > -1) {
                     setQuery(allFiltered[count]);
                     // console.log("query");

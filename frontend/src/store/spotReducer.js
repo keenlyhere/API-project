@@ -158,18 +158,12 @@ export const addSpotImage = (newImage) => async (dispatch) => {
     formData.append("spotId", parsedSpotId);
     formData.append("preview", true);
 
-    console.log("got to addSpotImage thunk")
-    console.log("images", images, typeof images)
-
     if (images && images.length !== 0) {
         for (var i = 0; i < images.length; i++) {
-            console.log("got into forLoop")
             formData.append("images", images[i]);
         }
-        console.log("got out of for loop")
     }
 
-    console.log("appended all formData");
     // const res = await csrfFetch(`/api/spots/${spotId}/images`, {
     //     method: "POST",
     //     headers: { "Content-Type": "application/json" },
@@ -186,11 +180,8 @@ export const addSpotImage = (newImage) => async (dispatch) => {
         body: formData
     })
 
-    console.log("just before res.ok")
-
     if (res.ok) {
         const spotImage = await res.json();
-        console.log("addSpotImage - spotImage:", spotImage);
         dispatch(actionAddSpotImage(parsedSpotId, images, preview));
         return spotImage;
     }
@@ -212,7 +203,6 @@ export default function spotReducer(state = initialState, action) {
         case LOAD_ALL_USER_SPOTS: {
             const userSpotsState = { ...state };
             userSpotsState.spots = normalize(action.spots);
-            console.log("LOAD_ALL_USER_SPOTS", userSpotsState);
             return userSpotsState;
         }
         case LOAD_SPOT_DETAILS: {
