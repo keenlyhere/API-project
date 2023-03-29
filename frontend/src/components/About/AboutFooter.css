@@ -1,0 +1,22 @@
+.AboutFooter-container {
+    height: 80px;
+    width: 100%;
+    padding: 18px;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #a5a5a5;
+}
+
+.Footer-developer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+}
+
+.fa-github, .fa-linkedin {
+    font-size: 26px;
+}
