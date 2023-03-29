@@ -32,7 +32,7 @@ module.exports = {
       },
       review: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(500)
       },
       stars: {
         allowNull: false,

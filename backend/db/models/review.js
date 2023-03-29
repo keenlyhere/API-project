@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     review: {
       allowNull: false,
-      type: DataTypes.TEXT
+      type: DataTypes.STRING(500)
     },
     stars: {
       allowNull: false,
