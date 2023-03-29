@@ -19,6 +19,7 @@ import NotFound from "./components/NotFound/NotFound";
 import SearchBar from "./components/Search";
 import QueriedSpots from "./components/Spots/QueriedSpots";
 import NoSpots from "./components/Search/NoSpots";
+import About from "./components/About";
 
 function App() {
     const dispatch = useDispatch();
@@ -74,6 +75,8 @@ function App() {
                     </Route>
                 </Switch>
             )}
+
+        <About />
       </div>
     )
 

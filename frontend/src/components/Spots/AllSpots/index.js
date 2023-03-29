@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { actionDeleteSearch } from "../../../store/searchReducer";
 import { loadSpots } from "../../../store/spotReducer";
 import previewHandler from "../../../utils/previewHandler";
+import About from "../../About";
 
 import "../Spots.css";
 import AllSpotsSkeleton from "./AllSpotsSkeleton";
