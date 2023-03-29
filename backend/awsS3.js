@@ -1,29 +1,15 @@
 require('dotenv').config();
 const AWS = require("aws-sdk");
-// name of your bucket here
 const dejamoobucket = "dejamoobucket";
 
 const multer = require("multer");
-
-//  make sure to set environment variables in production for:
-//  AWS_ACCESS_KEY_ID
-//  AWS_SECRET_ACCESS_KEY
-//  and aws will automatically use those environment variables
-
-const s3 = new AWS.S3({
-  apiVersion: "2006-03-01",
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-  }
-});
+const s3 = new AWS.S3({apiVersion: "2006-03-01"});
 
 // --------------------------- Public UPLOAD ------------------------
 
 const singlePublicFileUpload = async (file) => {
   const { originalname, mimetype, buffer } = await file;
   const path = require("path");
-  // name of the file in your S3 bucket will be the date in ms plus the extension name
   const Key = new Date().getTime().toString() + path.extname(originalname);
   const uploadParams = {
     Bucket: dejamoobucket,
@@ -33,7 +19,6 @@ const singlePublicFileUpload = async (file) => {
   };
   const result = await s3.upload(uploadParams).promise();
 
-  // save the name of the file in your bucket as the key in your database to retrieve for later
   return result.Location;
 };
 
@@ -51,7 +36,6 @@ const multiplePublicFileUpload = async (files) => {
 const singlePrivateFileUpload = async (file) => {
   const { originalname, mimetype, buffer } = await file;
   const path = require("path");
-  // name of the file in your S3 bucket will be the date in ms plus the extension name
   const Key = new Date().getTime().toString() + path.extname(originalname);
   const uploadParams = {
     Bucket: dejamoobucket,
@@ -60,7 +44,6 @@ const singlePrivateFileUpload = async (file) => {
   };
   const result = await s3.upload(uploadParams).promise();
 
-  // save the name of the file in your bucket as the key in your database to retrieve for later
   return result.Key;
 };
 

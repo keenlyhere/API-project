@@ -162,9 +162,10 @@ router.get("/", validateQuery, async (req, res, next) => {
             if (image.preview === true) {
                 spot.previewImage = image.url
 
-            } else {
-                spot.previewImage = "No image listed"
             }
+            // else {
+            //     spot.previewImage = "No image listed"
+            // }
         })
 
         if (spot.SpotImages.length === 0) {
