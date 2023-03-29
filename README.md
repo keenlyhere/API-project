@@ -29,25 +29,23 @@ npx dotenv sequelize db:seed:all
 5. `cd` into the frontend folder and `npm install` to install the dependencies.
 6. Run `npm start` to start the frontend server
 
-## Usage
-
-# Home Page Demo User
+## Home Page Demo User
 
 ![image](https://user-images.githubusercontent.com/112213882/213587779-e5c516b2-89d3-4beb-9106-a3d693941978.png)
 
-# Log in
+## Log in
 
 You can test all the features by clicking the "Demo" button in the login modal.
 
 <img width="1484" alt="image" src="https://user-images.githubusercontent.com/112213882/213590950-107a80c2-2b5c-493b-aab3-72998d6b7869.png">
 
-# Create A Spot
+## Create A Spot
 
 You can create a spot by clicking on the "Deja-Moo your home" button, when logged in.
 
 <img width="1497" alt="image" src="https://user-images.githubusercontent.com/112213882/213591255-e9ccde2a-4fb3-4f3f-bb50-82edf485b576.png">
 
-# Spot Details
+## Spot Details
 
 If you own the spot, you will be able to edit and delete the spot by clicking on the "Edit Spot" and "Delete Spot" buttons.
 
@@ -57,7 +55,7 @@ If you do not own the spot, you will be able to leave a review by filling out th
 
 <img width="1492" alt="image" src="https://user-images.githubusercontent.com/112213882/213591825-52ee9d7e-d538-4e2e-b400-3dd196a5566e.png">
 
-# Reviews
+## Reviews
 
 You can edit and delete reviews that you have made for a spot.
 
