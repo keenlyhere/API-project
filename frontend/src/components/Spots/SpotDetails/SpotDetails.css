@@ -381,6 +381,10 @@
     .SpotDetails-main-content-right {
         max-width: 240px;
     }
+
+    .Navigation-search-bar-container {
+        display: none;
+    }
 }
 
 @media (max-width: 743px) {
@@ -512,4 +516,10 @@
         width: 100%;
     }
 
+}
+
+@media (max-width: 468px) {
+    .Deja-Mooyourhome {
+        display: none;
+    }
 }

@@ -162,9 +162,10 @@ router.get("/", validateQuery, async (req, res, next) => {
             if (image.preview === true) {
                 spot.previewImage = image.url
 
-            } else {
-                spot.previewImage = "No image listed"
             }
+            // else {
+            //     spot.previewImage = "No image listed"
+            // }
         })
 
         if (spot.SpotImages.length === 0) {
@@ -229,7 +230,7 @@ router.get("/suggestions", validateQuery, async (req, res, next) => {
     }
 
     const searchSuggestions = await Spot.findAll(query).then(suggestions => {
-        console.log("search suggestions", searchSuggestions)
+        // console.log("search suggestions", searchSuggestions)
         res.json(suggestions)
     })
 })
@@ -401,13 +402,13 @@ router.post("/:spotId/images", multipleMulterUpload("images"), requireAuth, asyn
     const { user } = req;
     const spotId = req.params.spotId;
 
-    console.log("hit backend api - post")
+    // console.log("hit backend api - post")
 
     // const { url, preview } = req.body;
     const { preview } = req.body;
     const newSpotImages = await multiplePublicFileUpload(req.files);
     // for each file, create a new spot image?
-    console.log("new spot images:", newSpotImages);
+    // console.log("new spot images:", newSpotImages);
 
     let spot = await Spot.findByPk(spotId);
 

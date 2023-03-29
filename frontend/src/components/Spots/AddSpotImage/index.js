@@ -21,9 +21,7 @@ export default function AddSpotImage({spotId}) {
     const handleSubmit = async (e) => {
         // previously (removed true for preview)
         // const newSpotImage = await dispatch(addSpotImage(+spotId, imageUrl, true))
-        console.log("IMAGES", images)
-        const parsedSpotId = +spotId
-        console.log("handle submit");
+        const parsedSpotId = +spotId;
         const newSpotImage = await dispatch(addSpotImage({ parsedSpotId, images, preview: true }))
             .then(dispatch(loadSpotDetails(parsedSpotId)))
             .then(closeModal())
@@ -39,7 +37,6 @@ export default function AddSpotImage({spotId}) {
 
     const updateFiles = (e) => {
         const files = e.target.files;
-        console.log(files);
         setImages(Array.from(files));
         setNumFiles(Array.from(files).length);
     }

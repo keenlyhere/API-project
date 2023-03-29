@@ -42,8 +42,8 @@ export default function AddReviewForm({ spotId, host }) {
         const newReviewImage = {
             reviewImageUrl
         }
-
         // let sendNewReview;
+
 
         // console.log("newReview:", newReview);
 

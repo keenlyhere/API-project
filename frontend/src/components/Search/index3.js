@@ -41,8 +41,6 @@ export default function SearchBar({ isLoaded }) {
     }, [dispatch]);
 
     useEffect(() => {
-        console.log("QUERY!!", query)
-        console.log("LENGTH!!", query.length)
         if (query.length == 0) {
             setAllFiltered([])
             return;
@@ -50,26 +48,20 @@ export default function SearchBar({ isLoaded }) {
 
         const filteredSpotsCity = Object.values(allSpots).filter(spot => spot.city.toLowerCase().startsWith(query.toLowerCase()));
 
-        const setToArr = Array.from(allCityStateCountrySet)
-        console.log("set to arr", setToArr);
+        const setToArr = Array.from(allCityStateCountrySet);
 
 
         const suggestions = setToArr.filter(spot => spot.label.toLowerCase().startsWith(query.toLowerCase()))
-
-        console.log("SUGGESTIONS", suggestions)
 
         setAllFiltered(suggestions)
 
     }, [query])
 
     const handleQuerySubmit = (finalQuery) => {
-        console.log("handleQuerySubmit", finalQuery)
         dispatch(loadSearch(finalQuery));
         setQuery("");
-        history.push(`/`)
+        history.push(`/`);
     }
-
-    console.log("all filtered", allFiltered)
 
     return (
         // <div>

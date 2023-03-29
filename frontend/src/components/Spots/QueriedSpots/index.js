@@ -7,17 +7,15 @@ import previewHandler from "../../../utils/previewHandler";
 export default function QueriedSpots({ isLoaded }) {
     const dispatch = useDispatch();
     const { query } = useParams();
-    console.log("QUERY", query);
+    // console.log("QUERY", query);
     // const location = useLocation();
     const history = useHistory();
-    // console.log("location search", location.search)
     const queriedSpots = useSelector(state => state.searches.search);
-    console.log("QueriedSpots - queriedSpots:", queriedSpots);
+    // console.log("QueriedSpots - queriedSpots:", queriedSpots);
     const spotsArray = Object.values(queriedSpots);
-    console.log("QueriedSpots - spotsArray:", spotsArray);
+    // console.log("QueriedSpots - spotsArray:", spotsArray);
 
     useEffect(() => {
-        console.log("hit use effect")
         dispatch(loadSearch(query));
     }, [dispatch]);
 

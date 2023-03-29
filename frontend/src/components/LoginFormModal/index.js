@@ -41,7 +41,7 @@ export default function LoginFormModal({ spotId }) {
     const handleDemo = (e) => {
         e.preventDefault();
         setErrors([]);
-        return dispatch(sessionActions.login({ credential: "Demo-lition", password: "password" }))
+        return dispatch(sessionActions.login({ credential: "Demoo-lition", password: "password" }))
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();

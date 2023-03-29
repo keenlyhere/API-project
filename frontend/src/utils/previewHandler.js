@@ -10,7 +10,6 @@ const previewImages = [
 
 export default function previewHandler(image) {
         if (image === "No image listed") {
-
             const randomNum = Math.floor(Math.random() * previewImages.length);
             image = previewImages[randomNum];
             return image;

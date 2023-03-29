@@ -48,7 +48,6 @@ export const login = (user) => async (dispatch) => {
 export const restoreUser = () => async (dispatch) => {
     const res = await csrfFetch(`/api/session`);
     const data = await res.json();
-    console.log("restoreUser - data:", data)
     dispatch(actionSetUser(data.user));
     return res;
 }
@@ -65,13 +64,9 @@ export const signup = (user) => async (dispatch) => {
     formData.append("password", password);
     // console.log("formData, append:", username, formData.append("username", username), formData.get(username));
 
-    console.log("formData", formData);
-
     if (profileImageUrl) {
         formData.append("image", profileImageUrl);
     }
-
-    console.log("user:", user)
 
     // const res = await csrfFetch(`/api/users`, {
     //     method: "POST",
@@ -93,7 +88,6 @@ export const signup = (user) => async (dispatch) => {
     })
 
     const data = await res.json();
-    console.log("signup - data:", data);
     dispatch(actionSetUser(data));
     return res;
 }
@@ -130,7 +124,6 @@ export const editUser = (user) => async(dispatch) => {
 
     if (res.ok) {
         const editedUser = await res.json();
-        console.log("editUser - editedUser:", editedUser);
         dispatch(actionEditUser(editedUser))
     }
 }
@@ -142,7 +135,6 @@ export default function sessionReducer(state = initialState, action) {
         case SET_USER: {
             const setUserState = { ...state };
             setUserState.user = action.user;
-            console.log("session.login", setUserState)
             return setUserState;
         };
         case REMOVE_USER: {
@@ -153,7 +145,6 @@ export default function sessionReducer(state = initialState, action) {
         case EDIT_USER: {
             const editUserState = { ...state }
             editUserState.user = action.user;
-            console.log("sessionReducer - editUserState:", editUserState);
             return editUserState;
         }
         default:
